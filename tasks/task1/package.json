@@ -1,0 +1,23 @@
+{
+  "name": "task1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gandigap/EpamLab.git"
+  },
+  "keywords": [
+    "epam",
+    "lab"
+  ],
+  "author": "Ihar Berasneu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gandigap/EpamLab/issues"
+  },
+  "homepage": "https://github.com/gandigap/EpamLab#readme"
+}
