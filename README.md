@@ -1,2 +1,0 @@
-# EpamLab
-Development
