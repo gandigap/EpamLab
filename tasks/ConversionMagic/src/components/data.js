@@ -28,7 +28,6 @@ const data = {
       mark: '+',
       type: 'implicit'
     }
-
   ]
   ,
   boolean: [
@@ -91,7 +90,6 @@ const data = {
       mark: '-',
       type: 'implicit'
     }
-
   ]
 }
 export default data;

@@ -17,9 +17,7 @@ for (const [key, value] of Object.entries(data)) {
     case 'boolean':
       createElement('h3', `Boolean conversation`, '', 'body');
       break;
-
-    default:
-      console.log('def')
+    default:      
       break;
   }
 
