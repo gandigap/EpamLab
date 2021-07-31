@@ -1,0 +1,23 @@
+{
+  "name": "conversionmagic",
+  "version": "1.0.0",
+  "description": "Coercion",
+  "main": "app.js",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gandigap/EpamLab/tree/ConversationMagic/tasks/ConversionMagic"
+  },
+  "keywords": [
+    "coersion",
+    "conversation"
+  ],
+  "author": "https://github.com/gandigap",
+  "license": "ISC"
+}
