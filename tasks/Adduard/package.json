@@ -1,7 +1,7 @@
 {
-  "name": "task1",
+  "name": "adduard",
   "version": "1.0.0",
-  "description": "Console app for display weather",
+  "description": "objects",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -11,19 +11,13 @@
     "url": "git+https://github.com/gandigap/EpamLab.git"
   },
   "keywords": [
-    "epam",
-    "lab"
+    "objects",
+    "intersection"
   ],
-  "author": "Ihar Berasneu",
+  "author": "https://github.com/gandigap",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gandigap/EpamLab/issues"
   },
-  "homepage": "https://github.com/gandigap/EpamLab#readme",
-  "devDependencies": {
-    "eslint": "^7.30.0"
-  },
-  "dependencies": {
-    "weather-js": "^2.0.0"
-  }
+  "homepage": "https://github.com/gandigap/EpamLab#readme"
 }
