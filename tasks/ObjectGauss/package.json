@@ -1,18 +1,14 @@
 {
-  "name": "adduard",
+  "name": "ObjectGauss",
   "version": "1.0.0",
-  "description": "objects",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
+  "description": "Functions",
+  "main": "index.html",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gandigap/EpamLab.git"
   },
   "keywords": [
-    "objects",
-    "intersection"
+    "funstions"
   ],
   "author": "https://github.com/gandigap",
   "license": "ISC",
