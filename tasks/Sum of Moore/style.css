@@ -1,0 +1,41 @@
+body{
+  background-color: #999;;
+}
+
+main{
+  display: flex;
+  margin: 50px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+dialog {
+  border: solid gray 2px;
+  border-radius: 10px;
+}  
+
+label{
+  width: 75px;
+  font-style: italic;
+  color: white;
+}
+  
+::backdrop, dialog + .backdrop {    
+  background-color: rgba(151, 96, 238, 0.4);
+}
+
+input::placeholder {
+  color: rgb(92, 70, 151);
+}
+
+.result__container{
+    height: 100px;
+    border-top:3px dotted white;
+    width: 400px;
+    text-align: center;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+}

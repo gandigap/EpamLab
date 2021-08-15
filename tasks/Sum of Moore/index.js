@@ -13,11 +13,9 @@ const memoizeRange = () => {
     memo[min] = memo[min] || {};
     if (min in memo && max in memo[min]) {
       result = memo[min][max];
-      console.log('memo');
     } else {
       result = min + ((max - min) * ((max + min + 1) / 2));
       memo[min][max] = result;
-      console.log('count');
     }
     return result;
   }
@@ -48,7 +46,7 @@ document.querySelectorAll('input').forEach(element => {
 function setDialogMessage(message) {
   dialogMessageContainer.textContent = message;
   dialogContainer.showModal();
-  setTimeout(() => { dialogContainer.close() }, 2000);
+  setTimeout(() => { dialogContainer.close() }, 3000);
 }
 
 function checkRulesForInputValues() {
