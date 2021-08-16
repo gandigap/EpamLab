@@ -1,4 +1,4 @@
-function randn_bm() {
+function randomNormalDistribution() {
   let u = 0, v = 0;
   while (u === 0) u = Math.random();
   while (v === 0) v = Math.random();
@@ -8,7 +8,7 @@ function randn_bm() {
 function fillArray() {
   let arrayVal = new Array(10);
   arrayVal.fill(null);
-  return arrayVal.map((elem) => randn_bm());
+  return arrayVal.map((elem) => randomNormalDistribution());
 }
 
 function getDataFromArray(array) {
