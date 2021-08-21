@@ -10,6 +10,7 @@ let getAllPermutations = (data) => {
   }
 
   let arrayPermutations = [];
+
   for (let i = 0; i < data.length; i++) {
     const char = data[i];
 
