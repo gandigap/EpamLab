@@ -3,6 +3,9 @@ const sass = require('gulp-sass')(require('sass'));
 const browsersync = require('browser-sync').create();
 const size = require('gulp-size');
 const htmlmin = require('gulp-htmlmin');
+const del = require('del');
+const newer = require('gulp-newer');
+const imagemin = require('gulp-imagemin');
 const sourcemaps = require('gulp-sourcemaps');
 
 
@@ -12,13 +15,21 @@ const paths = {
     dest: './dist'
   },
   styles: {
-    src: ['./src/assets/**/*.scss'],
-    dest: './dist'
+    src: ['src/assets/**/*.scss'],
+    dest: 'dist'
   },
   images: {
-    src: 'src/assets/img/**',
-    dest: 'dist/img/'
+    src: ['src/assets/img/**'],
+    dest: 'dist/img'
+  },
+  delete: {
+    src: 'dist/*',
+    dest: '!dist/img'
   }
+}
+
+function clean() {
+  return del([paths.delete.src, paths.delete.dest]);
 }
 
 function html() {
@@ -39,6 +50,18 @@ function styles() {
     .pipe(gulp.dest(paths.styles.dest));
 }
 
+function img() {
+  return gulp.src(paths.images.src)
+    .pipe(newer(paths.images.dest))
+    .pipe(imagemin({
+      progressive: true
+    }))
+    .pipe(size({
+      showFiles: true
+    }))
+    .pipe(gulp.dest(paths.images.dest))
+}
+
 function watch() {
   browsersync.init({
     server: {
@@ -48,8 +71,7 @@ function watch() {
   gulp.watch(paths.html.dest).on('change', browsersync.reload);
   gulp.watch(paths.html.src, html);
   gulp.watch(paths.styles.src, styles);
+  gulp.watch(paths.images.src, img);
 }
 
-exports.default = gulp.series(watch)
-
-
+exports.default = gulp.series(clean, html, gulp.parallel(styles, img), watch);
