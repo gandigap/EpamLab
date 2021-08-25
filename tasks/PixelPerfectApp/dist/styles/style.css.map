@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles/style.scss"],"names":[],"mappings":"AAAA;EACE;;AAEA;EACE;;AAGF;EACE","file":"style.css","sourcesContent":["body {\r\n  background-color: red;\r\n\r\n  div {\r\n    border: 1px soli black;\r\n  }\r\n\r\n  a {\r\n    color: red;\r\n  }\r\n}"]}
