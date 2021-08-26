@@ -45,7 +45,7 @@ function html() {
 function styles() {
   return gulp.src(paths.styles.src)
     .pipe(sourcemaps.init())
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass({ includePaths: ['node_modules'] }).on('error', sass.logError))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.styles.dest));
 }
