@@ -1,0 +1,38 @@
+$color-primary:#60606E;
+$color-secondary:#7BEEC7;
+$color-four:#E6E6E6;
+$color-hover:#F1CDB3;
+$color-white:#FFFFFF;
+$color-header:#DCDCDC;
+$color-icon-active:#E66A62;
+$color-icon-disable:#CDCDCD;
+$color-subtitle:#999999;
+
+@mixin postTitle {
+  font: {
+    size: 18px;
+    weight: bold;
+  }
+
+  letter-spacing: -0.02rem;
+  color: $color-primary;
+}
+
+@mixin postSubTitle {
+  font: {
+    size: 14px;
+    family: 'Open Sans';
+  }
+
+  line-height: 22px;
+  color: $color-subtitle;
+}
+
+@mixin postContinueTitle {
+  font: {
+    size: 14px;
+    weight: bold;
+  }
+
+  color: $color-primary;
+}
