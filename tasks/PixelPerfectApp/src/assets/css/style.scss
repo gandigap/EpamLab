@@ -39,22 +39,31 @@ body {
   height: 60px;
   background-color: $color-header;
 
+  .Logo {
+    display: flex;
+    margin: 40px 80px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
   .BurgerNav {
     position: relative;
+    width: inherit;
 
     .hidden-menu {
       position: fixed;
-      list-style: none;
-      padding: 10px;
-      margin: 0;
-      box-sizing: border-box;
-      width: 200px;
-      background-color: red;
+      z-index: 2;
       height: 100%;
+      width: 200px;
       top: 0;
       right: -200px;
+      list-style: none;
+      padding: 10px;
+      background-color: $color-disable;
       transition: right .2s;
-      z-index: 2;
+      font-size: 20px;
+      font-weight: bold;
       -webkit-transform: translateZ(0);
       -webkit-backface-visibility: hidden;
     }
@@ -64,8 +73,8 @@ body {
     }
 
     .btn-menu {
-      color: #fff;
-      background-color: #666;
+      position: absolute;
+      color: $color-white;
       padding: 5px;
       display: block;
       top: 5px;
@@ -80,8 +89,8 @@ body {
 
     .btn-menu span {
       display: block;
-      height: 5px;
-      background-color: #fff;
+      height: 2px;
+      background-color: $color-primary;
       margin: 5px 0 0;
       transition: all .1s linear .23s;
       position: relative;
@@ -90,6 +99,10 @@ body {
     .btn-menu span.first {
       margin-top: 0;
     }
+
+    .btn-menu span.second {}
+
+    .btn-menu span.third {}
 
     .hidden-menu-ticker:checked~.btn-menu {
       right: 0px;
@@ -100,16 +113,17 @@ body {
     }
 
     .hidden-menu-ticker:checked~.btn-menu span.first {
-      -webkit-transform: rotate(45deg);
+      -webkit-transform: rotate(90deg);
       top: 10px;
     }
 
     .hidden-menu-ticker:checked~.btn-menu span.second {
-      opacity: 0;
+      /*  opacity: 0; */
+
     }
 
     .hidden-menu-ticker:checked~.btn-menu span.third {
-      -webkit-transform: rotate(-45deg);
+      -webkit-transform: rotate(-90deg);
       top: -10px;
     }
   }
@@ -118,6 +132,7 @@ body {
 .Main {
 
   &_Top {
+    width: 100%;
     height: 500px;
     display: flex;
     justify-content: center;
@@ -178,7 +193,7 @@ body {
               margin: 7px 12px;
               font-size: 16px;
 
-              .fa {
+              &_Icon {
                 font-size: 16px;
                 color: $color-disable;
                 cursor: pointer;
@@ -212,7 +227,132 @@ body {
 
     .SideBar {
       margin: 0 62px;
-      width: 265px;
+
+      &_Search {
+        position: relative;
+        margin-bottom: 68px;
+        display: flex;
+        align-items: center;
+        height: 20px;
+        width: 263px;
+
+        &_Input {
+          position: absolute;
+          top: 0;
+          width: 263px;
+          height: 40px;
+          background-color: #b3b3b380;
+
+          &::placeholder {
+            padding-left: 10px;
+          }
+        }
+
+        &_Icon {
+          text-align: right;
+          width: 263px;
+          padding-right: 18px;
+          font-weight: bold;
+        }
+      }
+
+      &_Content {
+        margin-bottom: 46px;
+
+        &_Title {
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        &_Info {
+          margin-right: 5px;
+          padding: 20px 0px 15px;
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid $color-primary;
+
+          &_Text {
+            margin: 0 15px;
+            letter-spacing: -0.1rem;
+          }
+        }
+      }
+
+      &_Posts {
+
+        &_Tab {
+          display: flex;
+
+          &_Item {
+            padding: 25px 15px 15px;
+            border-bottom: 3px solid $color-primary;
+            background: transparent;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: bold;
+
+            &:hover {
+              border-bottom: 3px solid $color-secondary;
+            }
+          }
+        }
+
+        &_TabContent {
+          padding-top: 25px;
+
+          &_Post {
+            padding: 3px 0px;
+            display: flex;
+
+            &_Image {
+              width: 85px;
+              height: 85px;
+            }
+
+            .TabContent_Post_Image1 {
+              background-image: url("../img/Layer5@1X.png");
+            }
+
+            .TabContent_Post_Image2 {
+              background-image: url("../img/Layer6@1X.png");
+            }
+
+            .TabContent_Post_Image3 {
+              background-image: url("../img/Layer7@1X.png");
+            }
+
+            &_Info {
+              width: 130px;
+              margin: 14px;
+
+              &_Title {
+                text-transform: uppercase;
+                font-weight: bold;
+                letter-spacing: -0.1rem;
+              }
+            }
+          }
+        }
+      }
+
+      &_Tags {
+
+
+        &_Items {
+          margin: 30px 0px;
+          display: flex;
+          flex-wrap: wrap;
+
+          &_Item {
+            margin: 3px 1px;
+            padding: 8px 19px;
+            background-color: $color-four;
+            font-size: 12px;
+          }
+        }
+      }
+
+
     }
   }
 
@@ -227,7 +367,7 @@ body {
       &_Title {
         margin-bottom: 20px;
         font-size: 30px;
-        color: #fff;
+        color: $color-white;
         font-weight: 700;
         letter-spacing: -.04rem;
         line-height: 44px;
@@ -245,7 +385,7 @@ body {
       margin: 6px 30px;
       max-width: 557px;
       padding: 12px 28px 0;
-      background-color: #fff;
+      background-color: $color-white;
 
       &_Title {
         margin-bottom: 8px;
@@ -271,14 +411,13 @@ body {
 
         &::placeholder {
           color: $color-disable;
-          font-size: 1.2em;
           font-style: italic;
         }
       }
 
       &_Button {
         background-color: $color-secondary;
-        color: #fff;
+        color: $color-white;
         padding: 18px 45px;
         font-weight: bold;
         margin-left: -5px;
