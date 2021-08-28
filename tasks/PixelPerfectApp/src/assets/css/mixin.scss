@@ -4,8 +4,8 @@ $color-four:#E6E6E6;
 $color-hover:#F1CDB3;
 $color-white:#FFFFFF;
 $color-header:#DCDCDC;
-$color-icon-active:#E66A62;
-$color-icon-disable:#CDCDCD;
+$color-active:#E66A62;
+$color-disable:#CDCDCD;
 $color-subtitle:#999999;
 
 @mixin postTitle {
@@ -24,6 +24,7 @@ $color-subtitle:#999999;
     family: 'Open Sans';
   }
 
+  letter-spacing: -0.01rem;
   line-height: 22px;
   color: $color-subtitle;
 }

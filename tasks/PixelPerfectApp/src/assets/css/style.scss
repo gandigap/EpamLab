@@ -115,7 +115,7 @@ body {
 
 .Main {
 
-  &_TopContainer {
+  &_Top {
     height: 500px;
     display: flex;
     justify-content: center;
@@ -136,10 +136,9 @@ body {
     }
   }
 
-  &_CenterContainer {
+  &_PostsAndSideBar {
     display: flex;
-    margin: 150px 18px;
-    ;
+    margin: 150px 18px 0px;
 
     .Posts {
       margin: 0 62px 50px;
@@ -147,6 +146,7 @@ body {
       .Post {
         margin-bottom: 103px;
         max-width: 752px;
+
 
         &_ImageContainer {
           margin-bottom: 25px;
@@ -178,35 +178,32 @@ body {
 
               .fa {
                 font-size: 16px;
-                color: $color-icon-disable;
+                color: $color-disable;
                 cursor: pointer;
                 user-select: none;
               }
 
               .fa-active {
-                color: $color-icon-active;
+                color: $color-active;
               }
             }
           }
         }
 
-        &_TextContainer {
+        &_Title {
+          margin-bottom: 15px;
+          @include postTitle;
+        }
 
-          &_Title {
-            margin-bottom: 15px;
-            @include postTitle;
-          }
+        &_SubTitle {
+          @include postSubTitle;
+          margin-bottom: 25px;
+        }
 
-          &_SubTitle {
-            @include postSubTitle;
-            margin-bottom: 25px;
-          }
-
-          &_ContinueTitle {
-            text-transform: uppercase;
-            text-decoration: none;
-            @include postContinueTitle;
-          }
+        &_ContinueTitle {
+          text-transform: uppercase;
+          text-decoration: none;
+          @include postContinueTitle;
         }
       }
     }
@@ -214,6 +211,77 @@ body {
     .SideBar {
       margin: 0 62px;
       width: 265px;
+    }
+  }
+
+  &_NewsLetter {
+    padding: 50px 14px 50px 80px;
+    display: flex;
+    background-color: $color-secondary;
+
+    &_Info {
+      width: 50%;
+
+      &_Title {
+        margin-bottom: 20px;
+        font-size: 30px;
+        color: #fff;
+        font-weight: bold;
+        letter-spacing: -0.04rem;
+        line-height: 40px;
+      }
+
+      &_Button {
+        padding: 16px 32px;
+        font-size: 14px;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+    }
+
+    &_Form {
+      margin: 0px 30px;
+      max-width: 557px;
+      padding: 12px 28px 0 28px;
+      background-color: #fff;
+
+      &_Title {
+        margin-bottom: 8px;
+        font-size: 24px;
+        color: $color-primary;
+        font-weight: 700;
+        line-height: 34px;
+        letter-spacing: -.05rem;
+      }
+
+      &_SubTitle {
+        font-size: 16px;
+        color: $color-subtitle;
+        letter-spacing: -0.05rem;
+        line-height: 24px;
+      }
+
+      &_Input {
+        margin: 26px 0px 16px 0px;
+        width: 74%;
+        height: 50px;
+        border: 1px solid $color-primary;
+
+        &::placeholder {
+          color: $color-disable;
+          font-size: 1.2em;
+          font-style: italic;
+        }
+      }
+
+      &_Button {
+        background-color: $color-secondary;
+        color: #fff;
+        padding: 18px 45px;
+        font-weight: bold;
+        margin-left: -5px;
+        cursor: pointer;
+      }
     }
   }
 }
