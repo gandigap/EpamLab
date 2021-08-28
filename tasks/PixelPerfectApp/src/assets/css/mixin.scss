@@ -1,12 +1,14 @@
 $color-primary:#60606E;
 $color-secondary:#7BEEC7;
+$color-alternative_1:#999999;
+$color-alternative_2:#9A9A9A;
 $color-four:#E6E6E6;
 $color-hover:#F1CDB3;
 $color-white:#FFFFFF;
 $color-header:#DCDCDC;
 $color-active:#E66A62;
 $color-disable:#CDCDCD;
-$color-subtitle:#999999;
+
 
 @mixin postTitle {
   font: {
@@ -26,7 +28,7 @@ $color-subtitle:#999999;
 
   letter-spacing: -0.01rem;
   line-height: 22px;
-  color: $color-subtitle;
+  color: $color-alternative_1;
 }
 
 @mixin postContinueTitle {

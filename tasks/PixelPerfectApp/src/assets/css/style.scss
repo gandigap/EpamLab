@@ -17,16 +17,19 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  color: $color-alternative_2;
+}
+
 body {
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
   font-family: 'Montserrat';
-  font-size: 12px;
+  font-size: 14px;
   color: $color-primary;
 }
-
-
 
 .Header {
   position: fixed;
@@ -65,7 +68,6 @@ body {
       background-color: #666;
       padding: 5px;
       display: block;
-      //position: fixed;
       top: 5px;
       right: 0px;
       cursor: pointer;
@@ -149,7 +151,7 @@ body {
 
 
         &_ImageContainer {
-          margin-bottom: 25px;
+          margin-bottom: 24px;
 
           &_Image {
             max-width: 752px;
@@ -215,7 +217,7 @@ body {
   }
 
   &_NewsLetter {
-    padding: 50px 14px 50px 80px;
+    padding: 42px 14px 50px 80px;
     display: flex;
     background-color: $color-secondary;
 
@@ -226,9 +228,9 @@ body {
         margin-bottom: 20px;
         font-size: 30px;
         color: #fff;
-        font-weight: bold;
-        letter-spacing: -0.04rem;
-        line-height: 40px;
+        font-weight: 700;
+        letter-spacing: -.04rem;
+        line-height: 44px;
       }
 
       &_Button {
@@ -240,9 +242,9 @@ body {
     }
 
     &_Form {
-      margin: 0px 30px;
+      margin: 6px 30px;
       max-width: 557px;
-      padding: 12px 28px 0 28px;
+      padding: 12px 28px 0;
       background-color: #fff;
 
       &_Title {
@@ -256,7 +258,7 @@ body {
 
       &_SubTitle {
         font-size: 16px;
-        color: $color-subtitle;
+        color: $color-alternative_1;
         letter-spacing: -0.05rem;
         line-height: 24px;
       }
@@ -281,6 +283,53 @@ body {
         font-weight: bold;
         margin-left: -5px;
         cursor: pointer;
+      }
+    }
+  }
+}
+
+.Footer {
+  padding: 45px 40px 30px 65px;
+  display: flex;
+  justify-content: space-between;
+
+  &_Nav {
+    &_Menu {
+      list-style: none;
+      display: flex;
+      font-family: 'Open Sans';
+
+      .Footer_Nav_Menu_Item {
+        text-transform: uppercase;
+        padding-left: 18px;
+
+        &+.Footer_Nav_Menu_Item:before {
+          content: "-";
+          margin: 5px 17px 0px 0px;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  &_Info {
+    &_Creator {
+      text-transform: uppercase;
+      letter-spacing: -0.05rem;
+      color: $color-alternative_2;
+    }
+
+    &_Socials {
+      margin: 25px 0px;
+      text-align: right;
+
+      &_Item {
+        margin: 0 8px;
+
+        img {
+          width: 15px;
+          height: 15px;
+        }
       }
     }
   }
