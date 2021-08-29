@@ -51,43 +51,59 @@ body {
     position: relative;
     width: inherit;
 
-    .hidden-menu {
+    &_HiddenMenu {
       position: fixed;
       z-index: 2;
-      height: 100%;
-      width: 200px;
-      top: 0;
-      right: -200px;
-      list-style: none;
+      height: 60px;
+      width: 1080px;
+      display: flex;
       padding: 10px;
+      top: -100%;
+      /* height: 100%; */
+      /*  width: 200px; */
+
+      /* right: 0; */
+      /* right: -200px; */
+      list-style: none;
       background-color: $color-disable;
-      transition: right .2s;
+      transition: top .2s;
       font-size: 20px;
       font-weight: bold;
       -webkit-transform: translateZ(0);
       -webkit-backface-visibility: hidden;
+
+      &_Item {
+        margin: 5px 10px;
+
+        &_Link {
+          color: $color-white;
+
+          &:hover {
+            @include menuHover;
+          }
+        }
+      }
     }
 
-    .hidden-menu-ticker {
+    &_Toogle {
       display: none;
     }
 
-    .btn-menu {
+    &_ButtonMenu {
       position: absolute;
-      color: $color-white;
       padding: 5px;
       display: block;
-      top: 5px;
-      right: 0px;
+      top: 30px;
+      right: 142px;
       cursor: pointer;
-      transition: right .23s;
+      transition: top .23s;
       z-index: 3;
-      width: 25px;
       -webkit-transform: translateZ(0);
       -webkit-backface-visibility: hidden;
+      transition: top .2s;
     }
 
-    .btn-menu span {
+    &_ButtonMenu span {
       display: block;
       height: 2px;
       background-color: $color-primary;
@@ -96,35 +112,40 @@ body {
       position: relative;
     }
 
-    .btn-menu span.first {
-      margin-top: 0;
+    &_ButtonMenu span.first {
+
+      width: 30px;
     }
 
-    .btn-menu span.second {}
-
-    .btn-menu span.third {}
-
-    .hidden-menu-ticker:checked~.btn-menu {
-      right: 0px;
+    &_ButtonMenu span.second {
+      width: 15px;
     }
 
-    .hidden-menu-ticker:checked~.hidden-menu {
-      right: 0;
+    &_ButtonMenu span.third {
+      width: 25px;
     }
 
-    .hidden-menu-ticker:checked~.btn-menu span.first {
-      -webkit-transform: rotate(90deg);
-      top: 10px;
+    &_Toogle:checked~.BurgerNav_ButtonMenu {
+      top: 0px;
     }
 
-    .hidden-menu-ticker:checked~.btn-menu span.second {
-      /*  opacity: 0; */
-
+    &_Toogle:checked~.BurgerNav_HiddenMenu {
+      top: 0;
+      /* right: 0; */
     }
 
-    .hidden-menu-ticker:checked~.btn-menu span.third {
+    &_Toogle:checked~.BurgerNav_ButtonMenu span.first {
+      top: 15px;
+    }
+
+    &_Toogle:checked~.BurgerNav_ButtonMenu span.second {
+      opacity: 0;
+      width: 30px;
+    }
+
+    &_Toogle:checked~.BurgerNav_ButtonMenu span.third {
       -webkit-transform: rotate(-90deg);
-      top: -10px;
+      width: 30px;
     }
   }
 }
@@ -221,6 +242,11 @@ body {
           text-transform: uppercase;
           text-decoration: none;
           @include postContinueTitle;
+
+          &:hover {
+            text-decoration: underline;
+            color: $color-secondary;
+          }
         }
       }
     }
@@ -230,10 +256,10 @@ body {
 
       &_Search {
         position: relative;
-        margin-bottom: 68px;
+        margin-bottom: 50px;
         display: flex;
         align-items: center;
-        height: 20px;
+        height: 38px;
         width: 263px;
 
         &_Input {
@@ -273,7 +299,11 @@ body {
 
           &_Text {
             margin: 0 15px;
-            letter-spacing: -0.1rem;
+            letter-spacing: -.05rem;
+          }
+
+          &_TextValue {
+            margin: 0 22px;
           }
         }
       }
@@ -339,7 +369,7 @@ body {
 
 
         &_Items {
-          margin: 30px 0px;
+          margin: 28px 0px;
           display: flex;
           flex-wrap: wrap;
 
@@ -378,11 +408,21 @@ body {
         font-size: 14px;
         text-transform: uppercase;
         cursor: pointer;
+
+        &:hover {
+          @include buttonHover;
+        }
+
+        &:active {
+          @include buttonActive;
+        }
       }
+
+
     }
 
     &_Form {
-      margin: 6px 30px;
+      margin: 6px 65px;
       max-width: 557px;
       padding: 12px 28px 0;
       background-color: $color-white;
@@ -405,6 +445,7 @@ body {
 
       &_Input {
         margin: 26px 0px 16px 0px;
+        padding: 0 5px;
         width: 74%;
         height: 50px;
         border: 1px solid $color-primary;
@@ -422,6 +463,14 @@ body {
         font-weight: bold;
         margin-left: -5px;
         cursor: pointer;
+
+        &:hover {
+          @include buttonHover;
+        }
+
+        &:active {
+          @include buttonActive;
+        }
       }
     }
   }
@@ -447,27 +496,36 @@ body {
           margin: 5px 17px 0px 0px;
           text-decoration: none;
         }
+
+        &:hover {
+          @include menuFooterHover;
+        }
       }
     }
   }
 
   &_Info {
     &_Creator {
+      margin: 0 38px;
       text-transform: uppercase;
       letter-spacing: -0.05rem;
       color: $color-alternative_2;
     }
 
     &_Socials {
-      margin: 25px 0px;
+      margin: 25px 30px;
       text-align: right;
 
       &_Item {
-        margin: 0 8px;
+        margin: 0 9px;
 
-        img {
+        &_Icon {
           width: 15px;
           height: 15px;
+
+          &:hover {
+            @include iconHover;
+          }
         }
       }
     }

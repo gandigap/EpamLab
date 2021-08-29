@@ -39,3 +39,29 @@ $color-disable:#CDCDCD;
 
   color: $color-primary;
 }
+
+@mixin buttonHover {
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+@mixin buttonActive {
+  transform: scale(0.8);
+  transition: 0.2s;
+}
+
+@mixin menuHover {
+  background-color: $color-secondary;
+  color: $color-primary;
+}
+
+@mixin iconHover {
+  transform: scale(1.5);
+  transition: 0.2s;
+}
+
+@mixin menuFooterHover {
+  /* background-color: $color-secondary;
+color: $color-primary; */
+  border-bottom: 1px solid $color-primary;
+}
