@@ -39,6 +39,10 @@ body {
   height: 60px;
   background-color: $color-header;
 
+  @media (max-width:1299px) {
+    width: 100%;
+  }
+
   .Logo {
     display: flex;
     margin: 40px 80px 0px;
@@ -72,6 +76,14 @@ body {
       -webkit-transform: translateZ(0);
       -webkit-backface-visibility: hidden;
 
+      @media (max-width:1299px) {
+        width: 219px;
+        display: block;
+        right: 0;
+        padding-left: 72px;
+        height: 100%;
+      }
+
       &_Item {
         margin: 5px 10px;
 
@@ -80,6 +92,11 @@ body {
 
           &:hover {
             @include menuHover;
+          }
+
+          &-active,
+          &:active {
+            @include menuActive;
           }
         }
       }
@@ -167,30 +184,42 @@ body {
     background-attachment: fixed;
 
     &_Title {
-      padding-top: 75px;
-      padding-left: 66px;
+      padding-top: 100px;
       font-size: 34px;
       letter-spacing: .04rem;
+    }
+
+    &_LinksContainer {
+      padding-top: 15px;
+
+      &_Link {
+        &+&:before {
+          content: "/";
+          margin: 0 5px;
+          text-decoration: none;
+        }
+      }
+
     }
   }
 
   &_PostsAndSideBar {
     display: flex;
-    margin: 150px 18px 0px;
+    margin: 150px 0px 50px;
 
     .Posts {
-      margin: 0 62px 50px;
+      margin: 0 80px;
 
       .Post {
         margin-bottom: 103px;
-        max-width: 752px;
-
 
         &_ImageContainer {
           margin-bottom: 24px;
 
           &_Image {
             max-width: 752px;
+            height: auto;
+            width: 100%;
           }
         }
 
@@ -199,7 +228,7 @@ body {
           margin-bottom: 15px;
 
           &_Date {
-            padding: 7px 18px;
+            padding: 7px 23px 7px 14px;
             font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
@@ -252,7 +281,7 @@ body {
     }
 
     .SideBar {
-      margin: 0 62px;
+      margin: 0px 52px 0 40px;
 
       &_Search {
         position: relative;
@@ -260,7 +289,6 @@ body {
         display: flex;
         align-items: center;
         height: 38px;
-        width: 263px;
 
         &_Input {
           position: absolute;
@@ -270,7 +298,8 @@ body {
           background-color: #b3b3b380;
 
           &::placeholder {
-            padding-left: 10px;
+            padding-left: 15px;
+            font-size: 12px;
           }
         }
 
@@ -296,6 +325,7 @@ body {
           display: flex;
           justify-content: space-between;
           border-bottom: 1px solid $color-primary;
+          max-width: 268px;
 
           &_Text {
             margin: 0 15px;
@@ -303,7 +333,7 @@ body {
           }
 
           &_TextValue {
-            margin: 0 22px;
+            margin: 0 20px;
           }
         }
       }
@@ -314,7 +344,7 @@ body {
           display: flex;
 
           &_Item {
-            padding: 25px 15px 15px;
+            padding: 25px 18px 15px;
             border-bottom: 3px solid $color-primary;
             background: transparent;
             text-transform: uppercase;
@@ -356,9 +386,14 @@ body {
               margin: 14px;
 
               &_Title {
+                font-size: 14px;
                 text-transform: uppercase;
                 font-weight: bold;
-                letter-spacing: -0.1rem;
+              }
+
+              &_Date {
+                font-size: 12px;
+                padding-top: 5px;
               }
             }
           }
@@ -367,22 +402,19 @@ body {
 
       &_Tags {
 
-
         &_Items {
           margin: 28px 0px;
           display: flex;
           flex-wrap: wrap;
 
           &_Item {
-            margin: 3px 1px;
-            padding: 8px 19px;
+            margin: 3px 3px 3px 0;
+            padding: 8px 18px;
             background-color: $color-four;
             font-size: 12px;
           }
         }
       }
-
-
     }
   }
 
@@ -417,8 +449,6 @@ body {
           @include buttonActive;
         }
       }
-
-
     }
 
     &_Form {
@@ -426,6 +456,11 @@ body {
       max-width: 557px;
       padding: 12px 28px 0;
       background-color: $color-white;
+
+      &_Content {
+        display: flex;
+        padding: 28px 0 15px;
+      }
 
       &_Title {
         margin-bottom: 8px;
@@ -444,7 +479,6 @@ body {
       }
 
       &_Input {
-        margin: 26px 0px 16px 0px;
         padding: 0 5px;
         width: 74%;
         height: 50px;
@@ -483,21 +517,22 @@ body {
 
   &_Nav {
     &_Menu {
+      margin: 0 17px;
       list-style: none;
       display: flex;
       font-family: 'Open Sans';
+      flex-wrap: wrap;
 
       .Footer_Nav_Menu_Item {
         text-transform: uppercase;
-        padding-left: 18px;
 
         &+.Footer_Nav_Menu_Item:before {
           content: "-";
-          margin: 5px 17px 0px 0px;
+          margin: 0 18px;
           text-decoration: none;
         }
 
-        &:hover {
+        &_Link:hover {
           @include menuFooterHover;
         }
       }
