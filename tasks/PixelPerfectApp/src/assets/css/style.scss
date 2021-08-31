@@ -12,8 +12,6 @@
 *,
 *:before,
 *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -49,6 +47,10 @@ body {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 18px;
+
+    @media (max-width:768px) {
+      margin: 20px;
+    }
   }
 
   .BurgerNav {
@@ -63,18 +65,13 @@ body {
       display: flex;
       padding: 10px;
       top: -100%;
-      /* height: 100%; */
-      /*  width: 200px; */
-
-      /* right: 0; */
-      /* right: -200px; */
       list-style: none;
       background-color: $color-disable;
       transition: top .2s;
       font-size: 20px;
       font-weight: bold;
-      -webkit-transform: translateZ(0);
-      -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+      backface-visibility: hidden;
 
       @media (max-width:1299px) {
         width: 219px;
@@ -115,8 +112,8 @@ body {
       cursor: pointer;
       transition: top .23s;
       z-index: 3;
-      -webkit-transform: translateZ(0);
-      -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+      backface-visibility: hidden;
       transition: top .2s;
     }
 
@@ -148,7 +145,6 @@ body {
 
     &_Toogle:checked~.BurgerNav_HiddenMenu {
       top: 0;
-      /* right: 0; */
     }
 
     &_Toogle:checked~.BurgerNav_ButtonMenu span.first {
@@ -161,7 +157,7 @@ body {
     }
 
     &_Toogle:checked~.BurgerNav_ButtonMenu span.third {
-      -webkit-transform: rotate(-90deg);
+      transform: rotate(-90deg);
       width: 30px;
     }
   }
@@ -199,7 +195,6 @@ body {
           text-decoration: none;
         }
       }
-
     }
   }
 
@@ -207,11 +202,28 @@ body {
     display: flex;
     margin: 150px 0px 50px;
 
+    @media (max-width:768px) {
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    @media (max-width:768px) {
+      flex-wrap: wrap;
+    }
+
     .Posts {
       margin: 0 80px;
 
+      @media (max-width:768px) {
+        margin: 10px;
+      }
+
       .Post {
         margin-bottom: 103px;
+
+        @media (max-width:768px) {
+          margin-bottom: 20px;
+        }
 
         &_ImageContainer {
           margin-bottom: 24px;
@@ -283,6 +295,18 @@ body {
     .SideBar {
       margin: 0px 52px 0 40px;
 
+      @media (max-width:768px) {
+        margin: 10px;
+      }
+
+      &_Column {
+        @media (max-width:768px) {
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+        }
+      }
+
       &_Search {
         position: relative;
         margin-bottom: 50px;
@@ -313,6 +337,16 @@ body {
 
       &_Content {
         margin-bottom: 46px;
+
+        @media (max-width:768px) {
+          width: 50%;
+          min-width: 300px;
+        }
+
+        @media (max-width:320px) {
+          width: 100%;
+          min-width: 200px;
+        }
 
         &_Title {
           font-weight: bold;
@@ -350,6 +384,10 @@ body {
             text-transform: uppercase;
             font-size: 12px;
             font-weight: bold;
+
+            @media (max-width:768px) {
+              padding: 25px 10px 15px;
+            }
 
             &:hover {
               border-bottom: 3px solid $color-secondary;
@@ -423,8 +461,23 @@ body {
     display: flex;
     background-color: $color-secondary;
 
+    @media (max-width:768px) {
+      padding: 10px;
+      text-align: center;
+      min-width: 300px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width:320px) {
+      min-width: 280px;
+    }
+
     &_Info {
       width: 50%;
+
+      @media (max-width:768px) {
+        width: 100%;
+      }
 
       &_Title {
         margin-bottom: 20px;
@@ -457,9 +510,19 @@ body {
       padding: 12px 28px 0;
       background-color: $color-white;
 
+      @media (max-width:768px) {
+        margin: 10px;
+      }
+
       &_Content {
         display: flex;
         padding: 28px 0 15px;
+
+        @media (max-width:320px) {
+          width: 100%;
+          min-width: 200px;
+          flex-wrap: wrap;
+        }
       }
 
       &_Title {
@@ -484,19 +547,32 @@ body {
         height: 50px;
         border: 1px solid $color-primary;
 
+        @media (max-width:320px) {
+          width: 100%;
+        }
+
         &::placeholder {
           color: $color-disable;
           font-style: italic;
+
+          @media (max-width:768px) {
+            font-size: 10px;
+          }
         }
       }
 
       &_Button {
         background-color: $color-secondary;
         color: $color-white;
-        padding: 18px 45px;
+        padding: 16px 45px 16px 50px;
         font-weight: bold;
         margin-left: -5px;
         cursor: pointer;
+
+        @media (max-width:320px) {
+          margin-left: 0px;
+          width: 100%;
+        }
 
         &:hover {
           @include buttonHover;
@@ -515,6 +591,10 @@ body {
   display: flex;
   justify-content: space-between;
 
+  @media (max-width:768px) {
+    padding: 10px;
+  }
+
   &_Nav {
     &_Menu {
       margin: 0 17px;
@@ -522,6 +602,10 @@ body {
       display: flex;
       font-family: 'Open Sans';
       flex-wrap: wrap;
+
+      @media (max-width:768px) {
+        display: none;
+      }
 
       .Footer_Nav_Menu_Item {
         text-transform: uppercase;
