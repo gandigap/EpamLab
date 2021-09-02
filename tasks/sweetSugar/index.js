@@ -22,6 +22,12 @@ class Stuff extends Entity {
   }
 }
 
+const VALUES_OF_STRENGTH = {
+  cardboardStrength: 50,
+  woodStrength: 100,
+  metallicStrength: 150,
+}
+
 class Box extends Entity {
   constructor(type) {
     super('box');
@@ -31,8 +37,7 @@ class Box extends Entity {
   }
 
   addStuff(stuff) {
-    if (this.strength - stuff.volume >= 0)
-      this.arrayStuff.add(stuff);
+    if (this.strength - stuff.volume >= 0) this.arrayStuff.add(stuff);
   }
 
   removeStuff(stuff) {
@@ -49,18 +54,20 @@ class Box extends Entity {
     let strength = null;
     switch (this.type) {
       case 'cardboard':
-        strength = 50;
+        strength = VALUES_OF_STRENGTH.cardboardStrength;
         break;
       case 'wood':
-        strength = 100;
+        strength = VALUES_OF_STRENGTH.woodStrength;
         break;
       case 'metallic':
-        strength = 150;
+        strength = VALUES_OF_STRENGTH.metallicStrength;
         break;
       default:
-        strength = 0;
-        console.log('Type is not correct!')
-        break;
+        console.log('Type is not correct!');
+        this.type = 'cardboard';
+        console.log('Change type to "Cardboard"');
+        strength = this.setStrength();
+
     }
     return strength;
   }
@@ -75,7 +82,7 @@ class User extends Entity {
   }
 
   getFullName() {
-    return this.name + ' ' + this.lastname;
+    return `${this.name} ${this.lastname}`;
   }
 
   getTotalBoxVolume() {
@@ -87,7 +94,7 @@ class User extends Entity {
   }
 }
 
-const box1 = new Box('metallic');
+const box1 = new Box('other');
 const shirt = new Stuff('shirt', 3, 3, 2);
 const toy = new Stuff('toy', 1, 1, 2);
 const kettle = new Stuff('kettle', 1, 3, 3);
