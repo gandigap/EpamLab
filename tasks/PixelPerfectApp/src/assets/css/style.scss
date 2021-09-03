@@ -215,6 +215,7 @@ body {
       margin: 0 80px;
 
       @media (max-width:768px) {
+        max-width: 755px;
         margin: 10px;
       }
 
@@ -297,6 +298,8 @@ body {
 
       @media (max-width:768px) {
         margin: 10px;
+        max-width: 730px;
+        width: 100%;
       }
 
       &_Column {
@@ -304,6 +307,7 @@ body {
           display: flex;
           justify-content: space-around;
           flex-wrap: wrap;
+
         }
       }
 
@@ -444,6 +448,7 @@ body {
           margin: 28px 0px;
           display: flex;
           flex-wrap: wrap;
+          max-width: 291px;
 
           &_Item {
             margin: 3px 3px 3px 0;
@@ -518,6 +523,12 @@ body {
         display: flex;
         padding: 28px 0 15px;
 
+        @media (max-width:768px) {
+          flex-wrap: wrap;
+          max-width: 240px;
+          justify-content: center;
+        }
+
         @media (max-width:320px) {
           width: 100%;
           min-width: 200px;
@@ -590,6 +601,7 @@ body {
   padding: 45px 40px 30px 65px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   @media (max-width:768px) {
     padding: 10px;
@@ -602,6 +614,7 @@ body {
       display: flex;
       font-family: 'Open Sans';
       flex-wrap: wrap;
+      max-width: 571px;
 
       @media (max-width:768px) {
         display: none;
