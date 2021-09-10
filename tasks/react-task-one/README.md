@@ -1,5 +1,3 @@
-![screenshot](./public/src/images/task10.png)
-
 # React Task 1
 
 You need to implement simple page with information about user.
@@ -10,6 +8,7 @@ The user has next data and should be stored as constant variable and passed as p
     "id": 1,
     "name": "Leanne Graham",
     "username": "Bret",
+    "avatarSrc":"img_girl.jpg",
     "email": "Sincere@april.biz",
     "address": {
       "street": "Kulas Light",
@@ -32,6 +31,7 @@ The user has next data and should be stored as constant variable and passed as p
 ```
 
 You are free to implement different design (discuss it with mentors), but UX should be the following:
+![screenshot](./public/task10.png)
  
 You need to create a separate repository. You can use npm or yarn as package manager. You can use boilerplate (like react-create-app) or write your own webpack config to build an app. You can use any way to style your app (CSS, SCSS, styled component, whatever you want). You can use Typescript if you want. Anyway, your package.json must include minimum 2 running scripts:start for running in dev mode and build for building your app (included in react-create-app from the box). You can discuss all ideas about folder structure and any additional requirements with your mentors
 
