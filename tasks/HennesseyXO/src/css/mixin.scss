@@ -3,7 +3,7 @@ $color-secondary:#7BEEC7;
 
 @mixin buttonHover {
   background-color: $color-primary;
-  color: $color-white;
+  color: $color-secondary;
 }
 
 @mixin buttonActive {
