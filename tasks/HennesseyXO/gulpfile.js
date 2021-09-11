@@ -9,7 +9,10 @@ const imagemin = require('gulp-imagemin');
 const rename = require('gulp-rename');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
+const uglify = require('gulp-uglify');
+const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
+const concat = require('gulp-concat')
 
 
 const paths = {
@@ -17,12 +20,16 @@ const paths = {
     src: ['src/*.html'],
     dest: './dist'
   },
+  scripts: {
+    src: ['src/js/*.js'],
+    dest: './dist/js'
+  },
   styles: {
-    src: ['src/assets/**/*.scss'],
-    dest: 'dist'
+    src: ['src/css/*.scss'],
+    dest: './dist/css'
   },
   images: {
-    src: ['src/assets/img/**'],
+    src: ['src/img/**'],
     dest: 'dist/img'
   },
   delete: {
@@ -66,6 +73,22 @@ function styles() {
     .pipe(gulp.dest(paths.styles.dest));
 }
 
+function scripts() {
+  return gulp.src(paths.scripts.src)
+    .pipe(sourcemaps.init())
+    .pipe(babel({
+      presets: ['@babel/env']
+    }))
+    .pipe(uglify())
+    .pipe(concat('main.min.js'))
+    .pipe(sourcemaps.write('.'))
+    .pipe(size({
+      showFiles: true
+    }))
+    .pipe(gulp.dest(paths.scripts.dest))
+    .pipe(browsersync.stream())
+}
+
 function img() {
   return gulp.src(paths.images.src)
     .pipe(newer(paths.images.dest))
@@ -90,4 +113,4 @@ function watch() {
   gulp.watch(paths.images.src, img);
 }
 
-exports.default = gulp.series(clean, html, gulp.parallel(styles, img), watch);
+exports.default = gulp.series(clean, html, gulp.parallel(styles, scripts, img), watch);
