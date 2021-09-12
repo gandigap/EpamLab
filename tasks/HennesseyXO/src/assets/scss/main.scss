@@ -1,0 +1,23 @@
+@import "utils/_normalize";
+@import "utils/_reset";
+@import "utils/vars";
+@import "utils/mixins";
+
+body {
+  background-color: beige;
+  @include p;
+
+  .field {
+    margin: 0 auto;
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+
+
+    &__cell {
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
+    }
+  }
+}
