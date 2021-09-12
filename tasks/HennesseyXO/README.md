@@ -6,12 +6,10 @@ Push code to repo “Hennessey XO”
 
 ### Run app
 ```sh
- Open /dist/index.html
+
 ```
 
 ### Dev app
 ```sh
-npm install --global gulp-cli
-npm install
-gulp
+ npm run dev
 ```
