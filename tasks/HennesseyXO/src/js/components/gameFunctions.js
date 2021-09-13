@@ -6,7 +6,7 @@ export function createField() {
   create('div', 'field', '', body);
   const field = document.querySelector('.field');
   for (let index = 0; index < 9; index += 1) {
-    create('div', 'field__cell', '', field, ['id', index + 1]);
+    create('div', 'field__cell', '', field, ['id', index]);
   }
 }
 
