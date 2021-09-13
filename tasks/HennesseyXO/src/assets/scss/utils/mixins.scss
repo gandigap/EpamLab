@@ -1,7 +1,17 @@
 @function toRem($px) {
-  @return ($px / $mainFontSize) + rem;
+  @return ($px / $mainFontSize)+rem;
 }
 
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('/assets/fonts/Ubuntu-Bold.ttf') format('truetype'),
+    url('/assets/fonts/Ubuntu-BoldItalic.ttf') format('truetype'),
+    url('/assets/fonts/Ubuntu-Italic.ttf') format('truetype'),
+    url('/assets/fonts/Ubuntu-Light.ttf') format('truetype'),
+    url('/assets/fonts/Ubuntu-Medium.ttf') format('truetype'),
+    url('/assets/fonts/Ubuntu-MediumItalic.ttf') format('truetype'),
+    url('/assets/fonts/Ubuntu-Regular.ttf') format('truetype');
+}
 
 $color_primary:#442266;
 $color_secondary:#CC0099;
@@ -10,15 +20,18 @@ $color_ligth:#FFFFFF;
 $color_container_color:#FF99224d;
 $color_hidden_overlay:#cc0099a6;
 
-@mixin p{
-  font:{
-    size:16px;
-    family:Georgia;
-    style:normal;
-    weight:normal;
+@mixin p {
+  font: {
+    size: 16px;
+    style: normal;
+    weight: normal;
   }
+
   line-height: 130%;
 }
 
-
-
+@mixin backGroundImage {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
