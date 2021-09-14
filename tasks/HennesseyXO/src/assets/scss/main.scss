@@ -30,4 +30,11 @@ body {
       @include backGroundImage;
     }
   }
+
+  .dialogContainer {
+
+    &::backdrop {
+      background-color: red;
+    }
+  }
 }

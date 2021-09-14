@@ -1,11 +1,3 @@
-import { startGame } from './components/startGame';
-/* class Game {
-  constructor() {
-    createField();
-    addClickListeners();
-  }
-}
+import { startGame } from './components/mainGameFunctions';
 
-const game = new Game();
-window.main = game; */
 startGame();
