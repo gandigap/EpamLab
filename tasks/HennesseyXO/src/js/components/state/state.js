@@ -5,6 +5,8 @@ const gameState = {
     firstPlayerName: null,
     secondPlayerName: null,
   },
+  numberMoves: 0,
+  statusGame: null,
 };
 
 export default gameState;

@@ -1,3 +1,3 @@
-import { startGame } from './components/mainGameFunctions';
+import { createDialog } from './components/dialogs/dialogActions';
 
-startGame();
+createDialog();
