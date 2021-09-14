@@ -1,8 +1,9 @@
 import create from './constructor/create';
 import gameState from './state/state';
+import dialogContent from './dialogs/constDialogContent';
 
-let { currentMark, playerNames } = gameState;
-const { dataCells } = gameState;
+let { currentMark, numberMoves, statusGame } = gameState;
+const { dataCells, playerNames } = gameState;
 
 export function createField() {
   const body = document.querySelector('body');
@@ -19,6 +20,8 @@ function changeClassName(element, addClass, removeClass) {
 }
 
 function checkWin() {
+  const dialogContainer = document.querySelector('.dialogContainer');
+  numberMoves += 1;
   if ((dataCells[1][1] === dataCells[0][1] && dataCells[1][1] === dataCells[2][1])
     || (dataCells[1][1] === dataCells[1][0] && dataCells[1][1] === dataCells[1][2])
     || (dataCells[1][1] === dataCells[0][0] && dataCells[1][1] === dataCells[2][2])
@@ -27,8 +30,16 @@ function checkWin() {
     || (dataCells[0][1] === dataCells[0][0] && dataCells[0][1] === dataCells[0][2])
     || (dataCells[1][2] === dataCells[0][2] && dataCells[1][2] === dataCells[2][2])
     || (dataCells[2][1] === dataCells[2][0] && dataCells[2][1] === dataCells[2][2])) {
-    console.log('win', currentMark);
-    /* endGame(); */
+    statusGame = 'end';
+    dialogContainer.innerHTML = `${dialogContent.winContent}
+    <p class='dialogContainer__subtitle'>Player ${currentMark === 'x' ? playerNames.firstPlayerName : playerNames.secondPlayerName} Win</p>    
+    `;
+    changeListenersOnCells('remove');
+    dialogContainer.showModal();
+  }
+  if (numberMoves === 9 && statusGame !== 'end') {
+    statusGame = 'even';
+    console.log(statusGame);
   }
 }
 
@@ -65,4 +76,9 @@ export function changeListenersOnCells(status) {
       ? element.addEventListener('click', setMark, false)
       : element.removeEventListener('click', setMark, false);
   });
+}
+
+export function startGame() {
+  createField();
+  changeListenersOnCells('add');
 }
