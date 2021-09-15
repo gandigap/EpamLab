@@ -47,3 +47,22 @@
   transform: scale(0.8);
   transition: 0.2s;
 }
+
+@mixin buttonDialog {
+  width: 100%;
+  max-width: 100px;
+  margin: 5px;
+  padding: 5px;
+  background-color: $success-color;
+  color: $primary-color;
+}
+
+@mixin buttonDialogHover {
+
+  color: $default-color;
+}
+
+@mixin buttonDialogActive {
+  transform: scale(1.1);
+  transition: 0.2s;
+}
