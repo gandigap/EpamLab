@@ -1,27 +1,35 @@
-import create from '../constructor/create';
+import createField from '../constructor/createfield';
 import gameState from '../state/state';
-import dialogContent from '../dialogs/constDialogContent';
-import { changeDisplayModal } from './actionWithStyle';
+import { changeDisplayModal, changeClassName } from './actionWithStyle';
+import { createDialog } from '../dialogs/dialogActions';
 
 let { currentMark, numberMoves, statusGame } = gameState;
-const { dataCells, playerNames } = gameState;
+const { dataCells, audio } = gameState;
 
-export function createField() {
-  const body = document.querySelector('body');
-  create('div', 'field', '', body);
-  const field = document.querySelector('.field');
-  for (let index = 0; index < 9; index += 1) {
-    create('div', 'field__cell', '', field, ['id', index]);
+function setGameStateDefaultValues() {
+  let value = 0;
+  for (let i = 0; i < dataCells.length; i += 1) {
+    for (let j = 0; j < dataCells[i].length; j += 1) {
+      dataCells[i][j] = `${value}`;
+      value += 1;
+    }
   }
+  numberMoves = 0;
+  statusGame = null;
 }
 
-function changeClassName(element, addClass, removeClass) {
-  element.classList.add(addClass);
-  element.classList.remove(removeClass);
+function endGame(status) {
+  createDialog(status);
+  const buttonRestart = document.querySelector('#button-startGame');
+  buttonRestart.addEventListener('click', () => {
+    document.querySelector('.field').remove();
+    startGame();
+    const dialog = document.querySelector('.dialogContainer');
+    dialog.close();
+  });
 }
 
 function checkWin() {
-  const dialogContainer = document.querySelector('.dialogContainer');
   numberMoves += 1;
   if ((dataCells[1][1] === dataCells[0][1] && dataCells[1][1] === dataCells[2][1])
     || (dataCells[1][1] === dataCells[1][0] && dataCells[1][1] === dataCells[1][2])
@@ -31,19 +39,12 @@ function checkWin() {
     || (dataCells[0][1] === dataCells[0][0] && dataCells[0][1] === dataCells[0][2])
     || (dataCells[1][2] === dataCells[0][2] && dataCells[1][2] === dataCells[2][2])
     || (dataCells[2][1] === dataCells[2][0] && dataCells[2][1] === dataCells[2][2])) {
-    statusGame = 'end';
-    dialogContainer.innerHTML = `${dialogContent.winContent}
-    <p class='dialogContainer__subtitle'>Player ${currentMark === 'x' ? playerNames.secondPlayerName : playerNames.firstPlayerName} Win</p>    
-    `;
-    changeListenersOnCells('remove');
-    dialogContainer.showModal();
-  }
-  if (numberMoves === 9 && statusGame !== 'end') {
-    dialogContainer.innerHTML = `${dialogContent.evenContent}
-    <p class='dialogContainer__subtitle'>Player ${currentMark === 'x' ? playerNames.secondPlayerName : playerNames.firstPlayerName} Win</p>    
-    `;
-    changeListenersOnCells('remove');
-    dialogContainer.showModal();
+    statusGame = 'win';
+    gameState.currentMark = currentMark;
+    endGame(statusGame);
+  } else if (numberMoves === 9 && statusGame !== 'win') {
+    statusGame = 'even';
+    endGame(statusGame);
   }
 }
 
@@ -61,6 +62,7 @@ function setState(idCell) {
 function setMark() {
   let addClass = null;
   let removeClass = null;
+  audio.play();
   if (!this.hasAttribute('mark-index')) {
     this.setAttribute('mark-index', true);
     // eslint-disable-next-line no-unused-expressions
@@ -72,19 +74,24 @@ function setMark() {
   }
 }
 
-export function changeListenersOnCells(status) {
+export function addListenersOnCells() {
   const cells = document.querySelectorAll('.field__cell');
   cells.forEach((element) => {
-    // eslint-disable-next-line no-unused-expressions
-    status === 'add'
-      ? element.addEventListener('click', setMark, false)
-      : element.removeEventListener('click', setMark, false);
+    element.addEventListener('click', setMark, false);
   });
 }
 
+function setPlayerNames() {
+  const { players } = gameState;
+  const inputsName = document.querySelectorAll('.modalMenu__content__inputContainer__input');
+  players.firstName = inputsName[0].value;
+  players.secondName = inputsName[1].value;
+}
+
 export function startGame() {
-  /* createField();
-  changeListenersOnCells('add'); */
-  console.log('startgame');
   changeDisplayModal('none');
+  setGameStateDefaultValues();
+  setPlayerNames();
+  createField();
+  addListenersOnCells('add');
 }

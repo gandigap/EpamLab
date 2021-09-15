@@ -6,7 +6,7 @@ Push code to repo “Hennessey XO”
 
 ### Run app
 ```sh
-
+open folder dist/index.html
 ```
 
 ### Dev app

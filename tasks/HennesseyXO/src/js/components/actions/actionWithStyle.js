@@ -11,3 +11,8 @@ export function changeDisplayDialog(display) {
     dialog.close();
   }
 }
+
+export function changeClassName(element, addClass, removeClass) {
+  element.classList.add(addClass);
+  element.classList.remove(removeClass);
+}
