@@ -11,7 +11,7 @@ const dialogContent = {
     <input class='dialogContainer__inputContainer__input' type="text" id="player2name" placeholder='name'>
   </div>
   <button class='dialogContainer__button' id='button-startGame'>Start</button>`,
-  winContent: "<h3 class='dialogContainer__title'>Congratulations</h3>",
-  evenContent: 'Even',
+  winContent: "<h3 class='dialogContainer__title'>Congratulations</h3><button class='dialogContainer__button' id='button-startGame'>Start</button>",
+  evenContent: "<h3 class='dialogContainer__title'>Even</h3><button class='dialogContainer__button' id='button-startGame'>Start</button>",
 };
 export default dialogContent;
