@@ -1,6 +1,6 @@
 import create from '../constructor/create';
 import gameState from '../state/state';
-import { startGame } from '../gameActions';
+import { startGame } from '../actions/gameActions';
 import dialogContent from './constDialogContent';
 
 export function changeStateDialog(state) {

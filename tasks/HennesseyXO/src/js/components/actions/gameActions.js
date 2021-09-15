@@ -1,6 +1,7 @@
-import create from './constructor/create';
-import gameState from './state/state';
-import dialogContent from './dialogs/constDialogContent';
+import create from '../constructor/create';
+import gameState from '../state/state';
+import dialogContent from '../dialogs/constDialogContent';
+import { changeDisplayModal } from './actionWithStyle';
 
 let { currentMark, numberMoves, statusGame } = gameState;
 const { dataCells, playerNames } = gameState;
@@ -32,14 +33,17 @@ function checkWin() {
     || (dataCells[2][1] === dataCells[2][0] && dataCells[2][1] === dataCells[2][2])) {
     statusGame = 'end';
     dialogContainer.innerHTML = `${dialogContent.winContent}
-    <p class='dialogContainer__subtitle'>Player ${currentMark === 'x' ? playerNames.firstPlayerName : playerNames.secondPlayerName} Win</p>    
+    <p class='dialogContainer__subtitle'>Player ${currentMark === 'x' ? playerNames.secondPlayerName : playerNames.firstPlayerName} Win</p>    
     `;
     changeListenersOnCells('remove');
     dialogContainer.showModal();
   }
   if (numberMoves === 9 && statusGame !== 'end') {
-    statusGame = 'even';
-    console.log(statusGame);
+    dialogContainer.innerHTML = `${dialogContent.evenContent}
+    <p class='dialogContainer__subtitle'>Player ${currentMark === 'x' ? playerNames.secondPlayerName : playerNames.firstPlayerName} Win</p>    
+    `;
+    changeListenersOnCells('remove');
+    dialogContainer.showModal();
   }
 }
 
@@ -79,6 +83,8 @@ export function changeListenersOnCells(status) {
 }
 
 export function startGame() {
-  createField();
-  changeListenersOnCells('add');
+  /* createField();
+  changeListenersOnCells('add'); */
+  console.log('startgame');
+  changeDisplayModal('none');
 }

@@ -13,13 +13,6 @@
     url('/assets/fonts/Ubuntu-Regular.ttf') format('truetype');
 }
 
-$color_primary:#442266;
-$color_secondary:#CC0099;
-$color_third:#FF9922;
-$color_ligth:#FFFFFF;
-$color_container_color:#FF99224d;
-$color_hidden_overlay:#cc0099a6;
-
 @mixin p {
   font: {
     size: 16px;
@@ -34,4 +27,23 @@ $color_hidden_overlay:#cc0099a6;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+@mixin buttonModal {
+  width: 100%;
+  max-width: 100px;
+  margin: 5px;
+  padding: 5px;
+  background-color: $primary-color;
+  color: $default-color;
+}
+
+@mixin buttonModalHover {
+  background-color: $default-color;
+  color: $primary-color;
+}
+
+@mixin buttonModalActive {
+  transform: scale(0.8);
+  transition: 0.2s;
 }

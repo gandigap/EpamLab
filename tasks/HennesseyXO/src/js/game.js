@@ -1,3 +1,3 @@
-import { createDialog } from './components/dialogs/dialogActions';
+import createModal from './components/constructor/createModal';
 
-createDialog();
+createModal();
