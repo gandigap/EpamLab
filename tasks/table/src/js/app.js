@@ -1,1 +1,3 @@
- console.log('hello ihar');
+import Table from './components/table/table';
+
+const table = new Table();

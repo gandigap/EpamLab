@@ -4,65 +4,16 @@
 
 @font-face {
   font-family: 'Ubuntu';
-  src: url('/assets/fonts/Ubuntu-Bold.ttf') format('truetype'),
-    url('/assets/fonts/Ubuntu-BoldItalic.ttf') format('truetype'),
-    url('/assets/fonts/Ubuntu-Italic.ttf') format('truetype'),
-    url('/assets/fonts/Ubuntu-Light.ttf') format('truetype'),
-    url('/assets/fonts/Ubuntu-Medium.ttf') format('truetype'),
-    url('/assets/fonts/Ubuntu-MediumItalic.ttf') format('truetype'),
-    url('/assets/fonts/Ubuntu-Regular.ttf') format('truetype');
+  src: url('/assets/fonts/Ubuntu-Regular.ttf') format('truetype');
 }
 
-@mixin p {
+@mixin headerCell {
   font: {
-    size: 16px;
+    size: 20px;
     style: normal;
-    weight: normal;
+    weight: bold;
   }
+  cursor: pointer;
 
   line-height: 130%;
-}
-
-@mixin backGroundImage {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-@mixin buttonModal {
-  width: 100%;
-  max-width: 100px;
-  margin: 5px;
-  padding: 5px;
-  background-color: $primary-color;
-  color: $default-color;
-}
-
-@mixin buttonModalHover {
-  background-color: $default-color;
-  color: $primary-color;
-}
-
-@mixin buttonModalActive {
-  transform: scale(0.8);
-  transition: 0.2s;
-}
-
-@mixin buttonDialog {
-  width: 100%;
-  max-width: 100px;
-  margin: 5px;
-  padding: 5px;
-  background-color: $success-color;
-  color: $primary-color;
-}
-
-@mixin buttonDialogHover {
-
-  color: $default-color;
-}
-
-@mixin buttonDialogActive {
-  transform: scale(1.1);
-  transition: 0.2s;
 }

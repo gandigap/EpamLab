@@ -5,5 +5,34 @@
 
 body {
   font-family: Ubuntu, sans-serif;
-  background-color: $default-color;  
+  background-color: $default-color;
+
+  .table {
+    background-color: $primary-color;
+    margin: 0 auto;
+
+    &__header {
+      background-color: $warning-color;
+
+      &__row {
+        &__cell {
+          @include headerCell;
+        }
+      }
+    }
+
+    &__body {
+      &__row {
+        &__cell {
+          color: $default-color;
+        }
+      }
+    }
+  }
+
+  .cell {
+    border: 1px solid $primary-color;
+    width: 150px;
+    text-align: center;
+  }
 }
