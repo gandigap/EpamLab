@@ -1,0 +1,9 @@
+@import "utils/_normalize";
+@import "utils/_reset";
+@import "utils/vars";
+@import "utils/mixins";
+
+body {
+  font-family: Ubuntu, sans-serif;
+  background-color: $default-color;  
+}
