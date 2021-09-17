@@ -13,7 +13,20 @@
     style: normal;
     weight: bold;
   }
-  cursor: pointer;
 
+  color: $primary-color;
+  line-height: 130%;
+}
+
+@mixin bodyCell {
+  padding: 10px;
+
+  font: {
+    size: 24px;
+    style: italic;
+    weight: bold;
+  }
+
+  color: $default-color;
   line-height: 130%;
 }

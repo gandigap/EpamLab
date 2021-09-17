@@ -15,16 +15,31 @@ body {
       background-color: $warning-color;
 
       &__row {
+
+
         &__cell {
           @include headerCell;
         }
+
       }
+
+      .cell-clickable {
+        cursor: pointer;
+      }
+
+
     }
 
     &__body {
       &__row {
+        border: 1px solid $warning-color;
+
         &__cell {
-          color: $default-color;
+          @include bodyCell;
+        }
+
+        .dog-breed {
+          color: $warning-color;
         }
       }
     }
