@@ -41,17 +41,23 @@ class Table {
 
   changeState(cell) {
     cell.removeAttribute('contenteditable');
-    this.updateState();
-  }
-
-  updateState() {
-    console.log('update');
-    /* const dogsMap = new Map();
-    this.dogsData.forEach((dog, index) => {
-      dogsMap.set(index, dog);
-    });
-    console.log(dogsMap, 'ff');
-    console.log([...dogsMap].sort((a, b) => ((a[1].breed > b[1].breed) ? 1 : -1)), 'dddddd'); */
+    const indexState = cell.parentNode.id.split('-')[1];
+    const cellTextContent = cell.textContent.trim();
+    let value = null;
+    const attribute = cell.getAttribute('data-type');
+    switch (attribute) {
+      case 'breed':
+      case 'country':
+        value = cellTextContent;
+        break;
+      case 'height':
+        value = parseInt(cellTextContent, 10);
+        break;
+      default:
+        break;
+    }
+    tableState.dogsData[indexState][attribute] = value;
+    this.initDogsData();
   }
 
   addListenersForBodyCells() {
@@ -67,17 +73,21 @@ class Table {
     const tableBody = document.getElementById('table__body');
     let tabIndexValue = 0;
     this.dogsData.forEach((dogInfo, dogKey) => {
+      const className = [
+        'table__body__row__cell table__body__row__cell-clickable',
+        'table__body__row__cell',
+      ];
       create('tr', 'table__body__row', `
-      <td class="table__body__row__cell dog-breed table__body__row__cell-clickable" tabindex="${tabIndexValue += 1}">
+      <td class="${className[0]}" tabindex="${tabIndexValue += 1}" data-type="breed">
         ${dogInfo.breed}
       </td>
-      <td class="table__body__row__cell dog-country table__body__row__cell-clickable" tabindex="${tabIndexValue += 1}">
+      <td class="${className[0]}" tabindex="${tabIndexValue += 1}" data-type="country">
         ${dogInfo.country}
       </td>
-      <td class="table__body__row__cell dog-height table__body__row__cell-clickable" tabindex="${tabIndexValue += 1}">
+      <td class="${className[0]}" tabindex="${tabIndexValue += 1}" data-type="height">
         ${dogInfo.height}
       </td>
-      <td class="table__body__row__cell dog-imageContainer">
+      <td class="${className[1]} dog-imageContainer">
         <img class="dog-imageContainer__image" src="assets/images/${dogInfo.breed.toLowerCase()}.jpg" alt="">
       </td>
     `, tableBody, ['id', `dog-${dogKey}`]);
@@ -110,11 +120,10 @@ class Table {
       default:
         break;
     }
-    if (param !== null) this.dogsData = new Map([...this.dogsData].sort((a, b) => ((a[1][`${param}`] > b[1][`${param}`]) ? 1 : -1)), 'test');
-    console.log(this.dogsData);
-    /* console.log([...dogsMap].sort((a, b) => ((a[1].breed > b[1].breed) ? 1 : -1)), 'dddddd'); 
-    
-    ((a[1][`${param}`] > b[1][`${param}`]) ? 1 : -1)*/
+    if (param !== null) {
+      this.dogsData = new Map([...this.dogsData]
+        .sort((a, b) => ((a[1][`${param}`] > b[1][`${param}`]) ? 1 : -1)), 'test');
+    }
     document.getElementById('table__body').remove();
     this.addTableBody();
   }
