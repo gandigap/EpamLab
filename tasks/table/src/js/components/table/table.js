@@ -3,11 +3,20 @@ import tableState from '../state/tableState';
 
 class Table {
   constructor() {
-    this.dogsData = tableState.dogsData;
+    this.dogsData = null;
+    this.initDogsData();
     const body = document.querySelector('body');
     create('table', 'table', '', body, ['id', 'table']);
     this.table = document.querySelector('#table');
     this.addTableContent();
+  }
+
+  initDogsData() {
+    const dogsData = new Map();
+    tableState.dogsData.forEach((dog, index) => {
+      dogsData.set(index, dog);
+    });
+    this.dogsData = dogsData;
   }
 
   addTableContent() {
@@ -26,19 +35,54 @@ class Table {
     this.addListenersForHeader();
   }
 
+  changeContenteditableCell() {
+    this.setAttribute('contenteditable', 'true');
+  }
+
+  changeState(cell) {
+    cell.removeAttribute('contenteditable');
+    this.updateState();
+  }
+
+  updateState() {
+    console.log('update');
+    /* const dogsMap = new Map();
+    this.dogsData.forEach((dog, index) => {
+      dogsMap.set(index, dog);
+    });
+    console.log(dogsMap, 'ff');
+    console.log([...dogsMap].sort((a, b) => ((a[1].breed > b[1].breed) ? 1 : -1)), 'dddddd'); */
+  }
+
+  addListenersForBodyCells() {
+    const tableBodyCells = document.querySelectorAll('.table__body__row__cell-clickable');
+    tableBodyCells.forEach((tableBodyCell) => {
+      tableBodyCell.addEventListener('click', this.changeContenteditableCell.bind(tableBodyCell), false);
+      tableBodyCell.addEventListener('blur', this.changeState.bind(this, tableBodyCell));
+    });
+  }
+
   addTableBody() {
     create('tbody', 'table__body', '', this.table, ['id', 'table__body']);
     const tableBody = document.getElementById('table__body');
-    this.dogsData.forEach((dog) => {
-      create('tr', 'table__body__row', `     
-        <td class="table__body__row__cell dog-breed">${dog.breed}</td>
-        <td class="table__body__row__cell dog-country">${dog.country}</td>
-        <td class="table__body__row__cell dog-height">${dog.height}</td>
-        <td class="table__body__row__cell dog-imageContainer">
-          <img class="dog-imageContainer__image" src="assets/images/${dog.breed.toLowerCase()}.jpg" alt="">
-        </td>        
-      `, tableBody, ['id', `dog-${dog.id}`]);
+    let tabIndexValue = 0;
+    this.dogsData.forEach((dogInfo, dogKey) => {
+      create('tr', 'table__body__row', `
+      <td class="table__body__row__cell dog-breed table__body__row__cell-clickable" tabindex="${tabIndexValue += 1}">
+        ${dogInfo.breed}
+      </td>
+      <td class="table__body__row__cell dog-country table__body__row__cell-clickable" tabindex="${tabIndexValue += 1}">
+        ${dogInfo.country}
+      </td>
+      <td class="table__body__row__cell dog-height table__body__row__cell-clickable" tabindex="${tabIndexValue += 1}">
+        ${dogInfo.height}
+      </td>
+      <td class="table__body__row__cell dog-imageContainer">
+        <img class="dog-imageContainer__image" src="assets/images/${dogInfo.breed.toLowerCase()}.jpg" alt="">
+      </td>
+    `, tableBody, ['id', `dog-${dogKey}`]);
     });
+    this.addListenersForBodyCells();
   }
 
   addListenersForHeader() {
@@ -52,7 +96,7 @@ class Table {
     let height = null;
     let param = null;
 
-    [breed, country, height,] = [...tableState.tableHeaderNames];
+    [breed, country, height] = [...tableState.tableHeaderNames];
     switch (event.target.id) {
       case breed:
         param = 'breed';
@@ -66,7 +110,11 @@ class Table {
       default:
         break;
     }
-    if (param !== null) this.dogsData.sort((a, b) => ((a[`${param}`] > b[`${param}`]) ? 1 : -1));
+    if (param !== null) this.dogsData = new Map([...this.dogsData].sort((a, b) => ((a[1][`${param}`] > b[1][`${param}`]) ? 1 : -1)), 'test');
+    console.log(this.dogsData);
+    /* console.log([...dogsMap].sort((a, b) => ((a[1].breed > b[1].breed) ? 1 : -1)), 'dddddd'); 
+    
+    ((a[1][`${param}`] > b[1][`${param}`]) ? 1 : -1)*/
     document.getElementById('table__body').remove();
     this.addTableBody();
   }
