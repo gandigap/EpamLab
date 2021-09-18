@@ -16,18 +16,15 @@ body {
 
       &__row {
 
-
         &__cell {
           @include headerCell;
         }
 
       }
 
-      .cell-clickable {
+      .header__cell-clickable {
         cursor: pointer;
       }
-
-
     }
 
     &__body {
