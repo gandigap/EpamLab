@@ -33,10 +33,10 @@ body {
 
         &__cell {
           @include bodyCell;
-        }
 
-        .dog-breed {
-          color: $warning-color;
+          &:first-child {
+            color: $warning-color;
+          }
         }
       }
     }
