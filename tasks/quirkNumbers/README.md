@@ -12,5 +12,11 @@
 ### Run app
 ```sh
 open index.html
+
+
+For example you can try to enter 
+'5 3 6 * + 5 3 / - 7 +'
+'2 1 + 3 * 4 +'
+'5 1 2 + 5 * + 3 -'
 ```
 
