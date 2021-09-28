@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Albums from './albums/Albums';
 
 const ContentContainer = styled.div`
   grid-area: content;  
@@ -15,6 +16,7 @@ const Content: React.FC<ContentProps> = ({ content }) => {
   return (
     <ContentContainer>
       {content}
+      <Albums />
     </ContentContainer>
   );
 };
