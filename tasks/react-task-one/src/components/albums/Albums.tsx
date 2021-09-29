@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Album from './Album';
 
 const AlbumsContainer = styled.div`
-  background-color: #000;  
+  display:flex; 
+  flex-wrap: wrap;
+  justify-content: space-around;  
 `;
 
 const AlbumsButton = styled.button`
@@ -11,28 +14,50 @@ const AlbumsButton = styled.button`
   border-radius: 10px;  
 `;
 
-type AlbumsProps = {
-  data?: object[]
+interface AlbumsProps {
+  dataAlbumsProps?: []
 }
 
-export class Albums extends Component<AlbumsProps> {
+interface AlbumsState {
+  dataAlbumsState?: []
+}
+
+interface AlbumsData {
+  id: number;
+  title: string;
+  userId: number;
+}
+
+export class Albums extends Component<AlbumsProps, AlbumsState> {
   constructor(props: AlbumsProps) {
     super(props)
     this.state = {
-      data: {}
     }
   }
 
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/albums')
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => {
+        this.setState({
+          dataAlbumsState: json
+        });
+      })
   }
 
   render() {
+    const albums = this.state.dataAlbumsState;
+    let listAlbums = null;
+    if (albums !== undefined) {
+      listAlbums = albums.map((album: AlbumsData) =>
+        <Album albumInfo={album} key={album.id} >hi</Album>
+      );
+    }
+
+
     return (
       <AlbumsContainer>
-        Albums
+        {listAlbums}
         <AlbumsButton>Get</AlbumsButton >
       </AlbumsContainer>
     )

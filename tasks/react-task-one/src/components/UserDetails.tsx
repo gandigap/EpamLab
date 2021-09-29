@@ -7,6 +7,7 @@ import Content from './Content';
 const UserDetailContainer = styled.div`
   max-width:800px;
   margin: 0 auto;
+  padding:0 10px;
   display: grid;    
   grid-template-columns: 1fr 2fr;
   grid-template-rows: auto;

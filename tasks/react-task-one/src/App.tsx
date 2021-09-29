@@ -10,6 +10,13 @@ const Global = createGlobalStyle`
   color: yellow;
 }`;
 
+const AppContainer = styled.div`
+  width: 100%;
+  background-color: #20264a;
+  margin:0 auto;
+  min-height:100vh;
+`;
+
 const userDetails = {
   "id": 1,
   "name": "Ihar Berasneu",
@@ -35,14 +42,6 @@ const userDetails = {
   },
   "content": "I`m a person without bad habits and with a good sense of humor. My main goal is to become a part of EPAM"
 };
-
-const AppContainer = styled.div`
-  width: 100%;
-  background-color: #20264a;
-  margin:0 auto;
-  height:100vh;
-`;
-
 
 export const App = () => {
   return (
