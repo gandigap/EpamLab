@@ -15,8 +15,8 @@ function getArray(array) {
 
 function getSimpleArray(array, arrayCopy) {
   for (let i in array) {
-    const westPoint = i != array.length - 1 ? array[+i + 1] : 0;
-    const eastPoint = i != 0 ? array[i - 1] : 0;
+    const westPoint = i !== array.length - 1 ? array[+i + 1] : 0;
+    const eastPoint = i !== 0 ? array[i - 1] : 0;
     arrayCopy[i] = westPoint + eastPoint;
   }
   return arrayCopy;
@@ -25,10 +25,10 @@ function getSimpleArray(array, arrayCopy) {
 function getMultidimensionalArray(array, arrayCopy) {
   for (let i in array) {
     for (let j in array[i]) {
-      const northPoint = i != 0 ? array[i - 1][j] : 0;
-      const westPoint = j != array[i].length - 1 ? array[i][+j + 1] : 0;
-      const southPoint = i != array.length - 1 ? array[+i + 1][j] : 0;
-      const eastPoint = j != 0 ? array[i][j - 1] : 0;
+      const northPoint = i !== 0 ? array[i - 1][j] : 0;
+      const westPoint = j !== array[i].length - 1 ? array[i][+j + 1] : 0;
+      const southPoint = i !== array.length - 1 ? array[+i + 1][j] : 0;
+      const eastPoint = j !== 0 ? array[i][j - 1] : 0;
       arrayCopy[i][j] = northPoint + westPoint + southPoint + eastPoint;
     }
   }
