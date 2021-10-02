@@ -4,28 +4,32 @@ class App {
   constructor() {
     this.createListsDropDown();
     this.currentData = null;
-    /* this.dropDown = document.querySelector('.dropdown');
-    this.content = document.getElementById('other-content');
-    this.dropDown.addEventListener('click', this.checkElement, false); */
+    this.dropDowns = document.querySelectorAll('.dropdown');
   }
 
   async createListsDropDown() {
     const dropDownCategoriesContent = document.getElementById('categories__content');
     const dropDownTitlesContent = document.getElementById('titles__content');
-    await this.getData('entries');
+    await this.getData();
     const categories = this.currentData.entries.map(item => item.Category)
       .filter((value, index, self) => self.indexOf(value) === index)
     categories.forEach(category => {
-      create('p', 'dropdown__content__link', `${category}`, dropDownCategoriesContent);
+      create('p', 'dropdown__content__link category', `${category}`, dropDownCategoriesContent);
     });
-
     titles.forEach(title => {
-      create('p', 'dropdown__content__link', `${title.toUpperCase()}`, dropDownTitlesContent);
+      create('p', 'dropdown__content__link title', `${title.toUpperCase()}`, dropDownTitlesContent);
+    });
+    this.addEventListenerForDropDowns();
+  }
+
+  addEventListenerForDropDowns() {
+    this.dropDowns.forEach(dropDown => {
+      dropDown.addEventListener('click', this.checkElement.bind(this), false);
     });
   }
 
-  async getData(queryString) {
-    await fetch(`https://api.publicapis.org/${queryString}`)
+  async getData(queryString = '') {
+    await fetch(`https://api.publicapis.org/entries?${queryString}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -34,35 +38,33 @@ class App {
       })
       .then(data => {
         this.currentData = data;
-        console.log(this.currentData, queryString);
       })
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
       });
   }
 
-
-  checkElement(event) {
-    if (event.target.hasAttribute('id')) {
-      console.log(event.target);
-      fetch('https://api.publicapis.org/entries')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log(data);
-
-        })
-        .catch(error => {
-          console.error('There has been a problem with your fetch operation:', error);
-        });
+  async checkElement(event) {
+    const targetInfo = event.target.textContent.split(' ')[0].toLowerCase();
+    if (event.target.classList.contains('category')) {
+      await this.getData(`category=${targetInfo}&https=true`);
+    } else if (event.target.classList.contains('title')) {
+      await this.getData(`title=${targetInfo}`);
     }
+    this.renderData();
+    console.log(targetInfo, this.currentData);
   }
 
-
+  renderData() {
+    const otherContent = document.getElementById('other-content');
+    otherContent.innerHTML = '';
+    this.currentData.entries.forEach(element => {
+      create('div', 'api-info', ` 
+      <h3 class="api-info__title">${element.API}</h3>
+      <div class="api-info__description">${element.Description}</div>
+      <a class="api-info__link" href="">${element.Link}</a>`, otherContent);
+    });
+  }
 }
 
 const app = new App();
