@@ -15,11 +15,10 @@ interface AvatarProps {
   avatarSrc: string
 }
 
-
 const Avatar: React.FC<AvatarProps> = ({ avatarSrc }) => {
   return (
     <AvatarContainer>
-      <ImageContainer src={avatarSrc} alt="" />
+      <ImageContainer src={avatarSrc} alt="avatar image" />
     </AvatarContainer>
   );
 };

@@ -4,8 +4,7 @@ import Albums from './albums/Albums';
 
 const ContentContainer = styled.div`
   grid-area: content;  
-  font-size: 18px;
-  
+  font-size: 18px;  
 `;
 
 interface ContentProps {

@@ -28,10 +28,13 @@ interface AlbumsData {
   userId: number;
 }
 
+const defaultDataAlbumsState: [] = [];
+
 export class Albums extends Component<AlbumsProps, AlbumsState> {
   constructor(props: AlbumsProps) {
     super(props)
     this.state = {
+      dataAlbumsState: defaultDataAlbumsState
     }
   }
 
@@ -43,17 +46,20 @@ export class Albums extends Component<AlbumsProps, AlbumsState> {
           dataAlbumsState: json
         });
       })
+      .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
   }
 
   render() {
     const albums = this.state.dataAlbumsState;
     let listAlbums = null;
     if (albums !== undefined) {
-      listAlbums = albums.map((album: AlbumsData) =>
-        <Album albumInfo={album} key={album.id} >hi</Album>
-      );
+      listAlbums = (albums === null) ? 'Albums is null' :
+        listAlbums = albums.map((album: AlbumsData) =>
+          <Album albumInfo={album} key={album.id} >hi</Album>
+        );
     }
-
 
     return (
       <AlbumsContainer>

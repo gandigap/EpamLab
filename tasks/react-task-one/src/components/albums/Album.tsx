@@ -23,21 +23,22 @@ interface AlbumProps {
   }
 }
 
-interface AlbumsState {
+const defaultDataAlbumState = {
+  id: -1,
+  title: 'default',
+  userId: -1,
 }
 
-class Album extends Component<AlbumProps, AlbumsState> {
+class Album extends Component<AlbumProps> {
   constructor(props: AlbumProps) {
     super(props)
-    this.state = {
-    }
+    this.state = defaultDataAlbumState;
   }
 
   render() {
     return (
       <AlbumContainer id={`${this.props.albumInfo.id}`}>
         <AlbumContainerTitle >{this.props.albumInfo.title}</AlbumContainerTitle>
-
       </AlbumContainer>
     );
   }
