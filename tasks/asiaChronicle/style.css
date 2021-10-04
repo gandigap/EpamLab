@@ -40,3 +40,10 @@
   cursor: pointer;
   color: #000;
 }
+
+.api-info {
+  margin: 5px;
+  padding: 5px;
+  border: 1px dotted black;
+  border-radius: 10px;
+}
