@@ -24,7 +24,7 @@ function endGame(status) {
   buttonRestart.addEventListener('click', () => {
     document.querySelector('.field').remove();
     startGame();
-    const dialog = document.querySelector('.dialogContainer');
+    const dialog = document.querySelector('.dialog-container');
     dialog.close();
   });
 }
@@ -83,7 +83,7 @@ export function addListenersOnCells() {
 
 function setPlayerNames() {
   const { players } = gameState;
-  const inputsName = document.querySelectorAll('.modalMenu__content__inputContainer__input');
+  const inputsName = document.querySelectorAll('.modalMenu__content__input-container__input');
   players.firstName = inputsName[0].value;
   players.secondName = inputsName[1].value;
 }
