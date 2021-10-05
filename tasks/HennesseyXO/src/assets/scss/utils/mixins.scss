@@ -36,10 +36,11 @@
   padding: 5px;
   background-color: $primary-color;
   color: $default-color;
+  border-radius: 5px;
 }
 
 @mixin buttonModalHover {
-  background-color: $default-color;
+  background-color: $success-color;
   color: $primary-color;
 }
 
@@ -58,7 +59,6 @@
 }
 
 @mixin buttonDialogHover {
-
   color: $default-color;
 }
 
