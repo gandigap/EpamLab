@@ -1,13 +1,13 @@
-const inputContainer = document.getElementById('inputContainer');
-const pContainer = document.querySelector('.pContainer');
-const button = document.getElementById('button');
+const inputContainer = document.getElementById('input-field');
+const pContainer = document.querySelector('.result-info');
+const button = document.getElementById('button-submit');
 
 const calculateQuirkNumbers = async function () {
   const dataValues = inputContainer.value.split(' ');
   const operands = ['+', '-', '/', '*'];
   const stack = [];
 
-  for await (data of dataValues) {
+  for (data of dataValues) {
     if (operands.includes(data)) {
       const lastElement = parseInt(stack.pop());
       const penultElement = parseInt(stack.pop());
@@ -21,20 +21,20 @@ const calculateQuirkNumbers = async function () {
   pContainer.textContent = `Result : ${parseInt(stack.pop())}`;
 };
 
-const calculateOperand = async (penultElement, lastElement, operand) => {
+const calculateOperand = (penultElement, lastElement, operand) => {
   let result = null;
   switch (operand) {
     case '+':
-      result = await sum(penultElement, lastElement)
+      result = sum(penultElement, lastElement)
       break;
     case '-':
-      result = await sub(penultElement, lastElement)
+      result = sub(penultElement, lastElement)
       break;
     case '*':
-      result = await mul(penultElement, lastElement)
+      result = mul(penultElement, lastElement)
       break;
     case '/':
-      result = await div(penultElement, lastElement)
+      result = div(penultElement, lastElement)
       break;
 
     default:
