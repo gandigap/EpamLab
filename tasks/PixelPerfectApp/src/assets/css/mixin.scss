@@ -1,0 +1,73 @@
+$color-primary:#60606E;
+$color-secondary:#7BEEC7;
+$color-alternative_1:#999999;
+$color-alternative_2:#9A9A9A;
+$color-four:#E5E5E5;
+$color-hover:#F1CDB3;
+$color-white:#FFFFFF;
+$color-header:#DCDCDC;
+$color-active:#E66A62;
+$color-disable:#CDCDCD;
+
+
+@mixin postTitle {
+  font: {
+    size: 18px;
+    weight: bold;
+  }
+
+  letter-spacing: -0.02rem;
+  color: $color-primary;
+}
+
+@mixin postSubTitle {
+  font: {
+    size: 14px;
+    family: 'Open Sans';
+  }
+
+  line-height: 22px;
+  color: $color-alternative_1;
+}
+
+@mixin postContinueTitle {
+  font: {
+    size: 14px;
+    weight: bold;
+  }
+
+  color: $color-primary;
+}
+
+@mixin buttonHover {
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+@mixin buttonActive {
+  transform: scale(0.8);
+  transition: 0.2s;
+}
+
+@mixin menuHover {
+  background-color: $color-secondary;
+  color: $color-primary;
+}
+
+@mixin menuActive {
+  background-color: $color-white;
+  color: $color-primary;
+  transition: linear .2s;
+}
+
+@mixin iconHover {
+  transform: scale(1.5);
+  transition: 0.2s;
+}
+
+@mixin menuFooterHover {
+  /* background-color: $color-secondary;
+color: $color-primary; */
+  padding-bottom: 5px;
+  border-bottom: 1px solid $color-secondary;
+}
