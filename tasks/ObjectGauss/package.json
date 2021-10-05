@@ -1,0 +1,19 @@
+{
+  "name": "ObjectGauss",
+  "version": "1.0.0",
+  "description": "Functions",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gandigap/EpamLab.git"
+  },
+  "keywords": [
+    "funstions"
+  ],
+  "author": "https://github.com/gandigap",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gandigap/EpamLab/issues"
+  },
+  "homepage": "https://github.com/gandigap/EpamLab#readme"
+}
