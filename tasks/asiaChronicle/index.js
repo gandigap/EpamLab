@@ -11,15 +11,21 @@ class App {
     const dropDownCategoriesContent = document.getElementById('categories__content');
     const dropDownTitlesContent = document.getElementById('titles__content');
     await this.getData();
-    const categories = this.currentData.entries.map(item => item.Category)
-      .filter((value, index, self) => self.indexOf(value) === index)
-    categories.forEach(category => {
-      create('p', 'dropdown__content__link category', `${category}`, dropDownCategoriesContent);
-    });
-    titles.forEach(title => {
-      create('p', 'dropdown__content__link title', `${title.toUpperCase()}`, dropDownTitlesContent);
-    });
-    this.addEventListenerForDropDowns();
+    if (this.currentData === null || this.currentData.length === 0) {
+      document.getElementById('other-content').innerHTML = `
+      <h3 class="title-error">App don't have data</h3>
+      `
+    } else {
+      const categories = this.currentData.entries.map(item => item.Category)
+        .filter((value, index, self) => self.indexOf(value) === index)
+      categories.forEach(category => {
+        create('p', 'dropdown__content__link category', `${category}`, dropDownCategoriesContent);
+      });
+      titles.forEach(title => {
+        create('p', 'dropdown__content__link title', `${title.toUpperCase()}`, dropDownTitlesContent);
+      });
+      this.addEventListenerForDropDowns();
+    }
   }
 
   addEventListenerForDropDowns() {
@@ -31,16 +37,20 @@ class App {
   async getData(queryString = '') {
     await fetch(`https://api.publicapis.org/entries?${queryString}`)
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Something went wrong');
         }
-        return response.json();
       })
       .then(data => {
         this.currentData = data;
+
       })
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
+        this.currentData = null;
+        console.log(this.currentData)
       });
   }
 
