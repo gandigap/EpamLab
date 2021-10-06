@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { colors } from '../../styles/mixinsAndVars';
 
 const AlbumContainer = styled.div`
-  width 300px;
+  width 200px;
   min-height: 100px;
   padding:5px;
   margin: 5px;
-  background-color: yellow;
+  background-color: ${colors.fourthСolor};
+  border-radius: 10px;
   color: #000;  
 `;
 
@@ -23,11 +25,7 @@ interface AlbumProps {
   }
 }
 
-const defaultDataAlbumState = {
-  id: -1,
-  title: 'default',
-  userId: -1,
-}
+const defaultDataAlbumState = {}
 
 class Album extends Component<AlbumProps> {
   constructor(props: AlbumProps) {

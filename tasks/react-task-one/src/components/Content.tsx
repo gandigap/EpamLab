@@ -4,17 +4,14 @@ import Albums from './albums/Albums';
 
 const ContentContainer = styled.div`
   grid-area: content;  
-  font-size: 18px;  
+  font-size: 18px;
+  padding:20px 0;  
 `;
 
-interface ContentProps {
-  content: string;
-}
 
-const Content: React.FC<ContentProps> = ({ content }) => {
+const Content = () => {
   return (
     <ContentContainer>
-      {content}
       <Albums />
     </ContentContainer>
   );

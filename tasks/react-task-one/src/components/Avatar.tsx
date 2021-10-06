@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { colors } from '../styles/mixinsAndVars';
 
 const AvatarContainer = styled.div`
   grid-area: avatar;  
+  background-color: ${colors.secondColor};
+  text-align: center;
 `;
 
 const ImageContainer = styled.img`
-  max-width: 150px;  
-  margin: 20px;
-  border: 1px solid yellow;
+  max-width: 100px;  
+  margin: 20px;  
 `;
 
 interface AvatarProps {

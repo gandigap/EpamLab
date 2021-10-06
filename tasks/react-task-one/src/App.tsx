@@ -1,18 +1,19 @@
 import React from 'react'
 import UserDetails from './components/UserDetails';
 import styled, { createGlobalStyle } from 'styled-components';
+import { colors } from './styles/mixinsAndVars';
 
 const Global = createGlobalStyle`
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: yellow;
+  color: ${colors.firstColor};
 }`;
 
 const AppContainer = styled.div`
   width: 100%;
-  background-color: #20264a;
+  background-color: ${colors.fourthСolor};
   margin:0 auto;
   min-height:100vh;
 `;
@@ -40,7 +41,6 @@ const userDetails = {
     "catchPhrase": "Multi-layered client-server neural-net",
     "bs": "harness real-time e-markets"
   },
-  "content": "I`m a person without bad habits and with a good sense of humor. My main goal is to become a part of EPAM"
 };
 
 export const App = () => {

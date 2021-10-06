@@ -2,13 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { colors } from '../styles/mixinsAndVars';
 
 const UserInfoContainer = styled.div`
   grid-area: info;  
+  background-color: ${colors.secondColor};
 `;
 
 const UserInfoName = styled.h3`
-  margin:40px 0;
+  margin:20px 0;
   font-weigth:bold;
   font-size: 24px;
 `;

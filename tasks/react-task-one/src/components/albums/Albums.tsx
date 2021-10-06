@@ -8,18 +8,12 @@ const AlbumsContainer = styled.div`
   justify-content: space-around;  
 `;
 
-const AlbumsButton = styled.button`
-  width: 50px;
-  height: 30px;
-  border-radius: 10px;  
-`;
-
 interface AlbumsProps {
-  dataAlbumsProps?: []
+  dataAlbumsProps?: Array<AlbumsData>
 }
 
 interface AlbumsState {
-  dataAlbumsState?: []
+  dataAlbumsState: Array<AlbumsData>
 }
 
 interface AlbumsData {
@@ -28,7 +22,7 @@ interface AlbumsData {
   userId: number;
 }
 
-const defaultDataAlbumsState: [] = [];
+const defaultDataAlbumsState: Array<AlbumsData> = [];
 
 export class Albums extends Component<AlbumsProps, AlbumsState> {
   constructor(props: AlbumsProps) {
@@ -40,7 +34,13 @@ export class Albums extends Component<AlbumsProps, AlbumsState> {
 
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/albums')
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Something went wrong');
+        }
+      })
       .then(json => {
         this.setState({
           dataAlbumsState: json
@@ -54,17 +54,17 @@ export class Albums extends Component<AlbumsProps, AlbumsState> {
   render() {
     const albums = this.state.dataAlbumsState;
     let listAlbums = null;
-    if (albums !== undefined) {
-      listAlbums = (albums === null) ? 'Albums is null' :
+    if (albums !== undefined && albums.length !== 0) {
+      if (albums !== null) {
         listAlbums = albums.map((album: AlbumsData) =>
           <Album albumInfo={album} key={album.id} >hi</Album>
         );
+      }
     }
 
     return (
       <AlbumsContainer>
-        {listAlbums}
-        <AlbumsButton>Get</AlbumsButton >
+        {listAlbums === null ? 'No albums' : listAlbums}
       </AlbumsContainer>
     )
   }
