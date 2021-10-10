@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from './Avatar';
 import UserInfo from './UserInfo';
 import styled from 'styled-components';
-import Content from './Content';
+import Content from './content/Content';
 
 const UserDetailContainer = styled.div`
   max-width:1200px;

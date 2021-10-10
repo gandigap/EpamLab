@@ -10,16 +10,17 @@ export const buttonStyle = () => {
   return `
     padding: 5px 20px;
     font-size:24px;
-    border: 3px solid ${colors.secondColor};
+    border: 3px solid ${colors.thirdColor};
     border-radius: 10px;
+    transition:all ease 0.3s;
 
     &:hover {
-      background-color: ${colors.secondColor};
+      background-color: ${colors.thirdColor};
       color: ${colors.firstColor};
     }
 
     &:active {
-      
+      transform: scale(0.9);
     }
   `
 }

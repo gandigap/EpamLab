@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { AlbumProps } from './AlbumInterfaces';
 import { colors } from '../../styles/mixinsAndVars';
+import ContentContext from '../content/ContentContext';
 
 const AlbumContainer = styled.div`
   width 24%;
@@ -28,12 +29,20 @@ const AlbumContainerTitle = styled.h3`
   background-color: ${colors.thirdColor};
 `;
 
-const Album = ({ albumInfo, handler }: AlbumProps) => {
+const Album = ({ albumInfo }: AlbumProps) => {
+  const value = useContext(ContentContext);
+
   return (
-    <AlbumContainer id={`${albumInfo.id}`} onClick={() => handler(`photos ${albumInfo.id}`)}>
+    <AlbumContainer id={`${albumInfo.id}`} onClick={() => {
+      if (value.setViewState !== undefined && value.setAlbumId !== undefined) {
+        value.setViewState(`photos`);
+        value.setAlbumId(`${albumInfo.id}`);
+      }
+    }} >
       <AlbumContainerTitle >{albumInfo.title}</AlbumContainerTitle>
     </AlbumContainer>
   );
 }
 
 export default Album;
+

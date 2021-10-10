@@ -5,10 +5,9 @@ export interface AlbumsData {
 }
 
 export interface AlbumsProps {
-  changeView: React.Dispatch<React.SetStateAction<string>>
+  changeView?: React.Dispatch<React.SetStateAction<string>>
 }
 
 export interface AlbumProps {
   albumInfo: AlbumsData;
-  handler: React.Dispatch<React.SetStateAction<string>>;
 }

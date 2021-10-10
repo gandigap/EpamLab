@@ -10,7 +10,6 @@ const AlbumsContainer = styled.div`
 `;
 
 const Albums = (props: AlbumsProps) => {
-
   const [albums, setAlbums] = useState<Array<AlbumsData>>([]);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const Albums = (props: AlbumsProps) => {
   return (
     <AlbumsContainer>
       {albums.length === 0 ? 'Not albums' : albums.map((album: AlbumsData) =>
-        <Album albumInfo={album} key={album.id} handler={props.changeView} />
+        <Album albumInfo={album} key={album.id} />
       )}
     </AlbumsContainer>
   );
