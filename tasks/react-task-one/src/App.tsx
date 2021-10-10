@@ -3,12 +3,16 @@ import UserDetails from './components/UserDetails';
 import styled, { createGlobalStyle } from 'styled-components';
 import { colors } from './styles/mixinsAndVars';
 
+
 const Global = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   color: ${colors.firstColor};
+  font-family: "Raleway", sans-serif;
 }`;
 
 const AppContainer = styled.div`

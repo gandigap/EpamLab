@@ -1,45 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { AlbumProps } from './AlbumInterfaces';
 import { colors } from '../../styles/mixinsAndVars';
 
 const AlbumContainer = styled.div`
-  width 200px;
-  min-height: 100px;
-  padding:5px;
+  width 24%;
+  min-width:200px;
+  min-height: 200px;  
   margin: 5px;
-  background-color: ${colors.fourthСolor};
-  border-radius: 10px;
+  background-color: ${colors.fifthСolor};  
   color: #000;  
+  cursor: pointer;
+
+  &:hover{
+    box-shadow: 5px 5px 2px 0px ${colors.secondColor};
+    -webkit-box-shadow: 5px 5px 2px 0px ${colors.secondColor};
+    -moz-box-shadow: 5px 5px 2px 0px ${colors.secondColor};
+  }
 `;
 
 const AlbumContainerTitle = styled.h3`
-  color:  #20264a;
-  font-size: 22px;
+  padding: 5px;
+  height: 36px;
+  overflow: hidden;
+  font-size: 22px;  
+  color: ${colors.firstColor};
+  background-color: ${colors.thirdColor};
 `;
 
-interface AlbumProps {
-  albumInfo: {
-    id: number;
-    title: string;
-    userId: number;
-  }
-}
-
-const defaultDataAlbumState = {}
-
-class Album extends Component<AlbumProps> {
-  constructor(props: AlbumProps) {
-    super(props)
-    this.state = defaultDataAlbumState;
-  }
-
-  render() {
-    return (
-      <AlbumContainer id={`${this.props.albumInfo.id}`}>
-        <AlbumContainerTitle >{this.props.albumInfo.title}</AlbumContainerTitle>
-      </AlbumContainer>
-    );
-  }
+const Album = ({ albumInfo, handler }: AlbumProps) => {
+  return (
+    <AlbumContainer id={`${albumInfo.id}`} onClick={() => handler(`photos ${albumInfo.id}`)}>
+      <AlbumContainerTitle >{albumInfo.title}</AlbumContainerTitle>
+    </AlbumContainer>
+  );
 }
 
 export default Album;

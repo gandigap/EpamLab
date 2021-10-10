@@ -3,18 +3,16 @@ import Avatar from './Avatar';
 import UserInfo from './UserInfo';
 import styled from 'styled-components';
 import Content from './Content';
-import { colors } from '../styles/mixinsAndVars';
 
 const UserDetailContainer = styled.div`
-  max-width:800px;
+  max-width:1200px;
   margin: 0 auto;  
   display: grid;    
   grid-template-columns: 1fr 2fr;
   grid-template-rows: auto;
   grid-template-areas: 
     "avatar info"
-    "content content";
-  background-color: ${colors.thirdColor};
+    "content content"; 
 `;
 
 interface UserDetailsProps {

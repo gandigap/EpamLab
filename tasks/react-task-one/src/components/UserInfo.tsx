@@ -6,21 +6,23 @@ import { colors } from '../styles/mixinsAndVars';
 
 const UserInfoContainer = styled.div`
   grid-area: info;  
-  background-color: ${colors.secondColor};
+  background-color: ${colors.thirdColor};
 `;
 
 const UserInfoName = styled.h3`
   margin:20px 0;
   font-weigth:bold;
   font-size: 24px;
+  color: ${colors.fifthСolor};
 `;
 
 const UserInfoUserName = styled.span`
   font-style:italic;
+  color: ${colors.fifthСolor};
 `;
 
 const UserInfoUserAdditionalContainer = styled.p`
-  color: #fff;
+  color: ${colors.firstColor};
   margin:20px 0;
 `;
 

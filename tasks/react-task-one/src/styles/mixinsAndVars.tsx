@@ -1,14 +1,26 @@
 export const colors = {
   firstColor: '#212529',
   secondColor: '#6c757c',
-  thirdColor: '#d5d5d5',
+  thirdColor: '#bdbdbd',
   fourthСolor: '#F2F2F2',
+  fifthСolor: '#FFFFFF',
 }
 
 export const buttonStyle = () => {
   return `
+    padding: 5px 20px;
     font-size:24px;
-    background-color: ${colors.firstColor}
+    border: 3px solid ${colors.secondColor};
+    border-radius: 10px;
+
+    &:hover {
+      background-color: ${colors.secondColor};
+      color: ${colors.firstColor};
+    }
+
+    &:active {
+      
+    }
   `
 }
 

@@ -1,38 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Album from './Album';
+import { AlbumsData, AlbumsProps } from './AlbumInterfaces';
 
 const AlbumsContainer = styled.div`
-  display:flex; 
+  display: flex; 
   flex-wrap: wrap;
   justify-content: space-around;  
 `;
 
-interface AlbumsProps {
-  dataAlbumsProps?: Array<AlbumsData>
-}
+const Albums = (props: AlbumsProps) => {
 
-interface AlbumsState {
-  dataAlbumsState: Array<AlbumsData>
-}
+  const [albums, setAlbums] = useState<Array<AlbumsData>>([]);
 
-interface AlbumsData {
-  id: number;
-  title: string;
-  userId: number;
-}
-
-const defaultDataAlbumsState: Array<AlbumsData> = [];
-
-export class Albums extends Component<AlbumsProps, AlbumsState> {
-  constructor(props: AlbumsProps) {
-    super(props)
-    this.state = {
-      dataAlbumsState: defaultDataAlbumsState
-    }
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/albums')
       .then(response => {
         if (response.ok) {
@@ -42,32 +23,20 @@ export class Albums extends Component<AlbumsProps, AlbumsState> {
         }
       })
       .then(json => {
-        this.setState({
-          dataAlbumsState: json
-        });
+        setAlbums([...json]);
       })
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
       });
-  }
+  }, [setAlbums]);
 
-  render() {
-    const albums = this.state.dataAlbumsState;
-    let listAlbums = null;
-    if (albums !== undefined && albums.length !== 0) {
-      if (albums !== null) {
-        listAlbums = albums.map((album: AlbumsData) =>
-          <Album albumInfo={album} key={album.id} >hi</Album>
-        );
-      }
-    }
-
-    return (
-      <AlbumsContainer>
-        {listAlbums === null ? 'No albums' : listAlbums}
-      </AlbumsContainer>
-    )
-  }
+  return (
+    <AlbumsContainer>
+      {albums.length === 0 ? 'Not albums' : albums.map((album: AlbumsData) =>
+        <Album albumInfo={album} key={album.id} handler={props.changeView} />
+      )}
+    </AlbumsContainer>
+  );
 }
 
-export default Albums
+export default Albums;
