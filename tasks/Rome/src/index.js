@@ -1,3 +1,5 @@
+import './styles/index.scss';
+
 class App {
   constructor() {
     this.categories = null;
