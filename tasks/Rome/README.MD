@@ -5,3 +5,14 @@
 - Push code to repo “Rome”
 
 #### Transpiler code in repository dist
+
+### Run app
+```sh
+npm run start
+```
+
+
+### Dev build app
+```sh
+npm run build-dev
+```
