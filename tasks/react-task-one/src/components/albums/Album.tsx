@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { AlbumProps } from './AlbumInterfaces';
 import { colors } from '../../styles/mixinsAndVars';
-import ContentContext from '../content/ContentContext';
+import { useActions } from '../../hooks/useActions';
+import { useTypedSelector } from '../../hooks/useTypeSelectors';
 
 const AlbumContainer = styled.div`
   width 24%;
@@ -30,15 +31,26 @@ const AlbumContainerTitle = styled.h3`
 `;
 
 const Album = ({ albumInfo }: AlbumProps) => {
-  const value = useContext(ContentContext);
+  const { photosList, page, limit, albumID } = useTypedSelector(state => state.photos);
+
+  const { setPhotosListViewState, fetchPhotos, setAlbumId } = useActions();
+
+  /* useEffect(() => {
+    
+    console.log(albumID, 'albumID')
+  }, [fetchPhotos, page, limit, albumID]); */
+
+  const onClickCallback = useCallback(
+    () => {
+      fetchPhotos(page, limit, albumInfo.id);
+      setPhotosListViewState();
+      setAlbumId(albumInfo.id);
+    },
+    [fetchPhotos, setPhotosListViewState, setAlbumId, page, limit, albumInfo],
+  )
 
   return (
-    <AlbumContainer id={`${albumInfo.id}`} onClick={() => {
-      if (value.setViewState !== undefined && value.setAlbumId !== undefined) {
-        value.setViewState(`photos`);
-        value.setAlbumId(`${albumInfo.id}`);
-      }
-    }} >
+    <AlbumContainer id={`${albumInfo.id}`} onClick={onClickCallback} >
       <AlbumContainerTitle >{albumInfo.title}</AlbumContainerTitle>
     </AlbumContainer>
   );

@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import Albums from '../albums/Albums';
-import Photos from '../photos/Photos';
 import { buttonStyle } from '../../styles/mixinsAndVars';
-import ContentContext from './ContentContext';
+import AlbumsList from '../albums/AlbumsList';
+import PhotosList from '../photos/PhotosList';
+import { useTypedSelector } from '../../hooks/useTypeSelectors';
+import { useActions } from '../../hooks/useActions';
 
 const ContentContainer = styled.div`
   grid-area: content;  
@@ -17,32 +18,19 @@ const ButtonBack = styled.button`
 `;
 
 const Content = () => {
-  const [viewState, setViewState] = useState('albums');
-  const [albumId, setAlbumId] = useState('');
-  const onClickCallback = useCallback(
-    () => setViewState('albums'),
-    [setViewState]
-  );
-
-  const value = {
-    setViewState,
-    setAlbumId,
-  }
-
+  const { viewState } = useTypedSelector(state => state.content);
+  const { setAlbumsListViewState } = useActions();
+  console.log('content')
   return (
-    <ContentContext.Provider value={value}>
-      <ContentContainer>
-        {
-          viewState === 'albums' ?
-            <Albums />
-            :
-            <>
-              <ButtonBack onClick={onClickCallback}>Back</ButtonBack>
-              <Photos idAlbum={`${albumId}`} />
-            </>
-        }
-      </ContentContainer>
-    </ContentContext.Provider>
+    <ContentContainer>
+      {viewState === 'photos' ?
+        <>
+          <PhotosList />
+          <ButtonBack onClick={() => setAlbumsListViewState()}>Back</ButtonBack>
+        </>
+        : <AlbumsList />}
+
+    </ContentContainer>
   );
 };
 

@@ -43,6 +43,7 @@ interface UserDetailsProps {
 }
 
 const UserDetails: React.FC<UserDetailsProps> = ({ details }) => {
+  console.log('user details')
   return (
     <UserDetailContainer id={`userDetails-${details.id}`}>
       <Avatar avatarSrc={details.avatarSrc} />
