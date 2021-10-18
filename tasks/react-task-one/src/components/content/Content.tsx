@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { buttonStyle } from '../../styles/mixinsAndVars';
-import AlbumsList from '../albums/AlbumsList';
-import PhotosList from '../photos/PhotosList';
+import AlbumsList from './albums/AlbumsList';
+import PhotosList from './photos/PhotosList';
 import { useTypedSelector } from '../../hooks/useTypeSelectors';
 import { useActions } from '../../hooks/useActions';
 
@@ -19,14 +19,22 @@ const ButtonBack = styled.button`
 
 const Content = () => {
   const { viewState } = useTypedSelector(state => state.content);
+
   const { setAlbumsListViewState } = useActions();
-  console.log('content')
+
+  const onClickButtonBack = useCallback(
+    () => {
+      setAlbumsListViewState()
+    },
+    [setAlbumsListViewState],
+  )
+
   return (
     <ContentContainer>
       {viewState === 'photos' ?
         <>
+          <ButtonBack onClick={onClickButtonBack}>Back</ButtonBack>
           <PhotosList />
-          <ButtonBack onClick={() => setAlbumsListViewState()}>Back</ButtonBack>
         </>
         : <AlbumsList />}
 

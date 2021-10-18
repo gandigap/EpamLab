@@ -1,9 +1,9 @@
 import { Dispatch } from "redux";
 import { AlbumsAction, AlbumsActionTypes } from "../../types/albumsTypes";
 
-function getDataObject(array: any) {
+function getDataObject(array: object[]) {
   const objFinal: any = {};
-  array.forEach((element: object, index: string) => {
+  array.forEach((element: object, index: number) => {
     objFinal[index + 1] = element;
   });
   return objFinal;
@@ -21,7 +21,6 @@ export const fetchAlbums = () => {
         }
       })
       .then(json => {
-        console.log(json, 'jsson')
         dispatch({
           type: AlbumsActionTypes.FETCH_ALBUMS_SUCCESS,
           payload: getDataObject(json)

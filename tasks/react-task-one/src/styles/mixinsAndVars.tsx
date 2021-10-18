@@ -25,4 +25,12 @@ export const buttonStyle = () => {
   `
 }
 
+export const hoverShadow = () => {
+  return `
+    box-shadow: 5px 5px 2px 0px ${colors.secondColor};
+    -webkit-box-shadow: 5px 5px 2px 0px ${colors.secondColor};
+    -moz-box-shadow: 5px 5px 2px 0px ${colors.secondColor};
+  `
+}
+
 

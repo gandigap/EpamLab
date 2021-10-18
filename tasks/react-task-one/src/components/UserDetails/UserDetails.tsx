@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from './Avatar';
 import UserInfo from './UserInfo';
 import styled from 'styled-components';
-import Content from './content/Content';
+import Content from '../content/Content';
 
 const UserDetailContainer = styled.div`
   max-width:1200px;
@@ -43,18 +43,20 @@ interface UserDetailsProps {
 }
 
 const UserDetails: React.FC<UserDetailsProps> = ({ details }) => {
-  console.log('user details')
   return (
-    <UserDetailContainer id={`userDetails-${details.id}`}>
-      <Avatar avatarSrc={details.avatarSrc} />
-      <UserInfo
-        name={details.name}
-        username={details.username}
-        email={details.email}
-        phone={details.phone}
-      />
+    <>
+      <UserDetailContainer id={`userDetails-${details.id}`}>
+        <Avatar avatarSrc={details.avatarSrc} />
+        <UserInfo
+          name={details.name}
+          username={details.username}
+          email={details.email}
+          phone={details.phone}
+        />
+
+      </UserDetailContainer>
       <Content />
-    </UserDetailContainer>
+    </>
   );
 };
 

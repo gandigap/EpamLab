@@ -1,5 +1,5 @@
 import React from 'react'
-import UserDetails from './components/UserDetails';
+import UserDetails from './components/UserDetails/UserDetails';
 import styled, { createGlobalStyle } from 'styled-components';
 import { colors } from './styles/mixinsAndVars';
 
