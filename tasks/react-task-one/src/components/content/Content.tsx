@@ -9,7 +9,7 @@ import { useActions } from '../../hooks/useActions';
 const ContentContainer = styled.div`
   grid-area: content;  
   font-size: 18px;
-  padding:20px 0;  
+  padding:20px;  
   text-align: center;
 `;
 

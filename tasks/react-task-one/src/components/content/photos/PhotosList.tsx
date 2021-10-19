@@ -53,7 +53,6 @@ const PhotosList = () => {
       </PhotosListContainer>
       <Button onClick={onClickButtonAddPhoto}>Add photo</Button>
     </div>
-
   )
 }
 

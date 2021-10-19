@@ -1,6 +1,6 @@
 export const colors = {
   firstColor: '#212529',
-  secondColor: '#6c757c',
+  secondColor: '#dddddd',
   thirdColor: '#bdbdbd',
   fourthСolor: '#F2F2F2',
   fifthСolor: '#FFFFFF',
@@ -27,9 +27,9 @@ export const buttonStyle = () => {
 
 export const hoverShadow = () => {
   return `
-    box-shadow: 5px 5px 2px 0px ${colors.secondColor};
-    -webkit-box-shadow: 5px 5px 2px 0px ${colors.secondColor};
-    -moz-box-shadow: 5px 5px 2px 0px ${colors.secondColor};
+    box-shadow: 5px 5px 2px 0px ${colors.firstColor};
+    -webkit-box-shadow: 5px 5px 2px 0px ${colors.firstColor};
+    -moz-box-shadow: 5px 5px 2px 0px ${colors.firstColor};
   `
 }
 

@@ -13,10 +13,11 @@ const Global = createGlobalStyle`
   box-sizing: border-box;
   color: ${colors.firstColor};
   font-family: "Raleway", sans-serif;
+  background-color:${colors.secondColor};
 }`;
 
 const AppContainer = styled.div`
-  width: 100%;
+  max-width: 1200px;
   background-color: ${colors.fourthСolor};
   margin:0 auto;
   min-height:100vh;

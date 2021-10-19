@@ -6,9 +6,9 @@ export enum AlbumsActionTypes {
 }
 
 export interface AlbumsState {
-  albumsList: any;
-  loading: boolean;
-  error: null | string;
+  albumsList: any,
+  loading: boolean,
+  error: null | string,
 }
 
 interface FetchAlbumsAction {

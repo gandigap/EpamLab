@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { PhotoProps } from './PhotoInterfaces';
+import { PhotoProps } from '../../../types/photosTypes';
 import { hoverShadow } from '../../../styles/mixinsAndVars';
 
 const PhotoImg = styled.img`
@@ -14,10 +14,10 @@ const PhotoImg = styled.img`
   }
 `;
 
-function Photo({ photoInfo }: PhotoProps) {
+const Photo = ({ photoInfo }: PhotoProps) => {
   return (
-    <PhotoImg src={`${photoInfo.url}`} alt="Logo">
-    </PhotoImg>
+    <PhotoImg src={`${photoInfo.url}`} alt="Logo" />
+
   );
 }
 

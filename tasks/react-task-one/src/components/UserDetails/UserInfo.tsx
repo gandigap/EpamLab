@@ -5,20 +5,21 @@ import { faCoffee, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { colors } from '../../styles/mixinsAndVars';
 
 const UserInfoContainer = styled.div`
-  grid-area: info;  
-  background-color: ${colors.thirdColor};
+  grid-area: info;   
+  margin: 10px;     
 `;
 
 const UserInfoName = styled.h3`
   margin:20px 0;
   font-weigth:bold;
   font-size: 24px;
-  color: ${colors.fifthСolor};
+  color: ${colors.firstColor};
 `;
 
 const UserInfoUserName = styled.span`
   font-style:italic;
   color: ${colors.fifthСolor};
+  text-shadow: 0px 3px 7px ${colors.firstColor};
 `;
 
 const UserInfoUserAdditionalContainer = styled.p`

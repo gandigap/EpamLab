@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../../styles/mixinsAndVars';
 
 const AvatarContainer = styled.div`
   grid-area: avatar;  
-  background-color: ${colors.thirdColor};
   text-align: center;
 `;
 
