@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { PhotosAction, PhotosActionTypes } from "../../types/photosTypes";
+import { PhotoInfoConfig, PhotosAction, PhotosActionTypes } from "../../types/photosTypes";
 
 export const fetchPhotos = (albumID = 1) => {
   return function (dispatch: Dispatch<PhotosAction>) {
@@ -32,6 +32,6 @@ export const setAlbumId = (albumID: number): PhotosAction => {
   return { type: PhotosActionTypes.SET_ALBUM_ID, payload: albumID }
 }
 
-export const addPhoto = (newPhoto: object): PhotosAction => {
+export const addPhoto = (newPhoto: PhotoInfoConfig): PhotosAction => {
   return { type: PhotosActionTypes.ADD_PHOTO, payload: newPhoto }
 }

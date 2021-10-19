@@ -5,7 +5,7 @@ import { useActions } from '../../../hooks/useActions';
 import styled from 'styled-components';
 import { buttonStyle } from '../../../styles/mixinsAndVars';
 import Spinner from '../../spinner/Spinner';
-import { AlbumsData } from '../../../types/albumsTypes';
+import { AlbumListConfig } from '../../../types/albumsTypes';
 
 const AlbumsListContainer = styled.div`
   display: flex;
@@ -20,12 +20,11 @@ const Button = styled.button`
 const AlbumsList = () => {
   const { albumsList, error, loading } = useTypedSelector(state => state.albums);
   const { fetchAlbums, addAlbum } = useActions();
-
   const onClickButtonAddAlbum = useCallback(
     () => {
-      const newObject: { [key: number]: AlbumsData } = {};
+      const newObject: AlbumListConfig = {};
       const ind = Object.keys(albumsList).length + 1;
-      newObject[ind] = { userId: 1, id: ind, title: 'default' }
+      newObject[`${ind}`] = { userId: 1, id: ind, title: 'default' }
       addAlbum(newObject)
     },
     [addAlbum, albumsList],

@@ -35,7 +35,6 @@ const AlbumContainerTitle = styled.h3`
 const Album = ({ albumInfo }: AlbumProps) => {
   const { photosList } = useTypedSelector(state => state.photos);
   const { setPhotosListViewState, fetchPhotos, setAlbumId } = useActions();
-
   const onClickAlbum = useCallback(
     () => {
       if (photosList[albumInfo.id] === undefined) {

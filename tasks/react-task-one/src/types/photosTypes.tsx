@@ -1,6 +1,6 @@
 export interface PhotosState {
   albumID: number,
-  photosList: any,
+  photosList: PhotoListConfig,
   loading: boolean;
   error: null | string;
 }
@@ -13,13 +13,14 @@ export enum PhotosActionTypes {
   ADD_PHOTO = 'ADD_PHOTO',
 }
 
+
 interface FetchPhotosAction {
   type: PhotosActionTypes.FETCH_PHOTOS;
 }
 
 interface FetchPhotosSuccessAction {
   type: PhotosActionTypes.FETCH_PHOTOS_SUCCESS;
-  payload: any;
+  payload: PhotoListConfig;
 }
 
 interface FetchPhotosErrorAction {
@@ -43,7 +44,11 @@ export type PhotosAction = FetchPhotosAction
   | SetAlbumId
   | AddPhotoAction;
 
-export interface PhotosData {
+export interface PhotoListConfig {
+  [key: string]: PhotoInfoConfig[];
+}
+
+export interface PhotoInfoConfig {
   albumId: number;
   id: number;
   title: string;
@@ -51,10 +56,6 @@ export interface PhotosData {
   thumbnailUrl: string;
 }
 
-export interface PhotosProps {
-  idAlbum?: string
-}
-
 export interface PhotoProps {
-  photoInfo: PhotosData;
+  photoInfo: PhotoInfoConfig;
 }

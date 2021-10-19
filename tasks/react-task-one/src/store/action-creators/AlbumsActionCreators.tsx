@@ -1,10 +1,10 @@
 import { Dispatch } from "redux";
-import { AlbumsAction, AlbumsActionTypes } from "../../types/albumsTypes";
+import { AlbumInfoConfig, AlbumListConfig, AlbumsAction, AlbumsActionTypes } from "../../types/albumsTypes";
 
-function getDataObject(array: object[]) {
-  const objFinal: any = {};
-  array.forEach((element: object, index: number) => {
-    objFinal[index + 1] = element;
+function getDataObject(arrayAlbums: AlbumInfoConfig[]) {
+  const objFinal: AlbumListConfig = {};
+  arrayAlbums.forEach((element: AlbumInfoConfig, index: number) => {
+    objFinal[`${index + 1}`] = element;
   });
   return objFinal;
 }
@@ -36,6 +36,6 @@ export const fetchAlbums = () => {
   }
 }
 
-export const addAlbum = (newAlbum: object): AlbumsAction => {
+export const addAlbum = (newAlbum: AlbumListConfig): AlbumsAction => {
   return { type: AlbumsActionTypes.ADD_ALBUM, payload: newAlbum }
 }

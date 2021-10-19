@@ -55,7 +55,6 @@ const UserDetails: React.FC<UserDetailsProps> = ({ details }) => {
           email={details.email}
           phone={details.phone}
         />
-
       </UserDetailContainer>
       <Content />
     </>

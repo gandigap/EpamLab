@@ -5,8 +5,12 @@ export enum AlbumsActionTypes {
   ADD_ALBUM = 'ADD_ALBUM',
 }
 
+export interface AlbumListConfig {
+  [key: string]: AlbumInfoConfig;
+}
+
 export interface AlbumsState {
-  albumsList: { [key: string]: AlbumsData },
+  albumsList: AlbumListConfig,
   loading: boolean,
   error: null | string,
 }
@@ -17,7 +21,7 @@ interface FetchAlbumsAction {
 
 interface FetchAlbumsSuccessAction {
   type: AlbumsActionTypes.FETCH_ALBUMS_SUCCESS;
-  payload: { [key: number]: AlbumsData };
+  payload: AlbumListConfig;
 }
 
 interface FetchAlbumsErrorAction {
@@ -27,7 +31,7 @@ interface FetchAlbumsErrorAction {
 
 interface AddAlbumAction {
   type: AlbumsActionTypes.ADD_ALBUM;
-  payload: object;
+  payload: AlbumListConfig;
 }
 
 export type AlbumsAction = FetchAlbumsAction
@@ -35,16 +39,12 @@ export type AlbumsAction = FetchAlbumsAction
   | FetchAlbumsSuccessAction
   | AddAlbumAction;
 
-export interface AlbumsData {
+export interface AlbumInfoConfig {
+  userId: number;
   id: number;
   title: string;
-  userId: number;
-}
-
-export interface AlbumsProps {
-  changeView?: React.Dispatch<React.SetStateAction<string>>
 }
 
 export interface AlbumProps {
-  albumInfo: AlbumsData;
+  albumInfo: AlbumInfoConfig;
 }
