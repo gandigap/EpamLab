@@ -48,10 +48,10 @@ const AlbumsList = () => {
   return (
     <>
       <AlbumsListContainer>
-        {Object.keys(albumsList).map((key: any) => {
+        {Object.keys(albumsList).map((key: string) => {
           return <Album
-            albumInfo={albumsList[key]}
-            key={albumsList[key].id} />
+            albumInfo={albumsList[`${key}`]}
+            key={albumsList[`${key}`].id} />
         })}
       </AlbumsListContainer>
       <Button onClick={onClickButtonAddAlbum}>Add album</Button>

@@ -17,7 +17,6 @@ const PhotoImg = styled.img`
 const Photo = ({ photoInfo }: PhotoProps) => {
   return (
     <PhotoImg src={`${photoInfo.url}`} alt="Logo" />
-
   );
 }
 

@@ -6,7 +6,7 @@ export enum AlbumsActionTypes {
 }
 
 export interface AlbumsState {
-  albumsList: any,
+  albumsList: { [key: string]: AlbumsData },
   loading: boolean,
   error: null | string,
 }
@@ -17,7 +17,7 @@ interface FetchAlbumsAction {
 
 interface FetchAlbumsSuccessAction {
   type: AlbumsActionTypes.FETCH_ALBUMS_SUCCESS;
-  payload: any;
+  payload: { [key: number]: AlbumsData };
 }
 
 interface FetchAlbumsErrorAction {
@@ -34,7 +34,6 @@ export type AlbumsAction = FetchAlbumsAction
   | FetchAlbumsErrorAction
   | FetchAlbumsSuccessAction
   | AddAlbumAction;
-
 
 export interface AlbumsData {
   id: number;
