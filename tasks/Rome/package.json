@@ -37,5 +37,9 @@
     "dropdown"
   ],
   "author": "Ihar Berasneu",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "core-js": "^3.18.3",
+    "regenerator-runtime": "^0.13.9"
+  }
 }

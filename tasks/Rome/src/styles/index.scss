@@ -23,6 +23,10 @@ body {
   background-color: #acacac;
   color: #fff;
 
+  &:hover .dropdown__content {
+    display: block;
+  }
+
   &__title {
     padding: 10px;
     font-size: 24px;
@@ -49,10 +53,6 @@ body {
       &:hover {
         background-color: #acacac;
         color: #fff;
-
-        & .dropdown__content {
-          display: block;
-        }
       }
     }
   }
