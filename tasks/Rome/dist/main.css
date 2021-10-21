@@ -1,3 +1,6 @@
+/*!**********************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles/index.scss ***!
+  \**********************************************************************************************************************************************************/
 * {
   margin: 0;
   padding: 0;
@@ -16,6 +19,7 @@ body {
 
 .wrapper {
   margin: 0 auto;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -27,18 +31,15 @@ body {
   background-color: #acacac;
   color: #fff;
 }
-
-#titles {
-  display: none;
+.dropdown:hover .dropdown__content {
+  display: block;
 }
-
 .dropdown__title {
   padding: 10px;
   font-size: 24px;
   font-style: italic;
   font-weight: bold;
 }
-
 .dropdown__content {
   display: none;
   position: absolute;
@@ -50,20 +51,18 @@ body {
   max-height: 400px;
   overflow: auto;
 }
-
-.dropdown:hover .dropdown__content {
-  display: block;
-}
-
 .dropdown__content__link {
   padding: 0 5px;
   cursor: pointer;
   color: #000;
 }
-
 .dropdown__content__link:hover {
   background-color: #acacac;
   color: #fff;
+}
+
+#titles {
+  display: none;
 }
 
 #other-content {
@@ -78,15 +77,12 @@ body {
   border-radius: 10px;
   background-color: #ebebeb;
 }
-
 .api-info__title {
   font-size: 18px;
 }
-
 .api-info__description {
   font-style: italic;
 }
-
 .api-info__link {
   color: #000;
 }

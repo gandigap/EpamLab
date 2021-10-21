@@ -1,37 +1,46 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+import './styles/index.scss';
+
+const _links = {
+  categories: 'categories',
+  titles: 'titles'
+}
+
 class App {
   constructor() {
     this.categories = null;
     this.titles = null;
-    this.createListDropDown('categories');
+    this.createListDropDown(_links.categories);
     this.currentData = null;
-    this.dropDownCategories = document.getElementById('categories');
+    this.dropDownCategories = document.getElementById(_links.categories);
     this.dropDownCategoriesContent = document.getElementById('categories__content');
     this.dropDownTitlesContent = document.getElementById('titles__content');
-    this.dropDownTitles = document.getElementById('titles');
+    this.dropDownTitles = document.getElementById(_links.titles);
   }
 
   getArrayFilterData(data) {
     return this.currentData.entries.map(item => {
-      return data === 'categories' ? item.Category : item.API;
+      return data === _links.categories ? item.Category : item.API;
     }).filter((value, index, self) => self.indexOf(value) === index);
   }
 
   async createListDropDown(type) {
-    if (type === 'categories') {
+    if (type === _links.categories) {
       await this.getData();
       if (this.currentData === null || this.currentData.length === 0) {
         document.getElementById('other-content').innerHTML = `
         <h3 class="title-error">App don't have data</h3>
         `
       } else {
-        this.categories = this.getArrayFilterData('categories');
+        this.categories = this.getArrayFilterData(_links.categories);
         this.categories.forEach(category => {
-          create('p', 'dropdown__content__link category', `${category}`, this.dropDownCategoriesContent);
+          create('p', 'dropdown__content__link category', `${category.toUpperCase()}`, this.dropDownCategoriesContent);
         });
         this.addEventListenerForDropDown('category');
       }
 
-    } else if (type === 'titles') {
+    } else if (type === _links.titles) {
       this.dropDownTitlesContent.innerHTML = '';
       this.titles.forEach(title => {
         create('p', 'dropdown__content__link title', `${title.toUpperCase()}`, this.dropDownTitlesContent);
@@ -77,21 +86,18 @@ class App {
     if (event.target.classList.contains('category')) {
       this.dropDownTitles.style.display = 'block';
       await this.getData(`category=${targetInfo}&https=true`);
-      this.titles = this.getArrayFilterData('titles');
-      this.createListDropDown('titles');
-      console.log('c')
+      this.titles = this.getArrayFilterData(_links.titles);
+      this.createListDropDown(_links.titles);
     } else if (event.target.classList.contains('title')) {
       await this.getData(`title=${targetInfo}`);
       this.renderData();
     }
-
   }
 
   renderData() {
     const otherContent = document.getElementById('other-content');
     otherContent.innerHTML = '';
     const [data] = [...this.currentData.entries];
-    console.log(data);
     create('div', 'api-info', ` 
       <h3 class="api-info__title">${data.API}</h3>
       <div class="api-info__description">${data.Description}</div>
