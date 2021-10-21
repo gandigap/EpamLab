@@ -1,0 +1,22 @@
+body {
+  background-color: darkcyan;
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 300px;
+  height: 200px;
+  text-align: center;
+}
+
+.pContainer {
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+}
+
+.result-info {
+  font-weight: bold;
+  color: white;
+  font-size: 22px;
+}

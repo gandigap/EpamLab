@@ -1,0 +1,32 @@
+body {
+  background-color: #A1A1A1;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.result {
+  margin: 0 auto;
+  width: 300px;
+  height: 50px;
+  overflow: auto;
+  background-color: #262B38;
+  color: #fff;
+}
+
+input {
+  margin: 10px;
+}
+
+.complete {
+  margin: 5px;
+  padding: 5px;
+  background-color: #949CAD;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+p {
+  margin: 5px;
+}
