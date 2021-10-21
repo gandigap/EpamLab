@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const AvatarContainer = styled.div`
   grid-area: avatar;  
   text-align: center;
+  border-radius: 10px;
 `;
 
 const ImageContainer = styled.img`
