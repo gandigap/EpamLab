@@ -1,8 +1,7 @@
 ### Rome
-
-- Convert your code from previous HT by the Babel transpiler to ES5 version
-- Check working status of app for different browsers
-- Push code to repo “Rome”
+- Split your code from previous HM to some modules (at least 2)
+- Implement dynamic import for module
+- Push code to repo “multi_module”
 
 #### Transpiler code in repository dist
 
