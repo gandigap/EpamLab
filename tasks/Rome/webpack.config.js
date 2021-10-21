@@ -37,7 +37,7 @@ module.exports = {
   },
 
   plugins: [new MiniCssExtractPlugin()],
-  devtool: 'source-map',
+  devtool: false,
   devServer: {
     static: {
       directory: path.join(__dirname, 'dist'),
