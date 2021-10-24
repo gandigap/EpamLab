@@ -3,18 +3,14 @@ import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import Photo from './Photo';
 import styled from 'styled-components';
 import Spinner from '../../spinner/Spinner';
-import { buttonStyle } from '../../../styles/mixinsAndVars';
 import { useActions } from '../../../hooks/useActions';
 import { PhotoInfoConfig } from '../../../types/photosTypes';
+import Button from '../../button/Button';
 
 const PhotosListContainer = styled.div`
   display: flex; 
   flex-wrap: wrap;
   justify-content: center;  
-`;
-
-const Button = styled.button`
-  ${buttonStyle}
 `;
 
 const PhotosList = () => {
@@ -53,7 +49,7 @@ const PhotosList = () => {
             key={photo.id} />)
           : ''}
       </PhotosListContainer>
-      <Button onClick={onClickButtonAddPhoto}>Add photo</Button>
+      <Button onClickHandler={onClickButtonAddPhoto}>Add photo</Button>
     </div>
   )
 }

@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../styles/mixinsAndVars';
 import { useActions } from '../../../hooks/useActions';
 import { hoverShadow } from '../../../styles/mixinsAndVars';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import { AlbumProps } from '../../../types/albumsTypes';
+import ContentContext from '../ContentContext';
 
 const AlbumContainer = styled.div`
   width 24%;
@@ -34,16 +35,18 @@ const AlbumContainerTitle = styled.h3`
 
 const Album = ({ albumInfo }: AlbumProps) => {
   const { photosList } = useTypedSelector(state => state.photos);
-  const { setPhotosListViewState, fetchPhotos, setAlbumId } = useActions();
+  const { fetchPhotos, setAlbumId } = useActions();
+  const value = useContext(ContentContext);
+
   const onClickAlbum = useCallback(
     () => {
       if (photosList[albumInfo.id] === undefined) {
         fetchPhotos(albumInfo.id);
       }
-      setPhotosListViewState();
+      value.setViewState(`photos`);
       setAlbumId(albumInfo.id);
     },
-    [photosList, albumInfo.id, setPhotosListViewState, setAlbumId, fetchPhotos],
+    [photosList, albumInfo.id, value, setAlbumId, fetchPhotos],
   )
 
   return (

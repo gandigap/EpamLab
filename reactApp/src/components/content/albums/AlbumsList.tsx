@@ -1,9 +1,9 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import Album from './Album';
 import { useActions } from '../../../hooks/useActions';
 import styled from 'styled-components';
-import { buttonStyle } from '../../../styles/mixinsAndVars';
+import Button from '../../button/Button';
 import Spinner from '../../spinner/Spinner';
 import { AlbumListConfig } from '../../../types/albumsTypes';
 
@@ -13,11 +13,9 @@ const AlbumsListContainer = styled.div`
   justify-content: space-around;
 `;
 
-const Button = styled.button`
-  ${buttonStyle}
-`;
-
 const AlbumsList = () => {
+  const topRef = useRef<null | HTMLButtonElement>(null);
+  const bottomRef = useRef<null | HTMLButtonElement>(null);
   const { albumsList, error, loading } = useTypedSelector(state => state.albums);
   const { fetchAlbums, addAlbum } = useActions();
   const onClickButtonAddAlbum = useCallback(
@@ -28,6 +26,16 @@ const AlbumsList = () => {
       addAlbum(newObject)
     },
     [addAlbum, albumsList],
+  )
+
+  const scrollContent = useCallback(
+    () => {
+      if (bottomRef && bottomRef.current) {
+        bottomRef.current.scrollIntoView({ behavior: "smooth" });
+        console.log('bottom');
+      }
+    },
+    [],
   )
 
   useEffect(() => {
@@ -46,6 +54,7 @@ const AlbumsList = () => {
 
   return (
     <>
+      <Button onClickHandler={scrollContent} >Scroll bottom</Button>
       <AlbumsListContainer>
         {Object.keys(albumsList).map((key: string) => {
           return <Album
@@ -53,7 +62,7 @@ const AlbumsList = () => {
             key={albumsList[`${key}`].id} />
         })}
       </AlbumsListContainer>
-      <Button onClick={onClickButtonAddAlbum}>Add album</Button>
+      <Button onClickHandler={onClickButtonAddAlbum} ref={bottomRef}>Add album</Button>
     </>
   )
 }
