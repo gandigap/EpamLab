@@ -36,13 +36,13 @@ const Content = () => {
     <ErrorBoundary >
       <ContentContext.Provider value={value}>
         <ContentContainer>
-          <Button onClickHandler={scrollContent('bottom')} ref={topRef}>Scroll bottom</Button>
-          {viewState === 'photos' ?
-            <>
-              <PhotosList />
-            </>
-            : <AlbumsList />}
-          <Button onClickHandler={scrollContent('top')} ref={bottomRef}>Scroll top</Button>
+          <Button onClickHandler={scrollContent('bottom')}
+            ref={topRef}
+            renderSection={() => <p className='button-icon-container'><span className='button-icon-container__icon'>▼</span></p>} />
+          {viewState === 'photos' ? <PhotosList /> : <AlbumsList />}
+          <Button onClickHandler={scrollContent('top')}
+            ref={bottomRef}
+            renderSection={() => <p className='button-icon-container'><span className='button-icon-container__icon'>▲</span></p>} />
         </ContentContainer>
       </ContentContext.Provider>
     </ErrorBoundary>

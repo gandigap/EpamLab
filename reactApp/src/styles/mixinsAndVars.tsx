@@ -7,20 +7,44 @@ export const colors = {
 }
 
 export const buttonStyle = () => {
-  return `
-    padding: 5px 20px;
+  return `    
     font-size:24px;
-    border: 3px solid ${colors.thirdColor};
-    border-radius: 10px;
+    border: none;
     transition:all ease 0.3s;
+    cursor: pointer;   
+    position:relative;
+    
+    & .button-icon-container{      
+      display: flex;         
+    }
+
+    & .button-text{
+      padding: 5px 10px;   
+      border: 3px solid ${colors.thirdColor};     
+      background-color: transparent; 
+    }    
 
     &:hover {
       background-color: ${colors.thirdColor};
-      color: ${colors.firstColor};
+      color: ${colors.firstColor};      
+      
+      & .button-icon-container__icon{        
+        animation-duration: 2s;
+        animation-iteration-count: infinite;         
+        transform-origin: bottom;
+        animation-name: bounce;
+        animation-timing-function: ease;
+      }    
     }
 
     &:active {
       transform: scale(0.9);
+    }
+
+    @keyframes bounce {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-5px);}
+      100% { transform: translateY(0); }
     }
   `
 }

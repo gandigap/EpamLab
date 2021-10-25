@@ -49,7 +49,9 @@ const AlbumsList = () => {
             key={albumsList[`${key}`].id} />
         })}
       </AlbumsListContainer>
-      <Button onClickHandler={onClickButtonAddAlbum}>Add album</Button>
+      <Button
+        onClickHandler={onClickButtonAddAlbum}
+        renderSection={() => <p className='button-text'>Add album</p>} />
     </>
   )
 }

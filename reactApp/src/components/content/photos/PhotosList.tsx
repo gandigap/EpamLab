@@ -47,7 +47,9 @@ const PhotosList = () => {
 
   return (
     <div>
-      <Button onClickHandler={setViewStateAlbumListToContent}>Back</Button>
+      <Button
+        onClickHandler={setViewStateAlbumListToContent}
+        renderSection={() => <p className='button-text'>Back</p>} />
       <div>Album {albumID}</div>
       <PhotosListContainer>
         {(photosList[albumID] !== undefined && photosList[albumID].length !== 0)
@@ -56,7 +58,9 @@ const PhotosList = () => {
             key={photo.id} />)
           : ''}
       </PhotosListContainer>
-      <Button onClickHandler={onClickButtonAddPhoto}>Add photo</Button>
+      <Button
+        onClickHandler={onClickButtonAddPhoto}
+        renderSection={() => <p className='button-text'>Add photo</p>} />
     </div>
   )
 }

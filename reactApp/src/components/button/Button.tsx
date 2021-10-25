@@ -8,14 +8,14 @@ const ButtonContainer = styled.button`
 
 type Props = {
   onClickHandler: (e: React.MouseEvent<HTMLButtonElement>) => void,
-  children: string | JSX.Element,
+  renderSection?: () => JSX.Element
 };
 
 const Button = forwardRef((props: Props, ref) => {
-  const { children, onClickHandler } = props;
+  const { onClickHandler, renderSection } = props;
   return (
     <ButtonContainer onClick={onClickHandler} ref={ref as any}>
-      {children}
+      {renderSection && renderSection()}
     </ButtonContainer>
   )
 });
