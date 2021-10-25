@@ -14,6 +14,13 @@ const Global = createGlobalStyle`
   color: ${colors.firstColor};
   font-family: "Raleway", sans-serif;
   background-color:${colors.secondColor};
+}
+
+#modal-root {
+  position: fixed;
+  top:50%;
+  left: 50%;
+  z-index:99;
 }`;
 
 const AppContainer = styled.div`

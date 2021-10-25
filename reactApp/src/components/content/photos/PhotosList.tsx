@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import Photo from './Photo';
 import styled from 'styled-components';
@@ -7,6 +7,7 @@ import { useActions } from '../../../hooks/useActions';
 import { PhotoInfoConfig } from '../../../types/photosTypes';
 import Button from '../../button/Button';
 import ContentContext from '../ContentContext';
+import Modal from '../../modal/Modal';
 
 const PhotosListContainer = styled.div`
   display: flex; 
@@ -17,7 +18,13 @@ const PhotosListContainer = styled.div`
 const PhotosList = () => {
   const { photosList, error, loading, albumID } = useTypedSelector(state => state.photos);
   const { addPhoto } = useActions();
+  const [isModalOpen, setShowModal] = useState(false)
   const value = useContext(ContentContext);
+  const changeStateModal = useCallback(
+    () => setShowModal(!isModalOpen),
+    [isModalOpen]
+  );
+
   const setViewStateAlbumListToContent = useCallback(
     () => value.setViewState('albums'),
     [value]
@@ -61,6 +68,18 @@ const PhotosList = () => {
       <Button
         onClickHandler={onClickButtonAddPhoto}
         renderSection={() => <p className='button-text'>Add photo</p>} />
+      <Button
+        onClickHandler={changeStateModal}
+        renderSection={() => <p className='button-text'>Open modal</p>} />
+      {isModalOpen ? <Modal ><div>
+        I'm a modal!{" "}
+        <button
+          style={{ background: "papyawhip" }}
+          onClick={() => setShowModal(false)}
+        >
+          close
+        </button>
+      </div></Modal> : null}
     </div>
   )
 }
