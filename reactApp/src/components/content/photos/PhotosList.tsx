@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import Photo from './Photo';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ import Spinner from '../../spinner/Spinner';
 import { useActions } from '../../../hooks/useActions';
 import { PhotoInfoConfig } from '../../../types/photosTypes';
 import Button from '../../button/Button';
+import ContentContext from '../ContentContext';
 
 const PhotosListContainer = styled.div`
   display: flex; 
@@ -16,6 +17,11 @@ const PhotosListContainer = styled.div`
 const PhotosList = () => {
   const { photosList, error, loading, albumID } = useTypedSelector(state => state.photos);
   const { addPhoto } = useActions();
+  const value = useContext(ContentContext);
+  const setViewStateAlbumListToContent = useCallback(
+    () => value.setViewState('albums'),
+    [value]
+  );
 
   const onClickButtonAddPhoto = useCallback(
     () => {
@@ -41,6 +47,7 @@ const PhotosList = () => {
 
   return (
     <div>
+      <Button onClickHandler={setViewStateAlbumListToContent}>Back</Button>
       <div>Album {albumID}</div>
       <PhotosListContainer>
         {(photosList[albumID] !== undefined && photosList[albumID].length !== 0)
