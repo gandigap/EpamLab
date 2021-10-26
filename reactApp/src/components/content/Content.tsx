@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import AlbumsList from './albums/AlbumsList';
 import PhotosList from './photos/PhotosList';
@@ -15,9 +15,12 @@ const ContentContainer = styled.div`
 
 const Content = () => {
   const [viewState, setViewState] = useState('albums');
+  const [isModalOpen, setShowModal] = useState(false);
   const value = {
     viewState,
     setViewState,
+    isModalOpen,
+    setShowModal
   }
   const topRef = useRef<null | HTMLButtonElement>(null);
   const bottomRef = useRef<null | HTMLButtonElement>(null);
@@ -32,6 +35,11 @@ const Content = () => {
     [],
   )
 
+  useEffect(() => {
+    const body = document.querySelector('body') as HTMLElement;
+    body.style.overflow = isModalOpen ? "hidden" : "auto";
+  }, [isModalOpen]);
+
   return (
     <ErrorBoundary >
       <ContentContext.Provider value={value}>
@@ -39,14 +47,13 @@ const Content = () => {
           <Button onClickHandler={scrollContent('bottom')}
             ref={topRef}
             renderSection={() => <p className='button-icon-container'><span className='button-icon-container__icon'>▼</span></p>} />
-          {viewState === 'photos' ? <PhotosList /> : <AlbumsList />}
+          {value.viewState === 'photos' ? <PhotosList /> : <AlbumsList />}
           <Button onClickHandler={scrollContent('top')}
             ref={bottomRef}
             renderSection={() => <p className='button-icon-container'><span className='button-icon-container__icon'>▲</span></p>} />
         </ContentContainer>
       </ContentContext.Provider>
     </ErrorBoundary>
-
   );
 };
 

@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../styles/mixinsAndVars';
 import { useActions } from '../../../hooks/useActions';
-import { hoverShadow } from '../../../styles/mixinsAndVars';
+import { hoverShadowStyle } from '../../../styles/mixinsAndVars';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import { AlbumProps } from '../../../types/albumsTypes';
 import ContentContext from '../ContentContext';
@@ -20,7 +20,7 @@ const AlbumContainer = styled.div`
   overflow: hidden;
 
   &:hover{
-    ${hoverShadow}
+    ${hoverShadowStyle}
   }
 `;
 

@@ -49,7 +49,15 @@ export const buttonStyle = () => {
   `
 }
 
-export const hoverShadow = () => {
+export const hoverShadowStyle = () => {
+  return `
+    box-shadow: 5px 5px 2px 0px ${colors.firstColor};
+    -webkit-box-shadow: 5px 5px 2px 0px ${colors.firstColor};
+    -moz-box-shadow: 5px 5px 2px 0px ${colors.firstColor};
+  `
+}
+
+export const modalOverlayStyle = () => {
   return `
     box-shadow: 5px 5px 2px 0px ${colors.firstColor};
     -webkit-box-shadow: 5px 5px 2px 0px ${colors.firstColor};
