@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
+import { colors } from '../../styles/mixinsAndVars';
+import ContentContext from '../content/ContentContext';
+import { _typesModal } from '../../constants/constants';
+import FormAlbum from './FormAlbum';
+import FormPhoto from './FormPhoto';
+import { MouseEventHandler } from 'react';
 
 const ModalOverlayContainer = styled.div`
   position: fixed;
@@ -10,16 +16,33 @@ const ModalOverlayContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  background-color: ${colors.secondColor};
   z-index: 99;
 `;
+
 interface Props {
-  children: any,
+  onClickHandler: MouseEventHandler<HTMLDivElement>
 }
-const ModalOverlay: React.FC<Props> = ({ children }) => {
+
+let modalContent = <FormAlbum />;
+
+const ModalOverlay: React.FC<Props> = ({ onClickHandler }) => {
+  const value = useContext(ContentContext);
+
+  useEffect(() => {
+    switch (value.typeModal) {
+      case _typesModal.albumModal:
+        modalContent = <FormAlbum />
+        break;
+      case _typesModal.photoModal:
+        modalContent = <FormPhoto />
+        break;
+    }
+  }, [value.typeModal]);
+
   return (
-    <ModalOverlayContainer>
-      {children}
+    <ModalOverlayContainer id='modal__overlay' onClick={onClickHandler}>
+      {modalContent}
     </ModalOverlayContainer>
   );
 }

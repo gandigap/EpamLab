@@ -4,8 +4,7 @@ import { createPortal } from "react-dom";
 const modalRoot = document.querySelector("#modal-root") as HTMLElement;
 
 const Modal: React.FC<{}> = ({ children }) => {
-  const elem = document.createElement("div");
-  const el = useRef(elem);
+  const el = useRef(document.createElement("div"));
   useEffect(() => {
     const current = el.current;
     modalRoot!.appendChild(current);

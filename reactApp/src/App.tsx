@@ -13,7 +13,6 @@ const Global = createGlobalStyle`
   box-sizing: border-box;
   color: ${colors.firstColor};
   font-family: "Raleway", sans-serif;
-  background-color:${colors.secondColor};
 }
 
 #modal-root {

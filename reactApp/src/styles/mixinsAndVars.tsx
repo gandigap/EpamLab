@@ -24,9 +24,12 @@ export const buttonStyle = () => {
       background-color: transparent; 
     }    
 
-    &:hover {
-      background-color: ${colors.thirdColor};
-      color: ${colors.firstColor};      
+    &:hover {      
+      color: ${colors.firstColor}; 
+      
+      & .button-text{
+        background-color: ${colors.thirdColor}; 
+      }  
       
       & .button-icon-container__icon{        
         animation-duration: 2s;
@@ -34,6 +37,7 @@ export const buttonStyle = () => {
         transform-origin: bottom;
         animation-name: bounce;
         animation-timing-function: ease;
+        background-color: ${colors.fourthСolor};
       }    
     }
 
@@ -56,13 +60,3 @@ export const hoverShadowStyle = () => {
     -moz-box-shadow: 5px 5px 2px 0px ${colors.firstColor};
   `
 }
-
-export const modalOverlayStyle = () => {
-  return `
-    box-shadow: 5px 5px 2px 0px ${colors.firstColor};
-    -webkit-box-shadow: 5px 5px 2px 0px ${colors.firstColor};
-    -moz-box-shadow: 5px 5px 2px 0px ${colors.firstColor};
-  `
-}
-
-
