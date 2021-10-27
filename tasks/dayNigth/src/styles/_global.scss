@@ -5,17 +5,17 @@
 }
 
 :root {
-  --first-color: #ebebeb;
-  --secondary-color: #f7f7f7;
-  --font-color: #424242;
-  --bg-color: #fff;
-  --heading-color: #292922;
+  --first-color: #F2F2F2;
+  --secondary-color: #E4E3E2;
+  --third-color: #8A8A8A;
+  --fifth-color: #000000;
+  --six-color: #ffffff;
 }
 
 [data-theme="dark"] {
-  --first-color: #3d3d3d;
-  --secondary-color: #5a5a5a;
-  --font-color: #e1e1ff;
-  --bg-color: #161625;
-  --heading-color: #818cab;
+  --first-color: #222222;
+  --secondary-color: #373737;
+  --third-color: #6E6E6E;
+  --fifth-color: #ffffff;
+  --six-color: #000000;
 }

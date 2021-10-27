@@ -1,7 +1,7 @@
-### Rome
-- Split your code from previous HM to some modules (at least 2)
-- Implement dynamic import for module
-- Push code to repo “multi_module”
+### Day & Night
+- Develop page with stored state that can “restore” user name and predefined theme (dark or light)
+- Apply this module to existing app (from previous task)
+- Push code to repo “day & night”
 
 #### Transpiler code in repository dist
 

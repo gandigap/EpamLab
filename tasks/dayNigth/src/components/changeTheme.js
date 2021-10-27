@@ -1,7 +1,6 @@
 import checkLocalStorage from "./checkLocalStorage";
 
 const addListenerChangeTheme = () => {
-  checkLocalStorage();
   const toggleSwitch = document.querySelector('.switch input[type="checkbox"]');
   toggleSwitch.addEventListener('change', switchTheme, false);
 }

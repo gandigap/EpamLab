@@ -1,20 +1,50 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/***/ "./src/App.js":
+/*!********************!*\
+  !*** ./src/App.js ***!
+  \********************/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.a(module, async function (__webpack_handle_async_dependencies__) {
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_stable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/stable */ "./node_modules/core-js/stable/index.js");
-/* harmony import */ var core_js_stable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_stable__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/index.scss */ "./src/styles/index.scss");
+/* harmony import */ var _components_changeTheme__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/changeTheme */ "./src/components/changeTheme.js");
+/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/index.scss */ "./src/styles/index.scss");
+/* harmony import */ var _components_renderData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/renderData */ "./src/components/renderData.js");
+/* harmony import */ var _components_checkLocalStorage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/checkLocalStorage */ "./src/components/checkLocalStorage.js");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_changeTheme__WEBPACK_IMPORTED_MODULE_0__, _components_checkLocalStorage__WEBPACK_IMPORTED_MODULE_3__, _components_renderData__WEBPACK_IMPORTED_MODULE_2__]);
+([_components_changeTheme__WEBPACK_IMPORTED_MODULE_0__, _components_checkLocalStorage__WEBPACK_IMPORTED_MODULE_3__, _components_renderData__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? await __webpack_async_dependencies__ : __webpack_async_dependencies__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+
+
+var App = function App() {
+  _classCallCheck(this, App);
+
+  (0,_components_renderData__WEBPACK_IMPORTED_MODULE_2__.renderHeader)();
+  (0,_components_checkLocalStorage__WEBPACK_IMPORTED_MODULE_3__.checkLocalStorage)();
+  (0,_components_changeTheme__WEBPACK_IMPORTED_MODULE_0__["default"])();
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (App);
+});
+
+/***/ }),
+
+/***/ "./src/MainContent.js":
+/*!****************************!*\
+  !*** ./src/MainContent.js ***!
+  \****************************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.a(module, async function (__webpack_handle_async_dependencies__) {
+__webpack_require__.r(__webpack_exports__);
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -25,23 +55,19 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-
-
-
-
-var _await$import = await __webpack_require__.e(/*! import() */ "src_renderData_js").then(__webpack_require__.bind(__webpack_require__, /*! ./renderData */ "./src/renderData.js")),
+var _await$import = await Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./components/renderData */ "./src/components/renderData.js")),
     renderData = _await$import.renderData;
 
-var objCreate = await __webpack_require__.e(/*! import() */ "src_create_js").then(__webpack_require__.bind(__webpack_require__, /*! ./create */ "./src/create.js"));
+var objCreate = await __webpack_require__.e(/*! import() */ "src_components_create_js").then(__webpack_require__.bind(__webpack_require__, /*! ./components/create */ "./src/components/create.js"));
 var create = objCreate.default;
 var _links = {
   categories: 'categories',
   titles: 'titles'
 };
 
-var App = /*#__PURE__*/function () {
-  function App() {
-    _classCallCheck(this, App);
+var MainContent = /*#__PURE__*/function () {
+  function MainContent() {
+    _classCallCheck(this, MainContent);
 
     this.categories = null;
     this.titles = null;
@@ -53,7 +79,7 @@ var App = /*#__PURE__*/function () {
     this.dropDownTitles = document.getElementById(_links.titles);
   }
 
-  _createClass(App, [{
+  _createClass(MainContent, [{
     key: "getArrayFilterData",
     value: function getArrayFilterData(data) {
       return this.currentData.entries.map(function (item) {
@@ -229,12 +255,192 @@ var App = /*#__PURE__*/function () {
     }()
   }]);
 
-  return App;
+  return MainContent;
 }();
 
-var app = new App();
+/* harmony default export */ __webpack_exports__["default"] = (MainContent);
 __webpack_handle_async_dependencies__();
 }, 1);
+
+/***/ }),
+
+/***/ "./src/components/changeTheme.js":
+/*!***************************************!*\
+  !*** ./src/components/changeTheme.js ***!
+  \***************************************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.a(module, async function (__webpack_handle_async_dependencies__) {
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _checkLocalStorage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checkLocalStorage */ "./src/components/checkLocalStorage.js");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_checkLocalStorage__WEBPACK_IMPORTED_MODULE_0__]);
+_checkLocalStorage__WEBPACK_IMPORTED_MODULE_0__ = (__webpack_async_dependencies__.then ? await __webpack_async_dependencies__ : __webpack_async_dependencies__)[0];
+
+
+var addListenerChangeTheme = function addListenerChangeTheme() {
+  var toggleSwitch = document.querySelector('.switch input[type="checkbox"]');
+  toggleSwitch.addEventListener('change', switchTheme, false);
+};
+
+function switchTheme(e) {
+  if (e.target.checked) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
+  }
+}
+
+;
+/* harmony default export */ __webpack_exports__["default"] = (addListenerChangeTheme);
+});
+
+/***/ }),
+
+/***/ "./src/components/checkLocalStorage.js":
+/*!*********************************************!*\
+  !*** ./src/components/checkLocalStorage.js ***!
+  \*********************************************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.a(module, async function (__webpack_handle_async_dependencies__) {
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "checkLocalStorage": function() { return /* binding */ checkLocalStorage; },
+/* harmony export */   "checkStorageName": function() { return /* binding */ checkStorageName; }
+/* harmony export */ });
+/* harmony import */ var _MainContent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../MainContent */ "./src/MainContent.js");
+/* harmony import */ var _renderData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./renderData */ "./src/components/renderData.js");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_renderData__WEBPACK_IMPORTED_MODULE_1__, _MainContent__WEBPACK_IMPORTED_MODULE_0__]);
+([_renderData__WEBPACK_IMPORTED_MODULE_1__, _MainContent__WEBPACK_IMPORTED_MODULE_0__] = __webpack_async_dependencies__.then ? await __webpack_async_dependencies__ : __webpack_async_dependencies__);
+
+
+function checkLocalStorage() {
+  checkStorageTheme();
+  checkStorageName();
+}
+
+function checkStorageTheme() {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById("checkbox").checked = true;
+  }
+}
+
+function checkStorageName() {
+  if (localStorage.getItem('name')) {
+    (0,_renderData__WEBPACK_IMPORTED_MODULE_1__.renderGreetingContent)();
+    (0,_renderData__WEBPACK_IMPORTED_MODULE_1__.renderMain)();
+    new _MainContent__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  } else {
+    (0,_renderData__WEBPACK_IMPORTED_MODULE_1__.renderLoginContent)();
+    if (document.querySelector('.wrapper')) document.querySelector('.wrapper').remove();
+  }
+}
+});
+
+/***/ }),
+
+/***/ "./src/components/renderData.js":
+/*!**************************************!*\
+  !*** ./src/components/renderData.js ***!
+  \**************************************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.a(module, async function (__webpack_handle_async_dependencies__) {
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderData": function() { return /* binding */ renderData; },
+/* harmony export */   "renderHeader": function() { return /* binding */ renderHeader; },
+/* harmony export */   "renderMain": function() { return /* binding */ renderMain; },
+/* harmony export */   "renderGreetingContent": function() { return /* binding */ renderGreetingContent; },
+/* harmony export */   "renderLoginContent": function() { return /* binding */ renderLoginContent; }
+/* harmony export */ });
+/* harmony import */ var _checkLocalStorage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checkLocalStorage */ "./src/components/checkLocalStorage.js");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_checkLocalStorage__WEBPACK_IMPORTED_MODULE_0__]);
+_checkLocalStorage__WEBPACK_IMPORTED_MODULE_0__ = (__webpack_async_dependencies__.then ? await __webpack_async_dependencies__ : __webpack_async_dependencies__)[0];
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+var _objCreate = await __webpack_require__.e(/*! import() */ "src_components_create_js").then(__webpack_require__.bind(__webpack_require__, /*! ./create */ "./src/components/create.js"));
+
+var create = _objCreate.default;
+var body = document.querySelector('body');
+function renderData(info) {
+  var otherContent = document.getElementById('other-content');
+  otherContent.innerHTML = '';
+
+  var _ref = _toConsumableArray(info.entries),
+      data = _ref[0];
+
+  create('div', 'api-info', "\n    <h3 class=\"api-info__title\">".concat(data.API, "</h3>\n    <div class=\"api-info__description\">").concat(data.Description, "</div>\n    <a class=\"api-info__link\" href=\"\">").concat(data.Link, "</a>"), otherContent);
+}
+function renderHeader() {
+  create('header', 'header', "\n    <div class=\"theme-switch-container\">\n      <label class=\"switch\" for=\"checkbox\">\n        <input type=\"checkbox\" id=\"checkbox\" />\n        <div class=\"switch__icon\"></div>\n      </label>\n    </div> ", body);
+}
+function renderMain() {
+  create('main', 'wrapper', "\n  <div class=\"dropdowns\">\n    <div class=\"dropdown\" id=\"categories\">\n      <span class=\"dropdown__title\">Categories</span>\n      <div class=\"dropdown__content\" id=\"categories__content\">\n      </div>\n    </div>\n    <div class=\"dropdown\" id=\"titles\">\n      <span class=\"dropdown__title\">Titles</span>\n      <div class=\"dropdown__content\" id=\"titles__content\">\n      </div>\n    </div>\n  </div>\n  <div id=\"other-content\"></div>", body);
+}
+function renderGreetingContent() {
+  create('div', 'submit-container', "<h3 class=\"submit-container__title\">".concat(localStorage.getItem('name'), "</h3>\n    <button class=\"submit-container__button-logout\">Logout</button>"), document.querySelector('.header'));
+
+  document.querySelector('.submit-container__button-logout').onclick = function () {
+    localStorage.removeItem('name');
+    document.querySelector('.submit-container').remove();
+    (0,_checkLocalStorage__WEBPACK_IMPORTED_MODULE_0__.checkStorageName)();
+  };
+}
+function renderLoginContent() {
+  create('div', 'login-container', "<h3 class=\"login-container__title\">Please enter login:</h3>\n   <div class=\"login-container__input-container\">\n     <input type=\"text\" class=\"login-container__input-container__input\" name=\"userName\">\n   </div>\n   <button class=\"login-container__button-submit\">Submit</button>", document.querySelector('.header'));
+  var inputName = document.querySelector('.login-container__input-container__input');
+
+  document.querySelector('.login-container__button-submit').onclick = function () {
+    localStorage.setItem('name', inputName.value);
+    document.querySelector('.login-container').remove();
+    (0,_checkLocalStorage__WEBPACK_IMPORTED_MODULE_0__.checkStorageName)();
+  };
+}
+__webpack_handle_async_dependencies__();
+}, 1);
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.a(module, async function (__webpack_handle_async_dependencies__) {
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_stable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/stable */ "./node_modules/core-js/stable/index.js");
+/* harmony import */ var core_js_stable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_stable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App */ "./src/App.js");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_App__WEBPACK_IMPORTED_MODULE_2__]);
+_App__WEBPACK_IMPORTED_MODULE_2__ = (__webpack_async_dependencies__.then ? await __webpack_async_dependencies__ : __webpack_async_dependencies__)[0];
+
+
+
+var app = new _App__WEBPACK_IMPORTED_MODULE_2__["default"]();
+});
 
 /***/ }),
 
@@ -17090,7 +17296,7 @@ try {
 /******/ 	/* webpack/runtime/load script */
 /******/ 	!function() {
 /******/ 		var inProgress = {};
-/******/ 		var dataWebpackPrefix = "rome:";
+/******/ 		var dataWebpackPrefix = "daynigth:";
 /******/ 		// loadScript function to load a script via script tag
 /******/ 		__webpack_require__.l = function(url, done, key, chunkId) {
 /******/ 			if(inProgress[url]) { inProgress[url].push(done); return; }
@@ -17251,7 +17457,7 @@ try {
 /******/ 		
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkrome"] = self["webpackChunkrome"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunkdaynigth"] = self["webpackChunkdaynigth"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	}();
