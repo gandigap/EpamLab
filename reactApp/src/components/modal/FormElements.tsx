@@ -2,13 +2,15 @@
 import styled from 'styled-components';
 import { colors } from '../../styles/mixinsAndVars';
 
-export const ModalFormContainer = styled.div`  
+export const ModalFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;  
   width: 400px;
   height: 400px;  
-  background-color: ${colors.thirdColor}; 
-  box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.75);
-  -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.75); 
+  background-color: ${colors.fifthСolor}; 
+  box-shadow: 0px 0px 10px 5px ${colors.firstColor};
+  -webkit-box-shadow: 0px 0px 10px 5px ${colors.firstColor};
+  -moz-box-shadow: 0px 0px 10px 5px ${colors.firstColor}; 
 `;
 
 export const ModalHeader = styled.div`  
@@ -21,19 +23,28 @@ export const ModalHeader = styled.div`
 export const ModalTitle = styled.div`  
   font-size: 24px;
   font-style: italic;
+  font-weight: bold;
   color: ${colors.fifthСolor};
 `;
 
 export const ModalInputContainer = styled.div`  
   padding: 5px;
+  margin: 5px;
 `;
 
 export const ModalInput = styled.input`  
- 
+  padding: 5px;
+  font-size: 16px;
 `;
 
 export const ModalLabel = styled.label`  
+  min-width: 150px;
+  display: inline-block;
   font-size: 24px;
-  font-style: italic;
-  color: ${colors.fifthСolor};
+  color: ${colors.firstColor};
+`;
+
+export const ModalWrapperButton = styled.div`  
+  display: flex;
+  justify-content: end;  
 `;

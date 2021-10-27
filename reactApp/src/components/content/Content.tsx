@@ -24,22 +24,7 @@ const Content = () => {
   const [viewState, setViewState] = useState(_typesContent.albums);
   const [isModalOpen, setShowModal] = useState(false);
   const [typeModal, setTypeModal] = useState(_typesModal.albumModal);
-  const value = useMemo(() => initValue(viewState, setViewState, isModalOpen, setShowModal, typeModal, setTypeModal), [isModalOpen, typeModal, viewState]);
-  function initValue(viewState: string,
-    setViewState: React.Dispatch<React.SetStateAction<string>>,
-    isModalOpen: boolean,
-    setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
-    typeModal: string,
-    setTypeModal: React.Dispatch<React.SetStateAction<string>>) {
-    return {
-      viewState,
-      setViewState,
-      isModalOpen,
-      setShowModal,
-      typeModal,
-      setTypeModal
-    }
-  }
+  const value = useMemo(() => ({viewState, setViewState, isModalOpen, setShowModal, typeModal,setTypeModal }), [isModalOpen, typeModal, viewState]);
   const topRef = useRef<null | HTMLButtonElement>(null);
   const bottomRef = useRef<null | HTMLButtonElement>(null);
   const scrollContent = useCallback(

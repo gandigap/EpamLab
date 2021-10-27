@@ -8,11 +8,13 @@ export const colors = {
 
 export const buttonStyle = () => {
   return `    
+    max-width: 150px;
+    margin: 5px;
     font-size:24px;
     border: none;
     transition:all ease 0.3s;
     cursor: pointer;   
-    position:relative;
+    
     
     & .button-icon-container{      
       display: flex;         

@@ -1,7 +1,7 @@
 import React, { useContext, useCallback, useRef } from 'react';
 import Button from '../button/Button';
 import ContentContext from '../content/ContentContext';
-import { ModalFormContainer, ModalHeader, ModalInput, ModalInputContainer, ModalLabel, ModalTitle } from './FormElements';
+import { ModalFormContainer, ModalHeader, ModalInput, ModalInputContainer, ModalLabel, ModalTitle, ModalWrapperButton } from './FormElements';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypeSelectors';
 import { AlbumListConfig } from '../../types/albumsTypes';
@@ -18,7 +18,7 @@ const FormAlbum = () => {
     },
     [value]
   );
-  const createNewAlbum = useCallback(
+  const addNewAlbum = useCallback(
     () => {
       const newObject: AlbumListConfig = {};
       if (inputTitle && inputTitle.current && inputUserId && inputUserId.current) {
@@ -44,14 +44,21 @@ const FormAlbum = () => {
           renderSection={() => <span className='button-close-modal'>X</span>} />
       </ModalHeader>
       <ModalInputContainer>
-        <ModalLabel>Title album:</ModalLabel><ModalInput ref={inputTitle} defaultValue='' />
+        <ModalLabel>Title album:</ModalLabel>
+        <ModalInput ref={inputTitle} defaultValue='' />
       </ModalInputContainer>
       <ModalInputContainer>
-        <ModalLabel>UserId:</ModalLabel><ModalInput ref={inputUserId} defaultValue='' />
+        <ModalLabel>UserId:</ModalLabel>
+        <ModalInput ref={inputUserId} defaultValue='' />
       </ModalInputContainer>
-      <Button
-        onClickHandler={createNewAlbum}
-        renderSection={() => <p className='button-text'>Submit</p>} />
+      <ModalWrapperButton>
+        <Button
+          onClickHandler={changeStateModal}
+          renderSection={() => <p className='button-text'>Close</p>} />
+        <Button
+          onClickHandler={addNewAlbum}
+          renderSection={() => <p className='button-text'>Submit</p>} />
+      </ModalWrapperButton>
     </ModalFormContainer>
   );
 }
