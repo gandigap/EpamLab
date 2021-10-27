@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import AlbumsList from './albums/AlbumsList';
 import PhotosList from './photos/PhotosList';
@@ -8,6 +8,8 @@ import Button from '../button/Button';
 import { _typesContent, _typesModal } from '../../constants/constants';
 import Modal from '../modal/Modal';
 import ModalOverlay from '../modal/ModalOverlay';
+import FormAlbum from '../modal/FormAlbum';
+import FormPhoto from '../modal/FormPhoto';
 
 const ContentContainer = styled.div`
   grid-area: content;  
@@ -22,13 +24,21 @@ const Content = () => {
   const [viewState, setViewState] = useState(_typesContent.albums);
   const [isModalOpen, setShowModal] = useState(false);
   const [typeModal, setTypeModal] = useState(_typesModal.albumModal);
-  const value = {
-    viewState,
-    setViewState,
-    isModalOpen,
-    setShowModal,
-    typeModal,
-    setTypeModal
+  const value = useMemo(() => initValue(viewState, setViewState, isModalOpen, setShowModal, typeModal, setTypeModal), [isModalOpen, typeModal, viewState]);
+  function initValue(viewState: string,
+    setViewState: React.Dispatch<React.SetStateAction<string>>,
+    isModalOpen: boolean,
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
+    typeModal: string,
+    setTypeModal: React.Dispatch<React.SetStateAction<string>>) {
+    return {
+      viewState,
+      setViewState,
+      isModalOpen,
+      setShowModal,
+      typeModal,
+      setTypeModal
+    }
   }
   const topRef = useRef<null | HTMLButtonElement>(null);
   const bottomRef = useRef<null | HTMLButtonElement>(null);
@@ -55,14 +65,27 @@ const Content = () => {
     body.style.overflow = isModalOpen ? "hidden" : "auto";
   }, [isModalOpen]);
 
+  useEffect(() => {
+    console.log(value, 'content')
+  }, [value]);
+
   if (value.isModalOpen)
     return (
       <ContentContext.Provider value={value}>
         <Modal >
-          <ModalOverlay onClickHandler={changeStateModal} />
+          <ModalOverlay
+            onClickHandler={changeStateModal}
+            renderSection={() => {
+              switch (value.typeModal) {
+                case _typesModal.albumModal:
+                  return <FormAlbum />
+                case _typesModal.photoModal:
+                  return <FormPhoto />
+              }
+              return <FormAlbum />
+            }} />
         </Modal>
       </ContentContext.Provider>
-
     );
 
   return (

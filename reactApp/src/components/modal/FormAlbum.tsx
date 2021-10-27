@@ -12,7 +12,12 @@ const FormAlbum = () => {
   const inputTitle = useRef<HTMLInputElement>(null);
   const inputUserId = useRef<HTMLInputElement>(null);
   const { addAlbum } = useActions();
-
+  const changeStateModal = useCallback(
+    () => {
+      value.setShowModal(!value.isModalOpen);
+    },
+    [value]
+  );
   const createNewAlbum = useCallback(
     () => {
       const newObject: AlbumListConfig = {};
@@ -24,27 +29,11 @@ const FormAlbum = () => {
           title: inputTitle.current.value
         }
       }
-
-      addAlbum(newObject)
+      addAlbum(newObject);
+      changeStateModal();
     },
-    [addAlbum, albumsList],
+    [addAlbum, albumsList, changeStateModal],
   )
-
-  const changeStateModal = useCallback(
-    () => {
-      value.setShowModal(!value.isModalOpen);
-    },
-    [value]
-  );
-
-  const getValueInput = useCallback(
-    () => {
-      if (inputTitle && inputTitle.current) {
-        console.log(inputTitle.current.value);
-      }
-    },
-    []
-  );
 
   return (
     <ModalFormContainer>

@@ -1,11 +1,12 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import Album from './Album';
 import { useActions } from '../../../hooks/useActions';
 import styled from 'styled-components';
 import Button from '../../button/Button';
 import Spinner from '../../spinner/Spinner';
-import { AlbumListConfig } from '../../../types/albumsTypes';
+import ContentContext from '../ContentContext';
+import { _typesModal } from '../../../constants/constants'
 
 const AlbumsListContainer = styled.div`
   display: flex;
@@ -15,16 +16,16 @@ const AlbumsListContainer = styled.div`
 
 const AlbumsList = () => {
   const { albumsList, error, loading } = useTypedSelector(state => state.albums);
-  const { fetchAlbums, addAlbum } = useActions();
-  const onClickButtonAddAlbum = useCallback(
+  const { fetchAlbums } = useActions();
+  const value = useContext(ContentContext);
+  const openModalForAddAlbum = useCallback(
     () => {
-      const newObject: AlbumListConfig = {};
-      const ind = Object.keys(albumsList).length + 1;
-      newObject[`${ind}`] = { userId: 1, id: ind, title: 'default' }
-      addAlbum(newObject)
+      value.setTypeModal(_typesModal.albumModal);
+      value.setShowModal(!value.isModalOpen);
+
     },
-    [addAlbum, albumsList],
-  )
+    [value]
+  );
 
   useEffect(() => {
     if (Object.keys(albumsList).length === 0 && !loading) {
@@ -51,7 +52,7 @@ const AlbumsList = () => {
       </AlbumsListContainer>
       <div className='button__wrapper' style={{ alignSelf: 'center' }}>
         <Button
-          onClickHandler={onClickButtonAddAlbum}
+          onClickHandler={openModalForAddAlbum}
           renderSection={() => <p className='button-text'>Add album</p>} />
       </div>
     </>

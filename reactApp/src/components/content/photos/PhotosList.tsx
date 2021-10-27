@@ -7,6 +7,7 @@ import Spinner from '../../spinner/Spinner';
 import { PhotoInfoConfig } from '../../../types/photosTypes';
 import Button from '../../button/Button';
 import ContentContext from '../ContentContext';
+import { _typesModal } from '../../../constants/constants';
 
 const PhotosListContainer = styled.div`
   display: flex; 
@@ -16,10 +17,10 @@ const PhotosListContainer = styled.div`
 
 const PhotosList = () => {
   const { photosList, error, loading, albumID } = useTypedSelector(state => state.photos);
-  /* const { addPhoto } = useActions(); */
   const value = useContext(ContentContext);
-  const changeStateModal = useCallback(
+  const openModalForAddPhoto = useCallback(
     () => {
+      value.setTypeModal(_typesModal.photoModal);
       value.setShowModal(!value.isModalOpen);
     },
     [value]
@@ -28,19 +29,6 @@ const PhotosList = () => {
     () => value.setViewState('albums'),
     [value]
   );
-  /*  const onClickButtonAddPhoto = useCallback(
-     () => {
-       const ind = Object.keys(photosList[albumID]).length + 1;
-       const newObject: PhotoInfoConfig = {
-         albumId: 2,
-         id: ind,
-         title: "non sunt voluptatem placeat consequuntur rem incidunt",
-         url: "https://via.placeholder.com/600/8e973b",
-         thumbnailUrl: "https://via.placeholder.com/150/8e973b"
-       };
-       addPhoto(newObject);
-     }, [addPhoto, photosList, albumID],
-   ) */
 
   if (loading) {
     return <Spinner />
@@ -49,6 +37,7 @@ const PhotosList = () => {
   if (error) {
     return <h1> Произошла ошибка</h1>
   }
+  console.log(value, 'photolist')
 
   return (
     <>
@@ -64,7 +53,7 @@ const PhotosList = () => {
           : ''}
       </PhotosListContainer>
       <Button
-        onClickHandler={changeStateModal}
+        onClickHandler={openModalForAddPhoto}
         renderSection={() => <p className='button-text'>Add photo</p>} />
     </>
   )
