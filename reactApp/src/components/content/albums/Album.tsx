@@ -37,7 +37,6 @@ const Album = ({ albumInfo }: AlbumProps) => {
   const { photosList } = useTypedSelector(state => state.photos);
   const { fetchPhotos, setCurrentAlbumId } = useActions();
   const value = useContext(ContentContext);
-
   const setViewStatePhotoListToContent = useCallback(
     () => {
       if (photosList[albumInfo.id] === undefined) {

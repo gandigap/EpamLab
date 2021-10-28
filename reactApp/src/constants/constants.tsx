@@ -29,5 +29,9 @@ export const _modalTitle = {
 }
 
 export const _errorMessage = {
-  errorAlbumFetch: 'Error. When albums download',
+  errorAlbumsFetch: 'Error. Albums is not download',
+  errorPhotosFetch: 'Error. Photos is not download',
+  errorModalTitle: 'Title must contain only letters, digits and spaces; Length less than 30 symbols.',
+  errorModalUserId: 'UserId must contain only digits(0-9999)',
+  errorBoundary: 'Sorry.. there was an error.Please write to igor.simatic@gmail.com',
 }

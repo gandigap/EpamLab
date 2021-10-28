@@ -8,13 +8,14 @@ const ButtonContainer = styled.button`
 
 type Props = {
   onClickHandler: (e: React.MouseEvent<HTMLButtonElement>) => void,
-  renderSection?: () => JSX.Element
+  renderSection?: () => JSX.Element,
+  disabled?: boolean
 };
 
 const Button = forwardRef((props: Props, ref) => {
-  const { onClickHandler, renderSection } = props;
+  const { onClickHandler, renderSection, disabled } = props;
   return (
-    <ButtonContainer onClick={onClickHandler} ref={ref as any}>
+    <ButtonContainer onClick={onClickHandler} ref={ref as any} disabled={disabled}>
       {renderSection && renderSection()}
     </ButtonContainer>
   )

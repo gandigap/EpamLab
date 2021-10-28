@@ -6,12 +6,18 @@ import Spinner from '../../spinner/Spinner';
 import { PhotoInfoConfig } from '../../../types/photosTypes';
 import Button from '../../button/Button';
 import ContentContext from '../ContentContext';
-import { _buttonText, _contentTypes, _modalTypes } from '../../../constants/constants';
+import { _buttonText, _contentTypes, _errorMessage, _modalTypes } from '../../../constants/constants';
+import { WrapperButton } from '../../button/WrapperButton';
 
 const PhotosListContainer = styled.div`
   display: flex; 
   flex-wrap: wrap;
   justify-content: center;  
+`;
+
+const AlbumTitle = styled.h3`
+  font-size:24px;
+  font-weight: bold;
 `;
 
 const PhotosList = () => {
@@ -34,15 +40,17 @@ const PhotosList = () => {
   }
 
   if (error) {
-    return <h1> Произошла ошибка</h1>
+    return <h1>{_errorMessage.errorPhotosFetch}</h1>
   }
 
   return (
     <>
-      <Button
-        onClickHandler={setViewStateAlbumListToContent}
-        renderSection={() => <p className='button-text'>{_buttonText.back}</p>} />
-      <div>Album {albumID}</div>
+      <WrapperButton>
+        <Button
+          onClickHandler={setViewStateAlbumListToContent}
+          renderSection={() => <p className='button-text'>{_buttonText.back}</p>} />
+        <AlbumTitle>Album {albumID}</AlbumTitle>
+      </WrapperButton>
       <PhotosListContainer>
         {(photosList[albumID] !== undefined && photosList[albumID].length !== 0)
           ? photosList[albumID].map((photo: PhotoInfoConfig) => <Photo
@@ -50,9 +58,11 @@ const PhotosList = () => {
             key={photo.id} />)
           : ''}
       </PhotosListContainer>
-      <Button
-        onClickHandler={openModalForAddPhoto}
-        renderSection={() => <p className='button-text'>{_buttonText.addPhoto}</p>} />
+      <WrapperButton>
+        <Button
+          onClickHandler={openModalForAddPhoto}
+          renderSection={() => <p className='button-text'>{_buttonText.addPhoto}</p>} />
+      </WrapperButton>
     </>
   )
 }

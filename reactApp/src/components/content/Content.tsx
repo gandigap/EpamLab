@@ -54,25 +54,6 @@ const Content = () => {
     body.style.overflow = isModalOpen ? "hidden" : "auto";
   }, [isModalOpen]);
 
-  if (value.isModalOpen)
-    return (
-      <ContentContext.Provider value={value}>
-        <Modal >
-          <ModalOverlay
-            onClickHandler={changeStateModal}
-            renderSection={() => {
-              switch (value.typeModal) {
-                case _modalTypes.albumModal:
-                  return <FormAlbum />
-                case _modalTypes.photoModal:
-                  return <FormPhoto />
-              }
-              return <FormAlbum />
-            }} />
-        </Modal>
-      </ContentContext.Provider>
-    );
-
   return (
     <ErrorBoundary >
       <ContentContext.Provider value={value}>
@@ -97,6 +78,19 @@ const Content = () => {
               )
             }} />
         </ContentContainer>
+        <Modal isModalOpen={isModalOpen}>
+          <ModalOverlay
+            onClickHandler={changeStateModal}
+            renderSection={() => {
+              switch (value.typeModal) {
+                case _modalTypes.albumModal:
+                  return <FormAlbum />
+                case _modalTypes.photoModal:
+                  return <FormPhoto />
+              }
+              return <FormAlbum />
+            }} />
+        </Modal>
       </ContentContext.Provider>
     </ErrorBoundary>
   );

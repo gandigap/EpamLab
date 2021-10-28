@@ -1,14 +1,21 @@
-import React, { useContext, useCallback, useRef } from 'react';
+import React, { useContext, useCallback, useRef, useState, useEffect } from 'react';
 import Button from '../button/Button';
 import ContentContext from '../content/ContentContext';
-import { ModalContentContainer, ModalHeader, ModalInput, ModalInputContainer, ModalInputListContainer, ModalLabel, ModalTitle, ModalWrapperButton } from './FormElements';
+import {
+  ModalContentContainer, ModalHeader, ModalInput,
+  ModalInputContainer, ModalInputListContainer, ModalLabel,
+  ModalTitle, ModalWrapperButton
+} from './FormElements';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypeSelectors';
 import { PhotoInfoConfig } from '../../types/photosTypes';
-import { _buttonText, _modalLabel, _modalTitle } from '../../constants/constants';
+import { _buttonText, _errorMessage, _modalLabel, _modalTitle } from '../../constants/constants';
 
 const FormPhoto = () => {
   const { photosList, albumID } = useTypedSelector(state => state.photos);
+  const [titlePhotoInfo, setTitlePhotoInfo] = useState({
+    titleValue: '', titleError: false
+  });
   const value = useContext(ContentContext);
   const inputTitle = useRef<HTMLInputElement>(null);
   const inputColor = useRef<HTMLInputElement>(null);
@@ -22,11 +29,17 @@ const FormPhoto = () => {
   const addNewPhoto = useCallback(
     () => {
       if (inputTitle && inputTitle.current && inputColor && inputColor.current) {
-        const indexLastPhotoInCurrentAlbum = Object.keys(photosList[albumID]).length - 1;
+        const lengthPhotolist = Object.keys(photosList[albumID]).length;
+        let indexLastPhotoInCurrentAlbum = 0;
+        let photoId = 1;
+        if (lengthPhotolist !== 0) {
+          indexLastPhotoInCurrentAlbum = lengthPhotolist - 1;
+          photoId = photosList[albumID][indexLastPhotoInCurrentAlbum].id + 1;
+        }
         const color = inputColor.current.value.replace('#', '');
         const newObject: PhotoInfoConfig = {
           albumId: albumID,
-          id: photosList[albumID][indexLastPhotoInCurrentAlbum].id + 1,
+          id: photoId,
           title: inputTitle.current.value,
           url: `https://via.placeholder.com/600/${color}`,
           thumbnailUrl: `https://via.placeholder.com/150/${color}`
@@ -38,22 +51,42 @@ const FormPhoto = () => {
     [addPhoto, changeStateModal, albumID, photosList],
   )
 
+  const addTitle = useCallback(
+    () => {
+      if (inputTitle && inputTitle.current) {
+        const valueInputTitle = inputTitle.current.value;
+        valueInputTitle.match(/^[\da-zA-Z ]{1,30}$/)
+          ? setTitlePhotoInfo({ titleValue: inputTitle.current.value, titleError: false })
+          : setTitlePhotoInfo({ titleValue: inputTitle.current.value, titleError: true });
+      }
+    }, []
+  )
+
+  useEffect(() => {
+    addTitle();
+    return () => {
+      addTitle();
+    }
+  }, [addTitle])
+
   return (
     <ModalContentContainer>
       <ModalHeader>
         <ModalTitle>{_modalTitle.photo}</ModalTitle>
         <Button
           onClickHandler={changeStateModal}
-          renderSection={() => <span className='button-close-modal'>X</span>} />
+          renderSection={() => <span className='button-close-modal'>✖</span>} />
       </ModalHeader>
       <ModalInputListContainer>
         <ModalInputContainer>
           <ModalLabel>{_modalLabel.photoTitle}</ModalLabel>
-          <ModalInput ref={inputTitle} type='text' defaultValue='' placeholder='Ex: Exclusive photo' />
+          <ModalInput ref={inputTitle} type='text' defaultValue=''
+            onChange={addTitle} placeholder='Ex: Exclusive photo' />
+          {titlePhotoInfo.titleError ? <p style={{ color: 'red' }}>{_errorMessage.errorModalTitle}</p> : null}
         </ModalInputContainer>
         <ModalInputContainer>
           <ModalLabel>{_modalLabel.color}</ModalLabel>
-          <ModalInput ref={inputColor} type='color' defaultValue='#fff' />
+          <ModalInput ref={inputColor} type='color' defaultValue='#999999' />
         </ModalInputContainer>
       </ModalInputListContainer>
       <ModalWrapperButton>
@@ -61,7 +94,7 @@ const FormPhoto = () => {
           onClickHandler={changeStateModal}
           renderSection={() => <p className='button-text'>{_buttonText.close}</p>} />
         <Button
-          onClickHandler={addNewPhoto}
+          onClickHandler={addNewPhoto} disabled={titlePhotoInfo.titleError ? true : false}
           renderSection={() => <p className='button-text'>{_buttonText.submit}</p>} />
       </ModalWrapperButton>
     </ModalContentContainer>

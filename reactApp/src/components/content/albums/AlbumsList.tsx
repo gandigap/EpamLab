@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import Button from '../../button/Button';
 import Spinner from '../../spinner/Spinner';
 import ContentContext from '../ContentContext';
-import { _buttonText, _modalTypes } from '../../../constants/constants'
+import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/constants'
+import { WrapperButton } from '../../button/WrapperButton';
 
 const AlbumsListContainer = styled.div`
   display: flex;
@@ -37,7 +38,7 @@ const AlbumsList = () => {
   }
 
   if (error) {
-    return <h1> Произошла ошибка</h1>
+    return <h1>{_errorMessage.errorAlbumsFetch}</h1>
   }
 
   return (
@@ -49,11 +50,11 @@ const AlbumsList = () => {
             key={albumsList[`${key}`].id} />
         })}
       </AlbumsListContainer>
-      <div className='button__wrapper' style={{ alignSelf: 'center' }}>
+      <WrapperButton>
         <Button
           onClickHandler={openModalForAddAlbum}
           renderSection={() => <p className='button-text'>{_buttonText.addAlbum}</p>} />
-      </div>
+      </WrapperButton>
     </>
   )
 }
