@@ -3,11 +3,10 @@ import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import Photo from './Photo';
 import styled from 'styled-components';
 import Spinner from '../../spinner/Spinner';
-/* import { useActions } from '../../../hooks/useActions'; */
 import { PhotoInfoConfig } from '../../../types/photosTypes';
 import Button from '../../button/Button';
 import ContentContext from '../ContentContext';
-import { _typesModal } from '../../../constants/constants';
+import { _buttonText, _contentTypes, _modalTypes } from '../../../constants/constants';
 
 const PhotosListContainer = styled.div`
   display: flex; 
@@ -20,13 +19,13 @@ const PhotosList = () => {
   const value = useContext(ContentContext);
   const openModalForAddPhoto = useCallback(
     () => {
-      value.setTypeModal(_typesModal.photoModal);
+      value.setTypeModal(_modalTypes.photoModal);
       value.setShowModal(!value.isModalOpen);
     },
     [value]
   );
   const setViewStateAlbumListToContent = useCallback(
-    () => value.setViewState('albums'),
+    () => value.setViewStateContent(_contentTypes.albums),
     [value]
   );
 
@@ -37,13 +36,12 @@ const PhotosList = () => {
   if (error) {
     return <h1> Произошла ошибка</h1>
   }
-  console.log(value, 'photolist')
 
   return (
     <>
       <Button
         onClickHandler={setViewStateAlbumListToContent}
-        renderSection={() => <p className='button-text'>Back</p>} />
+        renderSection={() => <p className='button-text'>{_buttonText.back}</p>} />
       <div>Album {albumID}</div>
       <PhotosListContainer>
         {(photosList[albumID] !== undefined && photosList[albumID].length !== 0)
@@ -54,7 +52,7 @@ const PhotosList = () => {
       </PhotosListContainer>
       <Button
         onClickHandler={openModalForAddPhoto}
-        renderSection={() => <p className='button-text'>Add photo</p>} />
+        renderSection={() => <p className='button-text'>{_buttonText.addPhoto}</p>} />
     </>
   )
 }

@@ -1,10 +1,9 @@
 import { createContext } from 'react';
-import { _typesContent, _typesModal } from '../../constants/constants';
-
+import { _contentTypes, _modalTypes } from '../../constants/constants';
 
 interface IContentContext {
-  viewState: string,
-  setViewState: React.Dispatch<React.SetStateAction<string>>;
+  viewStateContent: string,
+  setViewStateContent: React.Dispatch<React.SetStateAction<string>>;
   isModalOpen: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   typeModal: string,
@@ -13,11 +12,11 @@ interface IContentContext {
 
 const ContentContext = createContext<IContentContext>(
   {
-    viewState: _typesContent.albums,
-    setViewState: () => { },
+    viewStateContent: _contentTypes.albums,
+    setViewStateContent: () => { },
     isModalOpen: false,
     setShowModal: () => { },
-    typeModal: _typesModal.albumModal,
+    typeModal: _modalTypes.albumModal,
     setTypeModal: () => { },
   });
 

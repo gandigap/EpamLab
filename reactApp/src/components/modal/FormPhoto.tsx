@@ -1,10 +1,11 @@
 import React, { useContext, useCallback, useRef } from 'react';
 import Button from '../button/Button';
 import ContentContext from '../content/ContentContext';
-import { ModalFormContainer, ModalHeader, ModalInput, ModalInputContainer, ModalLabel, ModalTitle, ModalWrapperButton } from './FormElements';
+import { ModalContentContainer, ModalHeader, ModalInput, ModalInputContainer, ModalInputListContainer, ModalLabel, ModalTitle, ModalWrapperButton } from './FormElements';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypeSelectors';
 import { PhotoInfoConfig } from '../../types/photosTypes';
+import { _buttonText, _modalLabel, _modalTitle } from '../../constants/constants';
 
 const FormPhoto = () => {
   const { photosList, albumID } = useTypedSelector(state => state.photos);
@@ -38,30 +39,32 @@ const FormPhoto = () => {
   )
 
   return (
-    <ModalFormContainer>
+    <ModalContentContainer>
       <ModalHeader>
-        <ModalTitle>Please, enter data photo</ModalTitle>
+        <ModalTitle>{_modalTitle.photo}</ModalTitle>
         <Button
           onClickHandler={changeStateModal}
           renderSection={() => <span className='button-close-modal'>X</span>} />
       </ModalHeader>
-      <ModalInputContainer>
-        <ModalLabel>Title photo:</ModalLabel>
-        <ModalInput ref={inputTitle} defaultValue='' placeholder='Ex: Exclusive' />
-      </ModalInputContainer>
-      <ModalInputContainer>
-        <ModalLabel>Color:</ModalLabel>
-        <ModalInput ref={inputColor} defaultValue='#fff' type='color' />
-      </ModalInputContainer>
+      <ModalInputListContainer>
+        <ModalInputContainer>
+          <ModalLabel>{_modalLabel.photoTitle}</ModalLabel>
+          <ModalInput ref={inputTitle} type='text' defaultValue='' placeholder='Ex: Exclusive photo' />
+        </ModalInputContainer>
+        <ModalInputContainer>
+          <ModalLabel>{_modalLabel.color}</ModalLabel>
+          <ModalInput ref={inputColor} type='color' defaultValue='#fff' />
+        </ModalInputContainer>
+      </ModalInputListContainer>
       <ModalWrapperButton>
         <Button
           onClickHandler={changeStateModal}
-          renderSection={() => <p className='button-text'>Close</p>} />
+          renderSection={() => <p className='button-text'>{_buttonText.close}</p>} />
         <Button
           onClickHandler={addNewPhoto}
-          renderSection={() => <p className='button-text'>Submit</p>} />
+          renderSection={() => <p className='button-text'>{_buttonText.submit}</p>} />
       </ModalWrapperButton>
-    </ModalFormContainer>
+    </ModalContentContainer>
   );
 }
 

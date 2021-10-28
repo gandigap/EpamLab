@@ -28,7 +28,7 @@ export const fetchPhotos = (albumID = 1) => {
   }
 }
 
-export const setAlbumId = (albumID: number): PhotosAction => {
+export const setCurrentAlbumId = (albumID: number): PhotosAction => {
   return { type: PhotosActionTypes.SET_ALBUM_ID, payload: albumID }
 }
 

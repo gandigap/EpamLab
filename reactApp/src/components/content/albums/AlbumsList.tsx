@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Button from '../../button/Button';
 import Spinner from '../../spinner/Spinner';
 import ContentContext from '../ContentContext';
-import { _typesModal } from '../../../constants/constants'
+import { _buttonText, _modalTypes } from '../../../constants/constants'
 
 const AlbumsListContainer = styled.div`
   display: flex;
@@ -20,9 +20,8 @@ const AlbumsList = () => {
   const value = useContext(ContentContext);
   const openModalForAddAlbum = useCallback(
     () => {
-      value.setTypeModal(_typesModal.albumModal);
+      value.setTypeModal(_modalTypes.albumModal);
       value.setShowModal(!value.isModalOpen);
-
     },
     [value]
   );
@@ -53,7 +52,7 @@ const AlbumsList = () => {
       <div className='button__wrapper' style={{ alignSelf: 'center' }}>
         <Button
           onClickHandler={openModalForAddAlbum}
-          renderSection={() => <p className='button-text'>Add album</p>} />
+          renderSection={() => <p className='button-text'>{_buttonText.addAlbum}</p>} />
       </div>
     </>
   )

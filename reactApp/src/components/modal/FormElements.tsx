@@ -2,7 +2,8 @@
 import styled from 'styled-components';
 import { colors } from '../../styles/mixinsAndVars';
 
-export const ModalFormContainer = styled.div`
+export const ModalContentContainer = styled.div`
+  margin: 10px;
   display: flex;
   flex-direction: column;  
   width: 400px;
@@ -27,6 +28,9 @@ export const ModalTitle = styled.div`
   color: ${colors.fifthСolor};
 `;
 
+export const ModalInputListContainer = styled.div`  
+  flex-grow: 1;
+`;
 export const ModalInputContainer = styled.div`  
   padding: 5px;
   margin: 5px;

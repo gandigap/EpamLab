@@ -6,6 +6,7 @@ import { hoverShadowStyle } from '../../../styles/mixinsAndVars';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import { AlbumProps } from '../../../types/albumsTypes';
 import ContentContext from '../ContentContext';
+import { _contentTypes } from '../../../constants/constants';
 
 const AlbumContainer = styled.div`
   width 24%;
@@ -13,7 +14,6 @@ const AlbumContainer = styled.div`
   min-height: 200px;  
   margin: 5px;
   background-color: ${colors.fifthСolor};  
-  color: #000;  
   cursor: pointer;
   border-radius: 20px;
   border: 1px solid ${colors.thirdColor};
@@ -35,22 +35,22 @@ const AlbumContainerTitle = styled.h3`
 
 const Album = ({ albumInfo }: AlbumProps) => {
   const { photosList } = useTypedSelector(state => state.photos);
-  const { fetchPhotos, setAlbumId } = useActions();
+  const { fetchPhotos, setCurrentAlbumId } = useActions();
   const value = useContext(ContentContext);
 
-  const onClickAlbum = useCallback(
+  const setViewStatePhotoListToContent = useCallback(
     () => {
       if (photosList[albumInfo.id] === undefined) {
         fetchPhotos(albumInfo.id);
       }
-      value.setViewState(`photos`);
-      setAlbumId(albumInfo.id);
+      value.setViewStateContent(_contentTypes.photos);
+      setCurrentAlbumId(albumInfo.id);
     },
-    [photosList, albumInfo.id, value, setAlbumId, fetchPhotos],
+    [photosList, albumInfo.id, value, setCurrentAlbumId, fetchPhotos],
   )
 
   return (
-    <AlbumContainer id={`${albumInfo.id}`} onClick={onClickAlbum} >
+    <AlbumContainer id={`${albumInfo.id}`} onClick={setViewStatePhotoListToContent} >
       <AlbumContainerTitle >{albumInfo.title}</AlbumContainerTitle>
     </AlbumContainer>
   );

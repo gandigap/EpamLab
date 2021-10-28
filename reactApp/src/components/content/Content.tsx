@@ -1,11 +1,11 @@
-import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import AlbumsList from './albums/AlbumsList';
 import PhotosList from './photos/PhotosList';
 import ContentContext from './ContentContext';
 import ErrorBoundary from '../errorBoundary/ErrorBoundary';
 import Button from '../button/Button';
-import { _typesContent, _typesModal } from '../../constants/constants';
+import { _contentTypes, _modalTypes } from '../../constants/constants';
 import Modal from '../modal/Modal';
 import ModalOverlay from '../modal/ModalOverlay';
 import FormAlbum from '../modal/FormAlbum';
@@ -21,10 +21,14 @@ const ContentContainer = styled.div`
 `;
 
 const Content = () => {
-  const [viewState, setViewState] = useState(_typesContent.albums);
+  const [viewStateContent, setViewStateContent] = useState(_contentTypes.albums);
   const [isModalOpen, setShowModal] = useState(false);
-  const [typeModal, setTypeModal] = useState(_typesModal.albumModal);
-  const value = useMemo(() => ({viewState, setViewState, isModalOpen, setShowModal, typeModal,setTypeModal }), [isModalOpen, typeModal, viewState]);
+  const [typeModal, setTypeModal] = useState(_modalTypes.albumModal);
+  const value = {
+    viewStateContent, setViewStateContent,
+    isModalOpen, setShowModal,
+    typeModal, setTypeModal
+  };
   const topRef = useRef<null | HTMLButtonElement>(null);
   const bottomRef = useRef<null | HTMLButtonElement>(null);
   const scrollContent = useCallback(
@@ -50,10 +54,6 @@ const Content = () => {
     body.style.overflow = isModalOpen ? "hidden" : "auto";
   }, [isModalOpen]);
 
-  useEffect(() => {
-    console.log(value, 'content')
-  }, [value]);
-
   if (value.isModalOpen)
     return (
       <ContentContext.Provider value={value}>
@@ -62,9 +62,9 @@ const Content = () => {
             onClickHandler={changeStateModal}
             renderSection={() => {
               switch (value.typeModal) {
-                case _typesModal.albumModal:
+                case _modalTypes.albumModal:
                   return <FormAlbum />
-                case _typesModal.photoModal:
+                case _modalTypes.photoModal:
                   return <FormPhoto />
               }
               return <FormAlbum />
@@ -79,11 +79,23 @@ const Content = () => {
         <ContentContainer>
           <Button onClickHandler={scrollContent('bottom')}
             ref={topRef}
-            renderSection={() => <p className='button-icon-container'><span className='button-icon-container__icon'>▼</span></p>} />
-          {value.viewState === 'photos' ? <PhotosList /> : <AlbumsList />}
+            renderSection={() => {
+              return (
+                <div className='button-icon-container'>
+                  <span className='button-icon-container__icon'>▼</span>
+                </div>
+              )
+            }} />
+          {value.viewStateContent === 'photos' ? <PhotosList /> : <AlbumsList />}
           <Button onClickHandler={scrollContent('top')}
             ref={bottomRef}
-            renderSection={() => <p className='button-icon-container'><span className='button-icon-container__icon'>▲</span></p>} />
+            renderSection={() => {
+              return (
+                <div className='button-icon-container'>
+                  <span className='button-icon-container__icon'>▲</span>
+                </div>
+              )
+            }} />
         </ContentContainer>
       </ContentContext.Provider>
     </ErrorBoundary>
