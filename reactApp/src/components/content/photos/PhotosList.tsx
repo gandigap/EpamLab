@@ -8,6 +8,7 @@ import Button from '../../button/Button';
 import ContentContext from '../ContentContext';
 import { _buttonText, _contentTypes, _errorMessage, _modalTypes } from '../../../constants/constants';
 import { WrapperButton } from '../../button/WrapperButton';
+import ModalContext from '../../modal/ModalContext';
 
 const PhotosListContainer = styled.div`
   display: flex; 
@@ -22,17 +23,18 @@ const AlbumTitle = styled.h3`
 
 const PhotosList = () => {
   const { photosList, error, loading, albumID } = useTypedSelector(state => state.photos);
-  const value = useContext(ContentContext);
+  const valueContent = useContext(ContentContext);
+  const valueModal = useContext(ModalContext);
   const openModalForAddPhoto = useCallback(
     () => {
-      value.setTypeModal(_modalTypes.photoModal);
-      value.setShowModal(!value.isModalOpen);
+      valueModal.setTypeModal(_modalTypes.photoModal);
+      valueModal.setShowModal(!valueModal.isModalOpen);
     },
-    [value]
+    [valueModal]
   );
   const setViewStateAlbumListToContent = useCallback(
-    () => value.setViewStateContent(_contentTypes.albums),
-    [value]
+    () => valueContent.setViewStateContent(_contentTypes.albums),
+    [valueContent]
   );
 
   if (loading) {

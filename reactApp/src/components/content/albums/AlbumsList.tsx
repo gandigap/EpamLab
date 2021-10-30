@@ -5,9 +5,9 @@ import { useActions } from '../../../hooks/useActions';
 import styled from 'styled-components';
 import Button from '../../button/Button';
 import Spinner from '../../spinner/Spinner';
-import ContentContext from '../ContentContext';
 import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/constants'
 import { WrapperButton } from '../../button/WrapperButton';
+import ModalContext from '../../modal/ModalContext';
 
 const AlbumsListContainer = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const AlbumsListContainer = styled.div`
 const AlbumsList = () => {
   const { albumsList, error, loading } = useTypedSelector(state => state.albums);
   const { fetchAlbums } = useActions();
-  const value = useContext(ContentContext);
+  const value = useContext(ModalContext);
   const openModalForAddAlbum = useCallback(
     () => {
       value.setTypeModal(_modalTypes.albumModal);

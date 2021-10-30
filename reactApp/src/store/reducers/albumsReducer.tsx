@@ -11,7 +11,7 @@ export const albumsReducer = (state = initialState, action: AlbumsAction): Album
     case AlbumsActionTypes.FETCH_ALBUMS:
       return { ...state, loading: true }
     case AlbumsActionTypes.FETCH_ALBUMS_SUCCESS:
-      return { ...state, loading: false, error: null, albumsList: action.payload }
+      return { ...state, loading: false, albumsList: action.payload }
     case AlbumsActionTypes.FETCH_ALBUMS_ERROR:
       return { ...state, loading: false, error: action.payload }
     case AlbumsActionTypes.ADD_ALBUM:

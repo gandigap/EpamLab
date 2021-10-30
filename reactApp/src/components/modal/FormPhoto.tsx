@@ -1,6 +1,5 @@
 import React, { useContext, useCallback, useRef, useState, useEffect } from 'react';
 import Button from '../button/Button';
-import ContentContext from '../content/ContentContext';
 import {
   ModalContentContainer, ModalHeader, ModalInput,
   ModalInputContainer, ModalInputListContainer, ModalLabel,
@@ -10,13 +9,14 @@ import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypeSelectors';
 import { PhotoInfoConfig } from '../../types/photosTypes';
 import { _buttonText, _errorMessage, _modalLabel, _modalTitle } from '../../constants/constants';
+import ModalContext from './ModalContext';
 
 const FormPhoto = () => {
   const { photosList, albumID } = useTypedSelector(state => state.photos);
   const [titlePhotoInfo, setTitlePhotoInfo] = useState({
     titleValue: '', titleError: false
   });
-  const value = useContext(ContentContext);
+  const value = useContext(ModalContext);
   const inputTitle = useRef<HTMLInputElement>(null);
   const inputColor = useRef<HTMLInputElement>(null);
   const { addPhoto } = useActions();

@@ -1,6 +1,5 @@
 import React, { useContext, useCallback, useRef, useState, useEffect } from 'react';
 import Button from '../button/Button';
-import ContentContext from '../content/ContentContext';
 import {
   ModalContentContainer, ModalHeader, ModalInput,
   ModalInputListContainer, ModalInputContainer, ModalLabel,
@@ -10,6 +9,7 @@ import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypeSelectors';
 import { AlbumListConfig } from '../../types/albumsTypes';
 import { _buttonText, _errorMessage, _modalLabel, _modalTitle } from '../../constants/constants';
+import ModalContext from './ModalContext';
 
 const FormAlbum = () => {
   const { albumsList } = useTypedSelector(state => state.albums);
@@ -19,7 +19,7 @@ const FormAlbum = () => {
   const [userIdAlbumInfo, setuserIdAlbum] = useState({
     userIdValue: 1, userIdError: false
   });
-  const value = useContext(ContentContext);
+  const value = useContext(ModalContext);
   const inputTitle = useRef<HTMLInputElement>(null);
   const inputUserId = useRef<HTMLInputElement>(null);
   const { addAlbum } = useActions();

@@ -12,14 +12,10 @@ const ImageContainer = styled.img`
   margin: 20px;  
 `;
 
-interface AvatarProps {
-  avatarSrc: string
-}
-
-const Avatar: React.FC<AvatarProps> = ({ avatarSrc }) => {
+const Avatar = () => {
   return (
     <AvatarContainer>
-      <ImageContainer src={avatarSrc} alt="avatar image" />
+      <ImageContainer src={'/images/ava.jpg'} alt="avatar image" />
     </AvatarContainer>
   );
 };

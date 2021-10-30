@@ -14,6 +14,8 @@ export const _buttonText = {
   addPhoto: 'Add photo',
   addAlbum: 'Add album',
   back: 'Back',
+  logOut: 'Logout',
+  signIn: 'signIn',
 }
 
 export const _modalLabel = {
