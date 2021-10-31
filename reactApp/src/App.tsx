@@ -10,6 +10,12 @@ import FormAlbum from './components/modal/FormAlbum';
 import FormPhoto from './components/modal/FormPhoto';
 import ModalContext from './components/modal/ModalContext';
 import Header from './components/header/Header';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 const AppContainer = styled.div`
   max-width: 1200px;
@@ -71,25 +77,44 @@ export const App = () => {
   }, [isModalOpen]);
 
   return (
-    <ModalContext.Provider value={valueModalContext}>
-      <AppContainer>
-        <Header />
-        <UserDetails details={userDetails} />
-        <Modal isModalOpen={isModalOpen}>
-          <ModalOverlay
-            onClickHandler={changeStateModal}
-            renderSection={() => {
-              switch (valueModalContext.typeModal) {
-                case _modalTypes.albumModal:
-                  return <FormAlbum />
-                case _modalTypes.photoModal:
-                  return <FormPhoto />
-              }
-              return <FormAlbum />
-            }} />
-        </Modal>
-      </AppContainer></ModalContext.Provider>
-
+    <Router>
+      <ModalContext.Provider value={valueModalContext}>
+        <Switch>
+          <Route path="/about">
+            <AppContainer>
+              <Header />
+              <UserDetails details={userDetails} />
+              <Modal isModalOpen={isModalOpen}>
+                <ModalOverlay
+                  onClickHandler={changeStateModal}
+                  renderSection={() => {
+                    switch (valueModalContext.typeModal) {
+                      case _modalTypes.albumModal:
+                        return <FormAlbum />
+                      case _modalTypes.photoModal:
+                        return <FormPhoto />
+                    }
+                    return <FormAlbum />
+                  }} />
+              </Modal>
+            </AppContainer>
+          </Route>
+          <Route path="/users">
+            <p>users</p>
+          </Route>
+          <Route path="/login">
+            <Modal isModalOpen={true}>
+              <ModalOverlay
+                onClickHandler={changeStateModal}
+                renderSection={() => { return <FormAlbum /> }} />
+            </Modal>
+          </Route>
+          <Route path="/">
+            <p>Other</p>
+          </Route>
+        </Switch>
+      </ModalContext.Provider>
+    </Router>
   )
 }
 
