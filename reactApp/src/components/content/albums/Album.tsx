@@ -7,6 +7,7 @@ import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import { AlbumProps } from '../../../types/albumsTypes';
 import ContentContext from '../ContentContext';
 import { _contentTypes } from '../../../constants/constants';
+import { useHistory } from 'react-router';
 
 const AlbumContainer = styled.div`
   width 24%;
@@ -37,7 +38,9 @@ const Album = ({ albumInfo }: AlbumProps) => {
   const { photosList } = useTypedSelector(state => state.photos);
   const { fetchPhotos, setCurrentAlbumId } = useActions();
   const value = useContext(ContentContext);
-  const setViewStatePhotoListToContent = useCallback(
+  const history = useHistory();
+
+  /* const setViewStatePhotoListToContent = useCallback(
     () => {
       if (photosList[albumInfo.id] === undefined) {
         fetchPhotos(albumInfo.id);
@@ -46,6 +49,18 @@ const Album = ({ albumInfo }: AlbumProps) => {
       setCurrentAlbumId(albumInfo.id);
     },
     [photosList, albumInfo.id, value, setCurrentAlbumId, fetchPhotos],
+  ) */
+
+  const setViewStatePhotoListToContent = useCallback(
+    () => {
+      if (photosList[albumInfo.id] === undefined) {
+        fetchPhotos(albumInfo.id);
+      }
+      /* value.setViewStateContent(_contentTypes.photos); */
+      setCurrentAlbumId(albumInfo.id);
+      history.push(`/albums/${albumInfo.id}`);
+    },
+    [albumInfo.id, fetchPhotos, history, photosList, setCurrentAlbumId],
   )
 
   return (

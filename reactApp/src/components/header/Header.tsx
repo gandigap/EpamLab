@@ -2,19 +2,17 @@ import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { _buttonText } from '../../constants/constants';
 import Button from '../button/Button';
-import { useTypedSelector } from '../../hooks/useTypeSelectors';
-import { useActions } from '../../hooks/useActions';
-import Spinner from '../spinner/Spinner';
-import { _errorMessage } from '../../constants/constants';
+import { colors } from '../../styles/mixinsAndVars';
+import { useHistory } from 'react-router';
 
 const HeaderContainer = styled.header`
   padding: 10px;
   display:flex; 
+  border-bottom: 1px solid ${colors.fourthСolor}
 `;
 
 const Header = () => {
-  const { usersList, error, loading } = useTypedSelector(state => state.users);
-  const { fetchUsers } = useActions();
+  const history = useHistory();
   const [isAuth, setAuth] = useState(false);
   const logOut = useCallback(
     () => {
@@ -26,37 +24,28 @@ const Header = () => {
 
   const signIn = useCallback(
     () => {
-      fetchUsers();
-      console.log(usersList, 'userlist')
-      setAuth(!isAuth);
+      history.push('/login');
     },
-    [fetchUsers, isAuth, usersList]
+    [history]
   );
+
 
   const checkAuth = useCallback(
     () => {
-      localStorage.getItem('name')
-        ? console.log('in')
-        : console.log('out')
+      const user = localStorage.getItem('user');
+      user ? setAuth(true)
+        : setAuth(false);
     },
     []
   );
 
   useEffect(() => { checkAuth() }, [checkAuth]);
 
-  if (loading) {
-    return <Spinner />
-  }
-
-  if (error) {
-    return <h1>{_errorMessage.errorAlbumsFetch}</h1>
-  }
-
   return (
     <HeaderContainer>
       {isAuth
         ? <div>
-          <h3>username</h3>
+          <h3>{localStorage.getItem('user')}</h3>
           <Button
             onClickHandler={logOut}
             renderSection={() => <p className='button-text'>{_buttonText.logOut}</p>} />

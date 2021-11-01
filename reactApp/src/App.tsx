@@ -54,18 +54,12 @@ const userDetails = {
 export const App = () => {
   const [isModalOpen, setShowModal] = useState(false);
   const [typeModal, setTypeModal] = useState(_modalTypes.albumModal);
+
   const changeStateModal = useCallback(
     (e) => {
       e.target.id === 'modal__overlay' && setShowModal(!isModalOpen);
     },
     [isModalOpen]
-  );
-
-  const checkAuth = useCallback(
-    () => {
-      console.log(localStorage.getItem('name'), localStorage.getItem('name'), 'log pass');
-    },
-    []
   );
 
   const valueModalContext = {
@@ -86,19 +80,6 @@ export const App = () => {
           <Route path="/about">
             <AppContainer>
               <UserDetails details={userDetails} />
-              <Modal isModalOpen={isModalOpen}>
-                <ModalOverlay
-                  onClickHandler={changeStateModal}
-                  renderSection={() => {
-                    switch (valueModalContext.typeModal) {
-                      case _modalTypes.albumModal:
-                        return <FormAlbum />
-                      case _modalTypes.photoModal:
-                        return <FormPhoto />
-                    }
-                    return <FormAlbum />
-                  }} />
-              </Modal>
             </AppContainer>
           </Route>
           <Route exact path="/albums">
@@ -111,9 +92,22 @@ export const App = () => {
             <LoginPage />
           </Route>
           <Route path="/">
-            <p>Other</p>
+            <p>start</p>
           </Route>
         </Switch>
+        <Modal isModalOpen={isModalOpen}>
+          <ModalOverlay
+            onClickHandler={changeStateModal}
+            renderSection={() => {
+              switch (valueModalContext.typeModal) {
+                case _modalTypes.albumModal:
+                  return <FormAlbum />
+                case _modalTypes.photoModal:
+                  return <FormPhoto />
+              }
+              return <FormAlbum />
+            }} />
+        </Modal>
       </ModalContext.Provider>
     </Router>
   )

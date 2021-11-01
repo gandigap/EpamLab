@@ -8,6 +8,7 @@ import Spinner from '../../spinner/Spinner';
 import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/constants'
 import { WrapperButton } from '../../button/WrapperButton';
 import ModalContext from '../../modal/ModalContext';
+import ScrollWrapper from '../../scrollWrapper/ScrollWrapper';
 
 const AlbumsListContainer = styled.div`
   display: flex;
@@ -42,7 +43,7 @@ const AlbumsList = () => {
   }
 
   return (
-    <>
+    <ScrollWrapper>
       <AlbumsListContainer>
         {Object.keys(albumsList).map((key: string) => {
           return <Album
@@ -55,7 +56,7 @@ const AlbumsList = () => {
           onClickHandler={openModalForAddAlbum}
           renderSection={() => <p className='button-text'>{_buttonText.addAlbum}</p>} />
       </WrapperButton>
-    </>
+    </ScrollWrapper>
   )
 }
 

@@ -9,6 +9,8 @@ import ContentContext from '../ContentContext';
 import { _buttonText, _contentTypes, _errorMessage, _modalTypes } from '../../../constants/constants';
 import { WrapperButton } from '../../button/WrapperButton';
 import ModalContext from '../../modal/ModalContext';
+import ScrollWrapper from '../../scrollWrapper/ScrollWrapper';
+import { useHistory } from 'react-router';
 
 const PhotosListContainer = styled.div`
   display: flex; 
@@ -32,9 +34,10 @@ const PhotosList = () => {
     },
     [valueModal]
   );
+  const history = useHistory();
   const setViewStateAlbumListToContent = useCallback(
-    () => valueContent.setViewStateContent(_contentTypes.albums),
-    [valueContent]
+    () => history.goBack(),
+    [history]
   );
 
   if (loading) {
@@ -46,7 +49,7 @@ const PhotosList = () => {
   }
 
   return (
-    <>
+    <ScrollWrapper>
       <WrapperButton>
         <Button
           onClickHandler={setViewStateAlbumListToContent}
@@ -65,7 +68,7 @@ const PhotosList = () => {
           onClickHandler={openModalForAddPhoto}
           renderSection={() => <p className='button-text'>{_buttonText.addPhoto}</p>} />
       </WrapperButton>
-    </>
+    </ScrollWrapper>
   )
 }
 

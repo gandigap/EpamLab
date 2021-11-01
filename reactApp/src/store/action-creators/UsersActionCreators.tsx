@@ -3,8 +3,8 @@ import { UserInfoConfig, UsersAction, UsersActionTypes, UserListConfig } from ".
 
 function getDataObject(arrayUsers: UserInfoConfig[]) {
   const objFinal: UserListConfig = {};
-  arrayUsers.forEach((element: UserInfoConfig, index: number) => {
-    objFinal[`${index + 1}`] = element;
+  arrayUsers.forEach((user: UserInfoConfig, index: number) => {
+    objFinal[`${user.email}`] = user;
   });
   return objFinal;
 }

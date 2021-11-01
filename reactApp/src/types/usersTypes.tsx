@@ -1,5 +1,5 @@
 export interface UsersState {
-  usersList: object,
+  usersList: UserListConfig,
   authUserId: null | number,
   loading: boolean,
   error: null | string,
@@ -10,7 +10,6 @@ export enum UsersActionTypes {
   FETCH_USERS_SUCCESS = 'FETCH_USER_SUCCESS',
   FETCH_USERS_ERROR = 'FETCH_USER_ERROR',
   CHANGE_AUTH_USER_ID = 'CHANGE_AUTH_USER_ID',
-
 }
 
 interface FetchUsersAction {
