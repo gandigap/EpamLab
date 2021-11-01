@@ -13,9 +13,11 @@ import Header from './components/header/Header';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
+import PublicAlbumsPage from './pages/PublicAlbumsPage';
+import PublicPhotosPage from './pages/PublicPhotosPage';
+import LoginPage from './pages/LoginPage';
 
 const AppContainer = styled.div`
   max-width: 1200px;
@@ -79,10 +81,10 @@ export const App = () => {
   return (
     <Router>
       <ModalContext.Provider value={valueModalContext}>
+        <Header />
         <Switch>
           <Route path="/about">
             <AppContainer>
-              <Header />
               <UserDetails details={userDetails} />
               <Modal isModalOpen={isModalOpen}>
                 <ModalOverlay
@@ -99,15 +101,14 @@ export const App = () => {
               </Modal>
             </AppContainer>
           </Route>
-          <Route path="/users">
-            <p>users</p>
+          <Route exact path="/albums">
+            <PublicAlbumsPage />
+          </Route>
+          <Route exact path="/albums/:id">
+            <PublicPhotosPage />
           </Route>
           <Route path="/login">
-            <Modal isModalOpen={true}>
-              <ModalOverlay
-                onClickHandler={changeStateModal}
-                renderSection={() => { return <FormAlbum /> }} />
-            </Modal>
+            <LoginPage />
           </Route>
           <Route path="/">
             <p>Other</p>
