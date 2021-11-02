@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import Spinner from '../../spinner/Spinner';
 import { PhotoInfoConfig } from '../../../types/photosTypes';
 import Button from '../../button/Button';
-import ContentContext from '../ContentContext';
-import { _buttonText, _contentTypes, _errorMessage, _modalTypes } from '../../../constants/constants';
+import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/constants';
 import { WrapperButton } from '../../button/WrapperButton';
 import ModalContext from '../../modal/ModalContext';
 import ScrollWrapper from '../../scrollWrapper/ScrollWrapper';
@@ -25,7 +24,6 @@ const AlbumTitle = styled.h3`
 
 const PhotosList = () => {
   const { photosList, error, loading, albumID } = useTypedSelector(state => state.photos);
-  const valueContent = useContext(ContentContext);
   const valueModal = useContext(ModalContext);
   const openModalForAddPhoto = useCallback(
     () => {

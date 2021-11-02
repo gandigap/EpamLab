@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { _buttonText } from '../../constants/constants';
 import Button from '../button/Button';
@@ -11,15 +11,22 @@ const HeaderContainer = styled.header`
   border-bottom: 1px solid ${colors.fourthСolor}
 `;
 
-const Header = () => {
+interface Props {
+  authData: {
+    isAuth: boolean,
+    setAuth: React.Dispatch<React.SetStateAction<boolean>>
+  }
+}
+
+const Header = ({ authData }: Props) => {
   const history = useHistory();
-  const [isAuth, setAuth] = useState(false);
+
   const logOut = useCallback(
     () => {
-      setAuth(!isAuth);
-      console.log(localStorage.getItem('name'))
+      authData.setAuth(false);
+      localStorage.removeItem('user');
     },
-    [isAuth]
+    [authData]
   );
 
   const signIn = useCallback(
@@ -29,21 +36,9 @@ const Header = () => {
     [history]
   );
 
-
-  const checkAuth = useCallback(
-    () => {
-      const user = localStorage.getItem('user');
-      user ? setAuth(true)
-        : setAuth(false);
-    },
-    []
-  );
-
-  useEffect(() => { checkAuth() }, [checkAuth]);
-
   return (
     <HeaderContainer>
-      {isAuth
+      {authData.isAuth
         ? <div>
           <h3>{localStorage.getItem('user')}</h3>
           <Button

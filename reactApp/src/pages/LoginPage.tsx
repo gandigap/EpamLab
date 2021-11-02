@@ -6,8 +6,14 @@ import { useHistory } from 'react-router';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypeSelectors';
 
+interface Props {
+  authData: {
+    isAuth: boolean,
+    setAuth: React.Dispatch<React.SetStateAction<boolean>>
+  }
+}
 
-const LoginPage = () => {
+const LoginPage = ({ authData }: Props) => {
   const { usersList, loading } = useTypedSelector(state => state.users);
   const { fetchUsers } = useActions();
   const history = useHistory();
@@ -20,13 +26,12 @@ const LoginPage = () => {
 
   const inputLogin = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
-  const messageSubmit = useRef<HTMLParagraphElement>(null);
 
   const addLogin = useCallback(
     () => {
       if (inputLogin && inputLogin.current) {
         const valueInputLogin = inputLogin.current.value;
-        valueInputLogin.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+        valueInputLogin.match(/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+/)
           ? setLoginInfo({ loginValue: inputLogin.current.value, loginError: false })
           : setLoginInfo({ loginValue: inputLogin.current.value, loginError: true });
       }
@@ -37,7 +42,6 @@ const LoginPage = () => {
     if (Object.keys(usersList).length === 0 && !loading) {
       fetchUsers();
     }
-
   }, [fetchUsers, loading, usersList]);
 
   const addPassword = useCallback(
@@ -59,21 +63,16 @@ const LoginPage = () => {
 
   const checkAuthData = useCallback(
     () => {
-      const user = usersList[`${loginInfo.loginValue}`];
-      if (user.username === passwordInfo.passwordValue) {
-        if (messageSubmit && messageSubmit.current)
-          messageSubmit.current.textContent = '';
-        localStorage.setItem('user', loginInfo.loginValue);
-        history.push(`./user/${user.id}`)
-      } else {
-        if (messageSubmit && messageSubmit.current)
-          messageSubmit.current.textContent = 'Fail';
+      if (usersList[`${loginInfo.loginValue}`]) {
+        const user = usersList[`${loginInfo.loginValue}`];
+        if (user.username === passwordInfo.passwordValue) {
+          localStorage.setItem('user', loginInfo.loginValue);
+          authData.setAuth(!authData.isAuth)
+          history.push(`./user/${user.id}`)
+        }
       }
-
-    }, [history, loginInfo.loginValue, passwordInfo.passwordValue, usersList]
+    }, [authData, history, loginInfo.loginValue, passwordInfo.passwordValue, usersList]
   )
-
-
 
   return (
     <ModalContentContainer>
@@ -94,7 +93,6 @@ const LoginPage = () => {
           {passwordInfo.passwordError ? <p style={{ color: 'red' }}>{_errorMessage.errorModalPassword}</p> : null}
         </ModalInputContainer>
       </ModalInputListContainer>
-      <p ref={messageSubmit}></p>
       <ModalWrapperButton>
         <Button
           onClickHandler={goToPreviousPage}

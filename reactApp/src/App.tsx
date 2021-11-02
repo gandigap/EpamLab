@@ -54,6 +54,7 @@ const userDetails = {
 export const App = () => {
   const [isModalOpen, setShowModal] = useState(false);
   const [typeModal, setTypeModal] = useState(_modalTypes.albumModal);
+  const [isAuth, setAuth] = useState(false);
 
   const changeStateModal = useCallback(
     (e) => {
@@ -72,10 +73,16 @@ export const App = () => {
     body.style.overflow = isModalOpen ? "hidden" : "auto";
   }, [isModalOpen]);
 
+  useEffect(() => {
+    if (localStorage.getItem('user') && isAuth !== true) {
+      setAuth(!isAuth)
+    }
+  }, [isAuth, isModalOpen]);
+
   return (
     <Router>
       <ModalContext.Provider value={valueModalContext}>
-        <Header />
+        <Header authData={{ isAuth, setAuth }} />
         <Switch>
           <Route path="/about">
             <AppContainer>
@@ -89,7 +96,7 @@ export const App = () => {
             <PublicPhotosPage />
           </Route>
           <Route path="/login">
-            <LoginPage />
+            <LoginPage authData={{ isAuth, setAuth }} />
           </Route>
           <Route path="/">
             <p>start</p>

@@ -1,12 +1,10 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../styles/mixinsAndVars';
 import { useActions } from '../../../hooks/useActions';
 import { hoverShadowStyle } from '../../../styles/mixinsAndVars';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import { AlbumProps } from '../../../types/albumsTypes';
-import ContentContext from '../ContentContext';
-import { _contentTypes } from '../../../constants/constants';
 import { useHistory } from 'react-router';
 
 const AlbumContainer = styled.div`
@@ -37,26 +35,15 @@ const AlbumContainerTitle = styled.h3`
 const Album = ({ albumInfo }: AlbumProps) => {
   const { photosList } = useTypedSelector(state => state.photos);
   const { fetchPhotos, setCurrentAlbumId } = useActions();
-  const value = useContext(ContentContext);
+
   const history = useHistory();
 
-  /* const setViewStatePhotoListToContent = useCallback(
-    () => {
-      if (photosList[albumInfo.id] === undefined) {
-        fetchPhotos(albumInfo.id);
-      }
-      value.setViewStateContent(_contentTypes.photos);
-      setCurrentAlbumId(albumInfo.id);
-    },
-    [photosList, albumInfo.id, value, setCurrentAlbumId, fetchPhotos],
-  ) */
 
   const setViewStatePhotoListToContent = useCallback(
     () => {
       if (photosList[albumInfo.id] === undefined) {
         fetchPhotos(albumInfo.id);
       }
-      /* value.setViewStateContent(_contentTypes.photos); */
       setCurrentAlbumId(albumInfo.id);
       history.push(`/albums/${albumInfo.id}`);
     },
