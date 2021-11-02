@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { _buttonText } from '../../constants/constants';
 import Button from '../button/Button';
 import { colors } from '../../styles/mixinsAndVars';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const HeaderContainer = styled.header`
   padding: 10px;
@@ -25,8 +25,9 @@ const Header = ({ authData }: Props) => {
     () => {
       authData.setAuth(false);
       localStorage.removeItem('user');
+      history.push('/albums');
     },
-    [authData]
+    [authData, history]
   );
 
   const signIn = useCallback(
@@ -40,7 +41,7 @@ const Header = ({ authData }: Props) => {
     <HeaderContainer>
       {authData.isAuth
         ? <div>
-          <h3>{localStorage.getItem('user')}</h3>
+          <h3>{JSON.parse(localStorage.getItem('user')!).username}</h3>
           <Button
             onClickHandler={logOut}
             renderSection={() => <p className='button-text'>{_buttonText.logOut}</p>} />

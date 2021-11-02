@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from '../components/button/Button';
 import { ModalContentContainer, ModalHeader, ModalTitle, ModalInputListContainer, ModalInputContainer, ModalLabel, ModalInput, ModalWrapperButton } from '../components/modal/FormElements';
 import { _modalTitle, _modalLabel, _errorMessage, _buttonText } from '../constants/constants';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypeSelectors';
 
@@ -66,7 +66,8 @@ const LoginPage = ({ authData }: Props) => {
       if (usersList[`${loginInfo.loginValue}`]) {
         const user = usersList[`${loginInfo.loginValue}`];
         if (user.username === passwordInfo.passwordValue) {
-          localStorage.setItem('user', loginInfo.loginValue);
+          localStorage.setItem('user', JSON.stringify(user));
+          /* localStorage.setItem('id', user.id); */
           authData.setAuth(!authData.isAuth)
           history.push(`./user/${user.id}`)
         }

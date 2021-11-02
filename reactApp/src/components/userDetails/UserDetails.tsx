@@ -4,7 +4,6 @@ import UserInfo from './UserInfo';
 import styled from 'styled-components';
 import Content from '../content/Content';
 import { colors } from '../../styles/mixinsAndVars';
-import { UserInfoConfig } from '../../types/usersTypes';
 
 const UserDetailContainer = styled.div`  
   margin: 0 auto;  
@@ -18,21 +17,13 @@ const UserDetailContainer = styled.div`
     border-bottom: 3px solid ${colors.fourthСolor};
 `;
 
-interface UserDetailsProps {
-  details: UserInfoConfig
-}
+const UserDetails = () => {
 
-const UserDetails: React.FC<UserDetailsProps> = ({ details }) => {
   return (
     <>
-      <UserDetailContainer id={`userDetails-${details.id}`}>
+      <UserDetailContainer >
         <Avatar />
-        <UserInfo
-          name={details.name}
-          username={details.username}
-          email={details.email}
-          phone={details.phone}
-        />
+        <UserInfo />
       </UserDetailContainer>
       <Content />
     </>

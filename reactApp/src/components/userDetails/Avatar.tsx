@@ -15,7 +15,7 @@ const ImageContainer = styled.img`
 const Avatar = () => {
   return (
     <AvatarContainer>
-      <ImageContainer src={'/images/ava.jpg'} alt="avatar image" />
+      <ImageContainer src={'/images/user.png'} alt="avatar image" />
     </AvatarContainer>
   );
 };

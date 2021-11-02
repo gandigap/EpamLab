@@ -27,22 +27,19 @@ const UserInfoUserAdditionalContainer = styled.p`
   margin:20px 0;
 `;
 
-interface UserInfoProps {
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-}
+const UserInfo = () => {
+  const user = JSON.parse(localStorage.getItem('user')!);
 
-const UserInfo: React.FC<UserInfoProps> = ({ name, username, email, phone }) => {
+  console.log('userinfo')
+
   return (
     <UserInfoContainer>
-      <UserInfoName>{name}<UserInfoUserName>{` aka the "${username}"`}</UserInfoUserName></UserInfoName>
+      <UserInfoName>{user.name}<UserInfoUserName>{` aka the "${user.username}"`}</UserInfoUserName></UserInfoName>
       <UserInfoUserAdditionalContainer className='userInfo-email'>
-        <FontAwesomeIcon icon={faCoffee} /> {email}
+        <FontAwesomeIcon icon={faCoffee} /> {user.email}
       </UserInfoUserAdditionalContainer>
       <UserInfoUserAdditionalContainer className='userInfo-phone'>
-        <FontAwesomeIcon icon={faPhone} /> {phone}
+        <FontAwesomeIcon icon={faPhone} /> {user.phone}
       </UserInfoUserAdditionalContainer>
     </UserInfoContainer>
   )

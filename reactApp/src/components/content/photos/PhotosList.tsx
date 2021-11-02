@@ -9,7 +9,7 @@ import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/cons
 import { WrapperButton } from '../../button/WrapperButton';
 import ModalContext from '../../modal/ModalContext';
 import ScrollWrapper from '../../scrollWrapper/ScrollWrapper';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const PhotosListContainer = styled.div`
   display: flex; 
@@ -23,7 +23,10 @@ const AlbumTitle = styled.h3`
 `;
 
 const PhotosList = () => {
+
+  console.log('photolist')
   const { photosList, error, loading, albumID } = useTypedSelector(state => state.photos);
+
   const valueModal = useContext(ModalContext);
   const openModalForAddPhoto = useCallback(
     () => {

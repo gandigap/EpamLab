@@ -5,7 +5,7 @@ import { useActions } from '../../../hooks/useActions';
 import { hoverShadowStyle } from '../../../styles/mixinsAndVars';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import { AlbumProps } from '../../../types/albumsTypes';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const AlbumContainer = styled.div`
   width 24%;

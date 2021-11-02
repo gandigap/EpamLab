@@ -13,7 +13,6 @@ export enum PhotosActionTypes {
   ADD_PHOTO = 'ADD_PHOTO',
 }
 
-
 interface FetchPhotosAction {
   type: PhotosActionTypes.FETCH_PHOTOS;
 }
