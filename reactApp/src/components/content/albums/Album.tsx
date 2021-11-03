@@ -35,9 +35,7 @@ const AlbumContainerTitle = styled.h3`
 const Album = ({ albumInfo }: AlbumProps) => {
   const { photosList } = useTypedSelector(state => state.photos);
   const { fetchPhotos, setCurrentAlbumId } = useActions();
-
   const history = useHistory();
-
 
   const setViewStatePhotoListToContent = useCallback(
     () => {

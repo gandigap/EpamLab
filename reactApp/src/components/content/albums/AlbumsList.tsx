@@ -9,6 +9,7 @@ import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/cons
 import { WrapperButton } from '../../button/WrapperButton';
 import ModalContext from '../../modal/ModalContext';
 import ScrollWrapper from '../../scrollWrapper/ScrollWrapper';
+import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 
 const AlbumsListContainer = styled.div`
   display: flex;
@@ -17,6 +18,7 @@ const AlbumsListContainer = styled.div`
 `;
 
 const AlbumsList = () => {
+  const { id } = useParams<{ id?: string }>();
   const { albumsList, error, loading } = useTypedSelector(state => state.albums);
   const { fetchAlbums } = useActions();
   const value = useContext(ModalContext);
@@ -26,6 +28,27 @@ const AlbumsList = () => {
       value.setShowModal(!value.isModalOpen);
     },
     [value]
+  );
+
+  const getAllAlbums = useCallback(
+    () => {
+      return id
+        ? Object.keys(albumsList)
+          .filter((key: string) => {
+            return albumsList[`${key}`].userId === parseInt(id, 10)
+          })
+          .map((key: string) => {
+            return <Album
+              albumInfo={albumsList[`${key}`]}
+              key={albumsList[`${key}`].id} />
+          })
+        : Object.keys(albumsList).map((key: string) => {
+          return <Album
+            albumInfo={albumsList[`${key}`]}
+            key={albumsList[`${key}`].id} />
+        })
+    },
+    [albumsList, id]
   );
 
   useEffect(() => {
@@ -45,11 +68,8 @@ const AlbumsList = () => {
   return (
     <ScrollWrapper>
       <AlbumsListContainer>
-        {Object.keys(albumsList).map((key: string) => {
-          return <Album
-            albumInfo={albumsList[`${key}`]}
-            key={albumsList[`${key}`].id} />
-        })}
+        {getAllAlbums()}
+
       </AlbumsListContainer>
       <WrapperButton>
         <Button

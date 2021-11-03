@@ -48,7 +48,7 @@ export const App = () => {
     if (localStorage.getItem('user') && isAuth !== true) {
       setAuth(!isAuth)
     }
-  }, [isAuth, isModalOpen]);
+  }, [isAuth]);
 
   return (
     <AppContainer>
@@ -62,8 +62,8 @@ export const App = () => {
             <Route path="/login">
               <LoginPage authData={{ isAuth, setAuth }} />
             </Route>
-            <Route path={["/home", "/"]}>
-              {isAuth ? <Redirect to="/user/:id" /> : <Redirect to="/albums" />}
+            <Route exact path={["/", "/home"]}>
+              <Redirect to="/albums" />
             </Route>
           </Switch>
           <Modal isModalOpen={isModalOpen}>

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { _buttonText } from '../../constants/constants';
 import Button from '../button/Button';
@@ -36,6 +36,11 @@ const Header = ({ authData }: Props) => {
     },
     [history]
   );
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    authData.isAuth && history.push(`/user/${user.id}`);
+  }, [authData.isAuth, history])
 
   return (
     <HeaderContainer>
