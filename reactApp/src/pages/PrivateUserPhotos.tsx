@@ -1,19 +1,19 @@
 import React from 'react';
-import AlbumsList from '../components/content/albums/AlbumsList';
 import Avatar from '../components/userDetails/Avatar';
-import UserDetailContainer from '../components/userDetails/UserDetailContainer';
 import UserInfo from '../components/userDetails/UserInfo';
+import PhotosList from '../components/content/photos/PhotosList';
+import UserDetailContainer from '../components/userDetails/UserDetailContainer';
 
-const PrivateUserAlbums = () => {
+const PrivateUserPhotos = () => {
   return (
     <>
       <UserDetailContainer >
         <Avatar />
         <UserInfo />
       </UserDetailContainer>
-      <AlbumsList />
+      <PhotosList />
     </>
   );
 };
 
-export default PrivateUserAlbums;
+export default PrivateUserPhotos;

@@ -1,5 +1,5 @@
 import React, { useContext, useCallback, useRef, useState, useEffect } from 'react';
-import Button from '../button/Button';
+import Button from '../common/button/Button';
 import {
   ModalContentContainer, ModalHeader, ModalInput,
   ModalInputContainer, ModalInputListContainer, ModalLabel,
@@ -62,6 +62,16 @@ const FormPhoto = () => {
     }, []
   )
 
+  const addButtonContent = useCallback(
+    (value) => () => <p className='button-text'>{`${value}`}</p>,
+    []
+  );
+
+  const addButtonIconClose = useCallback(
+    () => <span className='button-close-modal'>✖</span>,
+    []
+  );
+
   useEffect(() => {
     addTitle();
     return () => {
@@ -75,7 +85,7 @@ const FormPhoto = () => {
         <ModalTitle>{_modalTitle.photo}</ModalTitle>
         <Button
           onClickHandler={changeStateModal}
-          renderSection={() => <span className='button-close-modal'>✖</span>} />
+          renderSection={addButtonIconClose} />
       </ModalHeader>
       <ModalInputListContainer>
         <ModalInputContainer>
@@ -92,10 +102,10 @@ const FormPhoto = () => {
       <ModalWrapperButton>
         <Button
           onClickHandler={changeStateModal}
-          renderSection={() => <p className='button-text'>{_buttonText.close}</p>} />
+          renderSection={addButtonContent(_buttonText.close)} />
         <Button
           onClickHandler={addNewPhoto} disabled={titlePhotoInfo.titleError ? true : false}
-          renderSection={() => <p className='button-text'>{_buttonText.submit}</p>} />
+          renderSection={addButtonContent(_buttonText.submit)} />
       </ModalWrapperButton>
     </ModalContentContainer>
   );

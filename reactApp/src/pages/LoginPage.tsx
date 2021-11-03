@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Button from '../components/button/Button';
-import { ModalContentContainer, ModalHeader, ModalTitle, ModalInputListContainer, ModalInputContainer, ModalLabel, ModalInput, ModalWrapperButton } from '../components/modal/FormElements';
+import Button from '../components/common/button/Button';
+import { ModalContentContainer, ModalHeader, ModalTitle, ModalInputListContainer, ModalInputContainer, ModalLabel, ModalInput, ModalWrapperButton, ModalOverlayContainer } from '../components/modal/FormElements';
 import { _modalTitle, _modalLabel, _errorMessage, _buttonText } from '../constants/constants';
 import { useHistory } from 'react-router-dom';
 import { useActions } from '../hooks/useActions';
@@ -67,7 +67,6 @@ const LoginPage = ({ authData }: Props) => {
         const user = usersList[`${loginInfo.loginValue}`];
         if (user.username === passwordInfo.passwordValue) {
           localStorage.setItem('user', JSON.stringify(user));
-          /* localStorage.setItem('id', user.id); */
           authData.setAuth(!authData.isAuth)
           history.push(`./user/${user.id}`)
         }
@@ -75,36 +74,44 @@ const LoginPage = ({ authData }: Props) => {
     }, [authData, history, loginInfo.loginValue, passwordInfo.passwordValue, usersList]
   )
 
-  return (
-    <ModalContentContainer>
-      <ModalHeader>
-        <ModalTitle>{_modalTitle.auth}</ModalTitle>
-      </ModalHeader>
-      <ModalInputListContainer>
-        <ModalInputContainer>
-          <ModalLabel>{_modalLabel.login}</ModalLabel>
-          <ModalInput ref={inputLogin} type='email' defaultValue=''
-            placeholder='Ex: test@mail.ru' onChange={addLogin} />
-          {loginInfo.loginError ? <p style={{ color: 'red' }}>{_errorMessage.errorModalLogin}</p> : null}
-        </ModalInputContainer>
-        <ModalInputContainer>
-          <ModalLabel>{_modalLabel.password}</ModalLabel>
-          <ModalInput ref={inputPassword} type='text' defaultValue=''
-            placeholder='Ex: Tom' onChange={addPassword} />
-          {passwordInfo.passwordError ? <p style={{ color: 'red' }}>{_errorMessage.errorModalPassword}</p> : null}
-        </ModalInputContainer>
-      </ModalInputListContainer>
-      <ModalWrapperButton>
-        <Button
-          onClickHandler={goToPreviousPage}
-          renderSection={() => <p className='button-text'>{_buttonText.back}</p>} />
-        <Button
-          onClickHandler={checkAuthData}
-          disabled={(loginInfo.loginError || passwordInfo.passwordError) ? true : false}
-          renderSection={() => <p className='button-text'>{_buttonText.submit}</p>} />
+  const addButtonContent = useCallback(
+    (value) => () => <p className='button-text'>{`${value}`}</p>,
+    []
+  );
 
-      </ModalWrapperButton>
-    </ModalContentContainer>
+  return (
+    <ModalOverlayContainer>
+      <ModalContentContainer>
+        <ModalHeader>
+          <ModalTitle>{_modalTitle.auth}</ModalTitle>
+        </ModalHeader>
+        <ModalInputListContainer>
+          <ModalInputContainer>
+            <ModalLabel>{_modalLabel.login}</ModalLabel>
+            <ModalInput ref={inputLogin} type='email' defaultValue=''
+              placeholder='Ex: test@mail.ru' onChange={addLogin} />
+            {loginInfo.loginError ? <p style={{ color: 'red' }}>{_errorMessage.errorModalLogin}</p> : null}
+          </ModalInputContainer>
+          <ModalInputContainer>
+            <ModalLabel>{_modalLabel.password}</ModalLabel>
+            <ModalInput ref={inputPassword} type='text' defaultValue=''
+              placeholder='Ex: Tom' onChange={addPassword} />
+            {passwordInfo.passwordError ? <p style={{ color: 'red' }}>{_errorMessage.errorModalPassword}</p> : null}
+          </ModalInputContainer>
+        </ModalInputListContainer>
+        <ModalWrapperButton>
+          <Button
+            onClickHandler={goToPreviousPage}
+            renderSection={addButtonContent(_buttonText.back)} />
+          <Button
+            onClickHandler={checkAuthData}
+            disabled={(loginInfo.loginError || passwordInfo.passwordError) ? true : false}
+            renderSection={addButtonContent(_buttonText.submit)} />
+
+        </ModalWrapperButton>
+      </ModalContentContainer>
+    </ModalOverlayContainer>
+
   );
 };
 

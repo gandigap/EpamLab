@@ -1,13 +1,19 @@
 import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { _buttonText } from '../../constants/constants';
-import Button from '../button/Button';
+import Button from '../common/button/Button';
 import { colors } from '../../styles/mixinsAndVars';
 import { useHistory } from 'react-router-dom';
 
 const HeaderContainer = styled.header`
-  padding: 10px;
-  display:flex; 
+  padding: 10px; 
+  border-bottom: 1px solid ${colors.fourthСolor}
+`;
+
+const HeaderContentContainer = styled.header`  
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid ${colors.fourthСolor}
 `;
 
@@ -20,7 +26,6 @@ interface Props {
 
 const Header = ({ authData }: Props) => {
   const history = useHistory();
-
   const logOut = useCallback(
     () => {
       authData.setAuth(false);
@@ -37,6 +42,11 @@ const Header = ({ authData }: Props) => {
     [history]
   );
 
+  const addButtonContent = useCallback(
+    (value) => () => <p className='button-text'>{`${value}`}</p>,
+    []
+  );
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user')!);
     authData.isAuth && history.push(`/user/${user.id}`);
@@ -45,17 +55,17 @@ const Header = ({ authData }: Props) => {
   return (
     <HeaderContainer>
       {authData.isAuth
-        ? <div>
+        ? <HeaderContentContainer>
           <h3>{JSON.parse(localStorage.getItem('user')!).username}</h3>
           <Button
             onClickHandler={logOut}
-            renderSection={() => <p className='button-text'>{_buttonText.logOut}</p>} />
-        </div>
-        : <div>
+            renderSection={addButtonContent(_buttonText.logOut)} />
+        </HeaderContentContainer>
+        : <HeaderContentContainer>
           <Button
             onClickHandler={signIn}
-            renderSection={() => <p className='button-text'>{_buttonText.signIn}</p>} />
-        </div>}
+            renderSection={addButtonContent(_buttonText.signIn)} />
+        </HeaderContentContainer>}
     </HeaderContainer>
   );
 }

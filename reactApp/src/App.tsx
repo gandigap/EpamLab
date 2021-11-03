@@ -14,12 +14,18 @@ import PublicPhotosPage from './pages/PublicPhotosPage';
 import LoginPage from './pages/LoginPage';
 import PrivateUserAlbums from './pages/PrivateUserAlbums';
 import { Switch, Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import PrivateUserPhotos from './pages/PrivateUserPhotos';
+import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
 
 const AppContainer = styled.div`
   max-width: 1200px;
-  background-color: ${colors.fourthСolor};
+  background-color: ${colors.secondColor};
   margin:0 auto;
   min-height:100vh;
+`;
+
+const Wrapper = styled.div`  
+  margin:0 10px;
 `;
 
 export const App = () => {
@@ -51,37 +57,42 @@ export const App = () => {
   }, [isAuth]);
 
   return (
-    <AppContainer>
-      <Router>
-        <ModalContext.Provider value={valueModalContext}>
-          <Header authData={{ isAuth, setAuth }} />
-          <Switch>
-            <Route exact path="/albums" component={PublicAlbumsPage} />
-            <Route exact path="/albums/:id" component={PublicPhotosPage} />
-            <Route exact path="/user/:id" component={PrivateUserAlbums} />
-            <Route path="/login">
-              <LoginPage authData={{ isAuth, setAuth }} />
-            </Route>
-            <Route exact path={["/", "/home"]}>
-              <Redirect to="/albums" />
-            </Route>
-          </Switch>
-          <Modal isModalOpen={isModalOpen}>
-            <ModalOverlay
-              onClickHandler={changeStateModal}
-              renderSection={() => {
-                switch (valueModalContext.typeModal) {
-                  case _modalTypes.albumModal:
+    <ErrorBoundary>
+      <AppContainer>
+        <Wrapper>
+          <Router>
+            <ModalContext.Provider value={valueModalContext}>
+              <Header authData={{ isAuth, setAuth }} />
+              <Switch>
+                <Route exact path="/albums" component={PublicAlbumsPage} />
+                <Route exact path="/albums/:albumId" component={PublicPhotosPage} />
+                <Route exact path="/user/:userId" component={PrivateUserAlbums} />
+                <Route exact path="/user/:userId/albums/:albumId" component={PrivateUserPhotos} />
+                <Route path="/login">
+                  <LoginPage authData={{ isAuth, setAuth }} />
+                </Route>
+                <Route exact path={["/", "/home"]}>
+                  <Redirect to="/albums" />
+                </Route>
+              </Switch>
+              <Modal isModalOpen={isModalOpen}>
+                <ModalOverlay
+                  onClickHandler={changeStateModal}
+                  renderSection={() => {
+                    switch (valueModalContext.typeModal) {
+                      case _modalTypes.albumModal:
+                        return <FormAlbum />
+                      case _modalTypes.photoModal:
+                        return <FormPhoto />
+                    }
                     return <FormAlbum />
-                  case _modalTypes.photoModal:
-                    return <FormPhoto />
-                }
-                return <FormAlbum />
-              }} />
-          </Modal>
-        </ModalContext.Provider>
-      </Router>
-    </AppContainer>
+                  }} />
+              </Modal>
+            </ModalContext.Provider>
+          </Router>
+        </Wrapper>
+      </AppContainer>
+    </ErrorBoundary>
 
   )
 }

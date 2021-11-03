@@ -3,13 +3,14 @@ import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import Album from './Album';
 import { useActions } from '../../../hooks/useActions';
 import styled from 'styled-components';
-import Button from '../../button/Button';
-import Spinner from '../../spinner/Spinner';
+import Button from '../../common/button/Button';
+import Spinner from '../../common/spinner/Spinner';
 import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/constants'
-import { WrapperButton } from '../../button/WrapperButton';
+import { WrapperButton } from '../../common/button/WrapperButton';
 import ModalContext from '../../modal/ModalContext';
-import ScrollWrapper from '../../scrollWrapper/ScrollWrapper';
-import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom';
+import ScrollWrapper from '../../common/scrollWrapper/ScrollWrapper';
+import { useParams } from 'react-router-dom';
+import ErrorBoundary from '../../errorBoundary/ErrorBoundary';
 
 const AlbumsListContainer = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const AlbumsListContainer = styled.div`
 `;
 
 const AlbumsList = () => {
-  const { id } = useParams<{ id?: string }>();
+  const { userId } = useParams<{ userId?: string }>();
   const { albumsList, error, loading } = useTypedSelector(state => state.albums);
   const { fetchAlbums } = useActions();
   const value = useContext(ModalContext);
@@ -32,10 +33,10 @@ const AlbumsList = () => {
 
   const getAllAlbums = useCallback(
     () => {
-      return id
+      return userId
         ? Object.keys(albumsList)
           .filter((key: string) => {
-            return albumsList[`${key}`].userId === parseInt(id, 10)
+            return albumsList[`${key}`].userId === parseInt(userId, 10)
           })
           .map((key: string) => {
             return <Album
@@ -48,7 +49,11 @@ const AlbumsList = () => {
             key={albumsList[`${key}`].id} />
         })
     },
-    [albumsList, id]
+    [albumsList, userId]
+  );
+  const addButtonContent = useCallback(
+    (value) => () => <p className='button-text'>{`${value}`}</p>,
+    []
   );
 
   useEffect(() => {
@@ -56,6 +61,8 @@ const AlbumsList = () => {
       fetchAlbums();
     }
   }, [fetchAlbums, albumsList, loading]);
+
+
 
   if (loading) {
     return <Spinner />
@@ -66,17 +73,19 @@ const AlbumsList = () => {
   }
 
   return (
-    <ScrollWrapper>
-      <AlbumsListContainer>
-        {getAllAlbums()}
+    <ErrorBoundary>
+      <ScrollWrapper>
+        <AlbumsListContainer>
+          {getAllAlbums()}
+        </AlbumsListContainer>
+        <WrapperButton>
+          <Button
+            onClickHandler={openModalForAddAlbum}
+            renderSection={addButtonContent(_buttonText.addAlbum)} />
+        </WrapperButton>
+      </ScrollWrapper>
+    </ErrorBoundary>
 
-      </AlbumsListContainer>
-      <WrapperButton>
-        <Button
-          onClickHandler={openModalForAddAlbum}
-          renderSection={() => <p className='button-text'>{_buttonText.addAlbum}</p>} />
-      </WrapperButton>
-    </ScrollWrapper>
   )
 }
 

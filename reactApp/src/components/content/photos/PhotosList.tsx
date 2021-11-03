@@ -2,14 +2,15 @@ import React, { useCallback, useContext } from 'react';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import Photo from './Photo';
 import styled from 'styled-components';
-import Spinner from '../../spinner/Spinner';
+import Spinner from '../../common/spinner/Spinner';
 import { PhotoInfoConfig } from '../../../types/photosTypes';
-import Button from '../../button/Button';
+import Button from '../../common/button/Button';
 import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/constants';
-import { WrapperButton } from '../../button/WrapperButton';
+import { WrapperButton } from '../../common/button/WrapperButton';
 import ModalContext from '../../modal/ModalContext';
-import ScrollWrapper from '../../scrollWrapper/ScrollWrapper';
+import ScrollWrapper from '../../common/scrollWrapper/ScrollWrapper';
 import { useHistory } from 'react-router-dom';
+import ErrorBoundary from '../../errorBoundary/ErrorBoundary';
 
 const PhotosListContainer = styled.div`
   display: flex; 
@@ -23,11 +24,12 @@ const AlbumTitle = styled.h3`
 `;
 
 const PhotosList = () => {
+  const history = useHistory();
 
-  console.log('photolist')
   const { photosList, error, loading, albumID } = useTypedSelector(state => state.photos);
 
   const valueModal = useContext(ModalContext);
+
   const openModalForAddPhoto = useCallback(
     () => {
       valueModal.setTypeModal(_modalTypes.photoModal);
@@ -35,10 +37,13 @@ const PhotosList = () => {
     },
     [valueModal]
   );
-  const history = useHistory();
   const setViewStateAlbumListToContent = useCallback(
     () => history.goBack(),
     [history]
+  );
+  const addButtonContent = useCallback(
+    (value) => () => <p className='button-text'>{`${value}`}</p>,
+    []
   );
 
   if (loading) {
@@ -50,26 +55,29 @@ const PhotosList = () => {
   }
 
   return (
-    <ScrollWrapper>
-      <WrapperButton>
-        <Button
-          onClickHandler={setViewStateAlbumListToContent}
-          renderSection={() => <p className='button-text'>{_buttonText.back}</p>} />
-        <AlbumTitle>Album {albumID}</AlbumTitle>
-      </WrapperButton>
-      <PhotosListContainer>
-        {(photosList[albumID] !== undefined && photosList[albumID].length !== 0)
-          ? photosList[albumID].map((photo: PhotoInfoConfig) => <Photo
-            photoInfo={photo}
-            key={photo.id} />)
-          : ''}
-      </PhotosListContainer>
-      <WrapperButton>
-        <Button
-          onClickHandler={openModalForAddPhoto}
-          renderSection={() => <p className='button-text'>{_buttonText.addPhoto}</p>} />
-      </WrapperButton>
-    </ScrollWrapper>
+    <ErrorBoundary>
+      <ScrollWrapper>
+        <WrapperButton>
+          <Button
+            onClickHandler={setViewStateAlbumListToContent}
+            renderSection={addButtonContent(_buttonText.back)} />
+          <AlbumTitle>Album {albumID}</AlbumTitle>
+        </WrapperButton>
+        <PhotosListContainer>
+          {(photosList[albumID] !== undefined && photosList[albumID].length !== 0)
+            ? photosList[albumID].map((photo: PhotoInfoConfig) => <Photo
+              photoInfo={photo}
+              key={photo.id} />)
+            : ''}
+        </PhotosListContainer>
+        <WrapperButton>
+          <Button
+            onClickHandler={openModalForAddPhoto}
+            renderSection={addButtonContent(_buttonText.addPhoto)} />
+        </WrapperButton>
+      </ScrollWrapper>
+    </ErrorBoundary>
+
   )
 }
 

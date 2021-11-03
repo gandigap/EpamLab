@@ -1,10 +1,9 @@
 import React, { useRef, useCallback, ReactNode } from 'react'
 import Button from '../button/Button';
 import styled from 'styled-components';
-import { colors } from '../../styles/mixinsAndVars';
+import { colors } from '../../../styles/mixinsAndVars';
 
-const ScrollWrapperContainer = styled.div`
-  max-width: 1200px;
+const ScrollWrapperContainer = styled.div`  
   margin: 10px auto;
   background-color: ${colors.fourthСolor};
 `;

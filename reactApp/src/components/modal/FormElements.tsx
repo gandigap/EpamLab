@@ -2,6 +2,19 @@
 import styled from 'styled-components';
 import { colors } from '../../styles/mixinsAndVars';
 
+export const ModalOverlayContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.secondColor};
+  z-index: 1;
+`;
+
 export const ModalContentContainer = styled.div`
   margin: 10px;
   display: flex;

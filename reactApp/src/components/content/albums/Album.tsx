@@ -5,7 +5,7 @@ import { useActions } from '../../../hooks/useActions';
 import { hoverShadowStyle } from '../../../styles/mixinsAndVars';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import { AlbumProps } from '../../../types/albumsTypes';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const AlbumContainer = styled.div`
   width 24%;
@@ -35,17 +35,19 @@ const AlbumContainerTitle = styled.h3`
 const Album = ({ albumInfo }: AlbumProps) => {
   const { photosList } = useTypedSelector(state => state.photos);
   const { fetchPhotos, setCurrentAlbumId } = useActions();
+  const { userId } = useParams<{ userId?: string, albumId?: string }>();
   const history = useHistory();
-
   const setViewStatePhotoListToContent = useCallback(
     () => {
       if (photosList[albumInfo.id] === undefined) {
         fetchPhotos(albumInfo.id);
       }
       setCurrentAlbumId(albumInfo.id);
-      history.push(`/albums/${albumInfo.id}`);
+      (userId
+        ? history.push(`/user/${userId}/albums/${albumInfo.id}`)
+        : history.push(`/albums/${albumInfo.id}`))
     },
-    [albumInfo.id, fetchPhotos, history, photosList, setCurrentAlbumId],
+    [albumInfo.id, fetchPhotos, history, photosList, setCurrentAlbumId, userId],
   )
 
   return (

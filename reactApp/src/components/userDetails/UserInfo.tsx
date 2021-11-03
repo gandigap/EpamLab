@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faPhone, faMapPin } from '@fortawesome/free-solid-svg-icons';
 import { colors } from '../../styles/mixinsAndVars';
 
 const UserInfoContainer = styled.div`
@@ -30,16 +30,17 @@ const UserInfoUserAdditionalContainer = styled.p`
 const UserInfo = () => {
   const user = JSON.parse(localStorage.getItem('user')!);
 
-  console.log('userinfo')
-
   return (
     <UserInfoContainer>
       <UserInfoName>{user.name}<UserInfoUserName>{` aka the "${user.username}"`}</UserInfoUserName></UserInfoName>
       <UserInfoUserAdditionalContainer className='userInfo-email'>
-        <FontAwesomeIcon icon={faCoffee} /> {user.email}
+        <FontAwesomeIcon icon={faEnvelope} /> {user.email}
       </UserInfoUserAdditionalContainer>
       <UserInfoUserAdditionalContainer className='userInfo-phone'>
         <FontAwesomeIcon icon={faPhone} /> {user.phone}
+      </UserInfoUserAdditionalContainer>
+      <UserInfoUserAdditionalContainer className='userInfo-adress'>
+        <FontAwesomeIcon icon={faMapPin} /> {user.address.city}
       </UserInfoUserAdditionalContainer>
     </UserInfoContainer>
   )
