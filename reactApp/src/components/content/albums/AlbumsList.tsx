@@ -1,16 +1,19 @@
 import React, { useEffect, useCallback, useContext } from 'react';
-import { useTypedSelector } from '../../../hooks/useTypeSelectors';
-import Album from './Album';
-import { useActions } from '../../../hooks/useActions';
 import styled from 'styled-components';
+import Album from './Album';
+
+import { useParams } from 'react-router-dom';
+
 import Button from '../../common/button/Button';
 import Spinner from '../../common/spinner/Spinner';
-import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/constants'
-import { WrapperButton } from '../../common/button/WrapperButton';
 import ModalContext from '../../modal/ModalContext';
 import ScrollWrapper from '../../common/scrollWrapper/ScrollWrapper';
-import { useParams } from 'react-router-dom';
 import ErrorBoundary from '../../errorBoundary/ErrorBoundary';
+import { useTypedSelector } from '../../../hooks/useTypeSelectors';
+import { useActions } from '../../../hooks/useActions';
+import { WrapperButton } from '../../common/button/WrapperButton';
+
+import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/constants'
 
 const AlbumsListContainer = styled.div`
   display: flex;
@@ -61,8 +64,6 @@ const AlbumsList = () => {
       fetchAlbums();
     }
   }, [fetchAlbums, albumsList, loading]);
-
-
 
   if (loading) {
     return <Spinner />

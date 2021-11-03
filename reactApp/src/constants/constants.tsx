@@ -41,4 +41,5 @@ export const _errorMessage = {
   errorModalLogin: 'Login is not correct. Example: test@gmail.com',
   errorModalPassword: 'Password must contain only letters, digits and symbols(.-_)',
   errorBoundary: 'Sorry.. there was an error.Please write to igor.simatic@gmail.com',
+  errorAuth: 'User or password not correct',
 }

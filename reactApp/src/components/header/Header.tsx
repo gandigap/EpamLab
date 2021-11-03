@@ -26,6 +26,7 @@ interface Props {
 
 const Header = ({ authData }: Props) => {
   const history = useHistory();
+
   const logOut = useCallback(
     () => {
       authData.setAuth(false);

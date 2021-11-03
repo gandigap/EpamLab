@@ -1,7 +1,8 @@
 import React, { useRef, useCallback, ReactNode } from 'react'
-import Button from '../button/Button';
 import styled from 'styled-components';
 import { colors } from '../../../styles/mixinsAndVars';
+
+import Button from '../button/Button';
 
 const ScrollWrapperContainer = styled.div`  
   margin: 10px auto;
@@ -15,6 +16,7 @@ interface Props {
 const ScrollWrapper = ({ children }: Props) => {
   const topRef = useRef<null | HTMLButtonElement>(null);
   const bottomRef = useRef<null | HTMLButtonElement>(null);
+
   const scrollContent = useCallback(
     (view) => () => {
       if (bottomRef && bottomRef.current && topRef && topRef.current) {
@@ -25,27 +27,24 @@ const ScrollWrapper = ({ children }: Props) => {
     },
     [],
   )
+
+  const addButtonIcon = useCallback(
+    (icon) => () => {
+      return <div className='button-icon-container'>
+        <span className='button-icon-container__icon'>{`${icon}`}</span>
+      </div>
+    },
+    [],
+  )
   return (
     <ScrollWrapperContainer>
       <Button onClickHandler={scrollContent('bottom')}
         ref={topRef}
-        renderSection={() => {
-          return (
-            <div className='button-icon-container'>
-              <span className='button-icon-container__icon'>▼</span>
-            </div>
-          )
-        }} />
+        renderSection={addButtonIcon('▼')} />
       {children}
       <Button onClickHandler={scrollContent('top')}
         ref={bottomRef}
-        renderSection={() => {
-          return (
-            <div className='button-icon-container'>
-              <span className='button-icon-container__icon'>▲</span>
-            </div>
-          )
-        }} />
+        renderSection={addButtonIcon('▲')} />
     </ScrollWrapperContainer>
   )
 }

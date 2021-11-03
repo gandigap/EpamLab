@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { colors } from '../../styles/mixinsAndVars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faMapPin } from '@fortawesome/free-solid-svg-icons';
-import { colors } from '../../styles/mixinsAndVars';
+import { Redirect } from 'react-router';
 
 const UserInfoContainer = styled.div`
   grid-area: info;   
@@ -31,18 +32,20 @@ const UserInfo = () => {
   const user = JSON.parse(localStorage.getItem('user')!);
 
   return (
-    <UserInfoContainer>
-      <UserInfoName>{user.name}<UserInfoUserName>{` aka the "${user.username}"`}</UserInfoUserName></UserInfoName>
-      <UserInfoUserAdditionalContainer className='userInfo-email'>
-        <FontAwesomeIcon icon={faEnvelope} /> {user.email}
-      </UserInfoUserAdditionalContainer>
-      <UserInfoUserAdditionalContainer className='userInfo-phone'>
-        <FontAwesomeIcon icon={faPhone} /> {user.phone}
-      </UserInfoUserAdditionalContainer>
-      <UserInfoUserAdditionalContainer className='userInfo-adress'>
-        <FontAwesomeIcon icon={faMapPin} /> {user.address.city}
-      </UserInfoUserAdditionalContainer>
-    </UserInfoContainer>
+    localStorage.getItem('user')
+      ? <UserInfoContainer>
+        <UserInfoName>{user.name}<UserInfoUserName>{` aka the "${user.username}"`}</UserInfoUserName></UserInfoName>
+        <UserInfoUserAdditionalContainer className='userInfo-email'>
+          <FontAwesomeIcon icon={faEnvelope} /> {user.email}
+        </UserInfoUserAdditionalContainer>
+        <UserInfoUserAdditionalContainer className='userInfo-phone'>
+          <FontAwesomeIcon icon={faPhone} /> {user.phone}
+        </UserInfoUserAdditionalContainer>
+        <UserInfoUserAdditionalContainer className='userInfo-adress'>
+          <FontAwesomeIcon icon={faMapPin} /> {user.address.city}
+        </UserInfoUserAdditionalContainer>
+      </UserInfoContainer>
+      : <Redirect to="/albums" />
   )
 }
 

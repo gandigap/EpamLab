@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import AlbumsList from './albums/AlbumsList';
 import PhotosList from './photos/PhotosList';
 import ContentContext from './ContentContext';
 import ErrorBoundary from '../errorBoundary/ErrorBoundary';
+
 import { _contentTypes } from '../../constants/constants';
 
 const ContentContainer = styled.div`

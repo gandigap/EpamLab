@@ -12,17 +12,22 @@ import { _buttonText, _errorMessage, _modalLabel, _modalTitle } from '../../cons
 import ModalContext from './ModalContext';
 
 const FormAlbum = () => {
-  const { albumsList } = useTypedSelector(state => state.albums);
   const [titleAlbumInfo, setTitleAlbumInfo] = useState({
     titleValue: '', titleError: false
   });
   const [userIdAlbumInfo, setuserIdAlbum] = useState({
     userIdValue: 1, userIdError: false
   });
+
+  const { albumsList } = useTypedSelector(state => state.albums);
+
   const value = useContext(ModalContext);
+
   const inputTitle = useRef<HTMLInputElement>(null);
   const inputUserId = useRef<HTMLInputElement>(null);
+
   const { addAlbum } = useActions();
+
   const changeStateModal = useCallback(
     () => { value.setShowModal(!value.isModalOpen); }, [value]
   );

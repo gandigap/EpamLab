@@ -1,10 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+
 import Button from '../components/common/button/Button';
 import { ModalContentContainer, ModalHeader, ModalTitle, ModalInputListContainer, ModalInputContainer, ModalLabel, ModalInput, ModalWrapperButton, ModalOverlayContainer } from '../components/modal/FormElements';
 import { _modalTitle, _modalLabel, _errorMessage, _buttonText } from '../constants/constants';
 import { useHistory } from 'react-router-dom';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypeSelectors';
+
+const ErrorPragraph = styled.div`
+  font-weight: bold;
+  text-align: center;
+  color: red;
+`;
 
 interface Props {
   authData: {
@@ -14,18 +22,23 @@ interface Props {
 }
 
 const LoginPage = ({ authData }: Props) => {
-  const { usersList, loading } = useTypedSelector(state => state.users);
-  const { fetchUsers } = useActions();
-  const history = useHistory();
   const [loginInfo, setLoginInfo] = useState({
     loginValue: '', loginError: false
   });
+
   const [passwordInfo, setPasswordInfo] = useState({
     passwordValue: '', passwordError: false
   });
 
+  const history = useHistory();
+
+  const { fetchUsers } = useActions();
+
+  const { usersList, loading } = useTypedSelector(state => state.users);
+
   const inputLogin = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
+  const paragraph = useRef<HTMLInputElement>(null);
 
   const addLogin = useCallback(
     () => {
@@ -37,12 +50,6 @@ const LoginPage = ({ authData }: Props) => {
       }
     }, []
   )
-
-  useEffect(() => {
-    if (Object.keys(usersList).length === 0 && !loading) {
-      fetchUsers();
-    }
-  }, [fetchUsers, loading, usersList]);
 
   const addPassword = useCallback(
     () => {
@@ -70,6 +77,8 @@ const LoginPage = ({ authData }: Props) => {
           authData.setAuth(!authData.isAuth)
           history.push(`./user/${user.id}`)
         }
+      } else {
+        if (paragraph && paragraph.current) paragraph.current.textContent = _errorMessage.errorAuth;
       }
     }, [authData, history, loginInfo.loginValue, passwordInfo.passwordValue, usersList]
   )
@@ -78,6 +87,12 @@ const LoginPage = ({ authData }: Props) => {
     (value) => () => <p className='button-text'>{`${value}`}</p>,
     []
   );
+
+  useEffect(() => {
+    if (Object.keys(usersList).length === 0 && !loading) {
+      fetchUsers();
+    }
+  }, [fetchUsers, loading, usersList]);
 
   return (
     <ModalOverlayContainer>
@@ -99,6 +114,7 @@ const LoginPage = ({ authData }: Props) => {
             {passwordInfo.passwordError ? <p style={{ color: 'red' }}>{_errorMessage.errorModalPassword}</p> : null}
           </ModalInputContainer>
         </ModalInputListContainer>
+        <ErrorPragraph ref={paragraph}></ErrorPragraph>
         <ModalWrapperButton>
           <Button
             onClickHandler={goToPreviousPage}
@@ -107,7 +123,6 @@ const LoginPage = ({ authData }: Props) => {
             onClickHandler={checkAuthData}
             disabled={(loginInfo.loginError || passwordInfo.passwordError) ? true : false}
             renderSection={addButtonContent(_buttonText.submit)} />
-
         </ModalWrapperButton>
       </ModalContentContainer>
     </ModalOverlayContainer>
