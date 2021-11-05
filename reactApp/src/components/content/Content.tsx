@@ -1,43 +1,98 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { buttonStyle } from '../../styles/mixinsAndVars';
 import AlbumsList from './albums/AlbumsList';
 import PhotosList from './photos/PhotosList';
-import { useTypedSelector } from '../../hooks/useTypeSelectors';
-import { useActions } from '../../hooks/useActions';
+import ContentContext from './ContentContext';
+import ErrorBoundary from '../errorBoundary/ErrorBoundary';
+import Button from '../button/Button';
+import { _contentTypes, _modalTypes } from '../../constants/constants';
+import Modal from '../modal/Modal';
+import ModalOverlay from '../modal/ModalOverlay';
+import FormAlbum from '../modal/FormAlbum';
+import FormPhoto from '../modal/FormPhoto';
 
 const ContentContainer = styled.div`
   grid-area: content;  
   font-size: 18px;
   padding:20px;  
-  text-align: center;
-`;
-
-const ButtonBack = styled.button`  
-  ${buttonStyle};
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 `;
 
 const Content = () => {
-  const { viewState } = useTypedSelector(state => state.content);
-
-  const { setAlbumsListViewState } = useActions();
-
-  const onClickButtonBack = useCallback(
-    () => {
-      setAlbumsListViewState()
+  const [viewStateContent, setViewStateContent] = useState(_contentTypes.albums);
+  const [isModalOpen, setShowModal] = useState(false);
+  const [typeModal, setTypeModal] = useState(_modalTypes.albumModal);
+  const value = {
+    viewStateContent, setViewStateContent,
+    isModalOpen, setShowModal,
+    typeModal, setTypeModal
+  };
+  const topRef = useRef<null | HTMLButtonElement>(null);
+  const bottomRef = useRef<null | HTMLButtonElement>(null);
+  const scrollContent = useCallback(
+    (view) => () => {
+      if (bottomRef && bottomRef.current && topRef && topRef.current) {
+        view === 'top'
+          ? topRef.current.scrollIntoView({ behavior: "smooth" })
+          : bottomRef.current.scrollIntoView({ behavior: "smooth" })
+      }
     },
-    [setAlbumsListViewState],
+    [],
   )
 
+  const changeStateModal = useCallback(
+    (e) => {
+      e.target.id === 'modal__overlay' && setShowModal(!isModalOpen);
+    },
+    [isModalOpen]
+  );
+
+  useEffect(() => {
+    const body = document.querySelector('body') as HTMLElement;
+    body.style.overflow = isModalOpen ? "hidden" : "auto";
+  }, [isModalOpen]);
+
   return (
-    <ContentContainer>
-      {viewState === 'photos' ?
-        <>
-          <ButtonBack onClick={onClickButtonBack}>Back</ButtonBack>
-          <PhotosList />
-        </>
-        : <AlbumsList />}
-    </ContentContainer>
+    <ErrorBoundary >
+      <ContentContext.Provider value={value}>
+        <ContentContainer>
+          <Button onClickHandler={scrollContent('bottom')}
+            ref={topRef}
+            renderSection={() => {
+              return (
+                <div className='button-icon-container'>
+                  <span className='button-icon-container__icon'>▼</span>
+                </div>
+              )
+            }} />
+          {value.viewStateContent === 'photos' ? <PhotosList /> : <AlbumsList />}
+          <Button onClickHandler={scrollContent('top')}
+            ref={bottomRef}
+            renderSection={() => {
+              return (
+                <div className='button-icon-container'>
+                  <span className='button-icon-container__icon'>▲</span>
+                </div>
+              )
+            }} />
+        </ContentContainer>
+        <Modal isModalOpen={isModalOpen}>
+          <ModalOverlay
+            onClickHandler={changeStateModal}
+            renderSection={() => {
+              switch (value.typeModal) {
+                case _modalTypes.albumModal:
+                  return <FormAlbum />
+                case _modalTypes.photoModal:
+                  return <FormPhoto />
+              }
+              return <FormAlbum />
+            }} />
+        </Modal>
+      </ContentContext.Provider>
+    </ErrorBoundary>
   );
 };
 

@@ -1,11 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useTypedSelector } from '../../../hooks/useTypeSelectors';
 import Photo from './Photo';
 import styled from 'styled-components';
 import Spinner from '../../spinner/Spinner';
-import { buttonStyle } from '../../../styles/mixinsAndVars';
-import { useActions } from '../../../hooks/useActions';
 import { PhotoInfoConfig } from '../../../types/photosTypes';
+import Button from '../../button/Button';
+import ContentContext from '../ContentContext';
+import { _buttonText, _contentTypes, _errorMessage, _modalTypes } from '../../../constants/constants';
+import { WrapperButton } from '../../button/WrapperButton';
 
 const PhotosListContainer = styled.div`
   display: flex; 
@@ -13,39 +15,42 @@ const PhotosListContainer = styled.div`
   justify-content: center;  
 `;
 
-const Button = styled.button`
-  ${buttonStyle}
+const AlbumTitle = styled.h3`
+  font-size:24px;
+  font-weight: bold;
 `;
 
 const PhotosList = () => {
   const { photosList, error, loading, albumID } = useTypedSelector(state => state.photos);
-  const { addPhoto } = useActions();
-
-  const onClickButtonAddPhoto = useCallback(
+  const value = useContext(ContentContext);
+  const openModalForAddPhoto = useCallback(
     () => {
-      const ind = Object.keys(photosList[albumID]).length + 1;
-      const newObject: PhotoInfoConfig = {
-        albumId: 2,
-        id: ind,
-        title: "non sunt voluptatem placeat consequuntur rem incidunt",
-        url: "https://via.placeholder.com/600/8e973b",
-        thumbnailUrl: "https://via.placeholder.com/150/8e973b"
-      };
-      addPhoto(newObject);
-    }, [addPhoto, photosList, albumID],
-  )
+      value.setTypeModal(_modalTypes.photoModal);
+      value.setShowModal(!value.isModalOpen);
+    },
+    [value]
+  );
+  const setViewStateAlbumListToContent = useCallback(
+    () => value.setViewStateContent(_contentTypes.albums),
+    [value]
+  );
 
   if (loading) {
     return <Spinner />
   }
 
   if (error) {
-    return <h1> Произошла ошибка</h1>
+    return <h1>{_errorMessage.errorPhotosFetch}</h1>
   }
 
   return (
-    <div>
-      <div>Album {albumID}</div>
+    <>
+      <WrapperButton>
+        <Button
+          onClickHandler={setViewStateAlbumListToContent}
+          renderSection={() => <p className='button-text'>{_buttonText.back}</p>} />
+        <AlbumTitle>Album {albumID}</AlbumTitle>
+      </WrapperButton>
       <PhotosListContainer>
         {(photosList[albumID] !== undefined && photosList[albumID].length !== 0)
           ? photosList[albumID].map((photo: PhotoInfoConfig) => <Photo
@@ -53,8 +58,12 @@ const PhotosList = () => {
             key={photo.id} />)
           : ''}
       </PhotosListContainer>
-      <Button onClick={onClickButtonAddPhoto}>Add photo</Button>
-    </div>
+      <WrapperButton>
+        <Button
+          onClickHandler={openModalForAddPhoto}
+          renderSection={() => <p className='button-text'>{_buttonText.addPhoto}</p>} />
+      </WrapperButton>
+    </>
   )
 }
 

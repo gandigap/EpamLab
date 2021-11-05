@@ -1,20 +1,8 @@
 import React from 'react'
 import UserDetails from './components/userDetails/UserDetails';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import { colors } from './styles/mixinsAndVars';
-
-
-const Global = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  color: ${colors.firstColor};
-  font-family: "Raleway", sans-serif;
-  background-color:${colors.secondColor};
-}`;
+import './global.scss';
 
 const AppContainer = styled.div`
   max-width: 1200px;
@@ -50,13 +38,9 @@ const userDetails = {
 
 export const App = () => {
   return (
-    <>
-      <Global />
-      <AppContainer>
-        <UserDetails details={userDetails} />
-      </AppContainer>
-    </>
-
+    <AppContainer>
+      <UserDetails details={userDetails} />
+    </AppContainer>
   )
 }
 

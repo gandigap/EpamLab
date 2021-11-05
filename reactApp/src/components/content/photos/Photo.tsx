@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PhotoProps } from '../../../types/photosTypes';
-import { hoverShadow } from '../../../styles/mixinsAndVars';
+import { hoverShadowStyle } from '../../../styles/mixinsAndVars';
 
 const PhotoImg = styled.img`
   margin: 5px;
@@ -10,7 +10,7 @@ const PhotoImg = styled.img`
   cursor: pointer;
 
   &:hover{
-    ${hoverShadow}
+    ${hoverShadowStyle}
   }
 `;
 
