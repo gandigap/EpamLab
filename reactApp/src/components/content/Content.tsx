@@ -25,7 +25,8 @@ const Content = () => {
     <ErrorBoundary >
       <ContentContext.Provider value={valueContentContext}>
         <ContentContainer>
-          {valueContentContext.viewStateContent === 'photos' ? <PhotosList /> : <AlbumsList />}
+          {valueContentContext.viewStateContent === _contentTypes.photos 
+          ? <PhotosList /> : <AlbumsList />}
         </ContentContainer>
       </ContentContext.Provider>
     </ErrorBoundary>
