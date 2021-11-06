@@ -49,15 +49,10 @@ export const App = () => {
   );
 
   const changeContentModal = useCallback(
-    () => {
-      switch (valueModalContext.typeModal) {
-        case _modalTypes.albumModal:
-          return <FormAlbum />
-        case _modalTypes.photoModal:
-          return <FormPhoto />
-      }
-      return <FormAlbum />
-    },
+    () => valueModalContext.typeModal === _modalTypes.albumModal 
+      ? <FormAlbum />
+      :<FormPhoto />     
+    ,
     [valueModalContext.typeModal]
   );
 
