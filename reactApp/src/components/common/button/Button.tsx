@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { buttonStyle } from '../../styles/mixinsAndVars';
+import { buttonStyle } from '../../../styles/mixinsAndVars';
 import styled from 'styled-components';
 
 const ButtonContainer = styled.button`

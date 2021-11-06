@@ -1,6 +1,5 @@
 import React, { useContext, useCallback, useRef, useState, useEffect } from 'react';
-import Button from '../button/Button';
-import ContentContext from '../content/ContentContext';
+import Button from '../common/button/Button';
 import {
   ModalContentContainer, ModalHeader, ModalInput,
   ModalInputListContainer, ModalInputContainer, ModalLabel,
@@ -10,19 +9,25 @@ import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypeSelectors';
 import { AlbumListConfig } from '../../types/albumsTypes';
 import { _buttonText, _errorMessage, _modalLabel, _modalTitle } from '../../constants/constants';
+import ModalContext from './ModalContext';
 
 const FormAlbum = () => {
-  const { albumsList } = useTypedSelector(state => state.albums);
   const [titleAlbumInfo, setTitleAlbumInfo] = useState({
     titleValue: '', titleError: false
   });
   const [userIdAlbumInfo, setuserIdAlbum] = useState({
     userIdValue: 1, userIdError: false
   });
-  const value = useContext(ContentContext);
+
+  const { albumsList } = useTypedSelector(state => state.albums);
+
+  const value = useContext(ModalContext);
+
   const inputTitle = useRef<HTMLInputElement>(null);
   const inputUserId = useRef<HTMLInputElement>(null);
+
   const { addAlbum } = useActions();
+
   const changeStateModal = useCallback(
     () => { value.setShowModal(!value.isModalOpen); }, [value]
   );
@@ -64,6 +69,15 @@ const FormAlbum = () => {
       }
     }, []
   )
+  const addButtonContent = useCallback(
+    (value) => () => <p className='button-text'>{`${value}`}</p>,
+    []
+  );
+
+  const addButtonIconClose = useCallback(
+    () => <span className='button-close-modal'>✖</span>,
+    []
+  );
 
   useEffect(() => {
     addTitle();
@@ -80,7 +94,7 @@ const FormAlbum = () => {
         <ModalTitle>{_modalTitle.album}</ModalTitle>
         <Button
           onClickHandler={changeStateModal}
-          renderSection={() => <span className='button-close-modal'>X</span>} />
+          renderSection={addButtonIconClose} />
       </ModalHeader>
       <ModalInputListContainer>
         <ModalInputContainer>
@@ -99,11 +113,11 @@ const FormAlbum = () => {
       <ModalWrapperButton>
         <Button
           onClickHandler={changeStateModal}
-          renderSection={() => <p className='button-text'>{_buttonText.close}</p>} />
+          renderSection={addButtonContent(_buttonText.close)} />
         <Button
           onClickHandler={addNewAlbum}
           disabled={(userIdAlbumInfo.userIdError || titleAlbumInfo.titleError) ? true : false}
-          renderSection={() => <p className='button-text'>{_buttonText.submit}</p>} />
+          renderSection={addButtonContent(_buttonText.submit)} />
       </ModalWrapperButton>
     </ModalContentContainer>
   );

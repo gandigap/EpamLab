@@ -1,13 +1,19 @@
 import React, { useEffect, useCallback, useContext } from 'react';
-import { useTypedSelector } from '../../../hooks/useTypeSelectors';
-import Album from './Album';
-import { useActions } from '../../../hooks/useActions';
 import styled from 'styled-components';
-import Button from '../../button/Button';
-import Spinner from '../../spinner/Spinner';
-import ContentContext from '../ContentContext';
+import Album from './Album';
+
+import { useParams } from 'react-router-dom';
+
+import Button from '../../common/button/Button';
+import Spinner from '../../common/spinner/Spinner';
+import ModalContext from '../../modal/ModalContext';
+import ScrollWrapper from '../../common/scrollWrapper/ScrollWrapper';
+import ErrorBoundary from '../../errorBoundary/ErrorBoundary';
+import { useTypedSelector } from '../../../hooks/useTypeSelectors';
+import { useActions } from '../../../hooks/useActions';
+import { WrapperButton } from '../../common/button/WrapperButton';
+
 import { _buttonText, _errorMessage, _modalTypes } from '../../../constants/constants'
-import { WrapperButton } from '../../button/WrapperButton';
 
 const AlbumsListContainer = styled.div`
   display: flex;
@@ -16,15 +22,41 @@ const AlbumsListContainer = styled.div`
 `;
 
 const AlbumsList = () => {
+  const { userId } = useParams<{ userId?: string }>();
   const { albumsList, error, loading } = useTypedSelector(state => state.albums);
   const { fetchAlbums } = useActions();
-  const value = useContext(ContentContext);
+  const value = useContext(ModalContext);
   const openModalForAddAlbum = useCallback(
     () => {
       value.setTypeModal(_modalTypes.albumModal);
       value.setShowModal(!value.isModalOpen);
     },
     [value]
+  );
+
+  const getAllAlbums = useCallback(
+    () => {
+      return userId
+        ? Object.keys(albumsList)
+          .filter((key: string) => {
+            return albumsList[`${key}`].userId === parseInt(userId, 10)
+          })
+          .map((key: string) => {
+            return <Album
+              albumInfo={albumsList[`${key}`]}
+              key={albumsList[`${key}`].id} />
+          })
+        : Object.keys(albumsList).map((key: string) => {
+          return <Album
+            albumInfo={albumsList[`${key}`]}
+            key={albumsList[`${key}`].id} />
+        })
+    },
+    [albumsList, userId]
+  );
+  const addButtonContent = useCallback(
+    (value) => () => <p className='button-text'>{`${value}`}</p>,
+    []
   );
 
   useEffect(() => {
@@ -42,20 +74,19 @@ const AlbumsList = () => {
   }
 
   return (
-    <>
-      <AlbumsListContainer>
-        {Object.keys(albumsList).map((key: string) => {
-          return <Album
-            albumInfo={albumsList[`${key}`]}
-            key={albumsList[`${key}`].id} />
-        })}
-      </AlbumsListContainer>
-      <WrapperButton>
-        <Button
-          onClickHandler={openModalForAddAlbum}
-          renderSection={() => <p className='button-text'>{_buttonText.addAlbum}</p>} />
-      </WrapperButton>
-    </>
+    <ErrorBoundary>
+      <ScrollWrapper>
+        <AlbumsListContainer>
+          {getAllAlbums()}
+        </AlbumsListContainer>
+        <WrapperButton>
+          <Button
+            onClickHandler={openModalForAddAlbum}
+            renderSection={addButtonContent(_buttonText.addAlbum)} />
+        </WrapperButton>
+      </ScrollWrapper>
+    </ErrorBoundary>
+
   )
 }
 

@@ -62,3 +62,10 @@ export const hoverShadowStyle = () => {
     -moz-box-shadow: 5px 5px 2px 0px ${colors.firstColor};
   `
 }
+
+export const insetShadowStyle = () => {
+  return `
+  -webkit-box-shadow: inset 0px 0px 20px 0px ${colors.fifthСolor}; 
+  box-shadow: inset 0px 0px 20px 0px ${colors.fifthСolor};
+  `
+}

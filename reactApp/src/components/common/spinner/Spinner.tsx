@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import spinnerImg from '../../images/spinner.gif';
+import spinnerImg from '../../../images/spinner.gif';
 
 const SpinnerContainer = styled.div`
   margin: o auto;

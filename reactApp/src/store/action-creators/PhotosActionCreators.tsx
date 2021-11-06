@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import { PhotoInfoConfig, PhotosAction, PhotosActionTypes } from "../../types/photosTypes";
 
-export const fetchPhotos = (albumID = 1) => {
+export const fetchPhotos = (albumID: number) => {
   return function (dispatch: Dispatch<PhotosAction>) {
     fetch(`https://jsonplaceholder.typicode.com/albums/${albumID}/photos/`)
       .then(response => {

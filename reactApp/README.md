@@ -63,7 +63,7 @@ You have to add state management of your application with Redux
 IMPORTANT NOTE: Considering limitations in API that it doesn’t add new items intolist of albums or photos (it’s only return “OK” status), you need to think about how you should save new items. I propose you to use special field in reducer for new items, created locally.Resulted list for components should combine items from API and local added items. But you can discus with you mentors and find more suitable solution if you want. The main target of this task –move out of components business logic with storing and creating items with Redux
 
 
-### Task 5
+# React Task 5
 You have to add forms for creating new album and photos
 1. Instead if creating hardcoded albums and photos you need to show modal window with necessary fields. Modal window must be independent component and can be used separately with different content. UI must include minimum number of features (see the picture). Try to use features that we mentioned in lecture (context or renderProps for content, portal for placement of modal window, or your own ideas)/ Implement simple validation
 2. Add ErrorBoundry to your application
@@ -73,3 +73,14 @@ You have to add forms for creating new album and photos
 - hook to get previous value of props, state, etc
 usePrevious(value)
 - hook that will repeat behavior of componentDidUnmount lifecycle method useComponentDidUnmount(callback)
+
+# React Task 6
+You have to add routing into your application
+1.	Login page. You should redirect to this page in case if user isn’t authorized (‘/login’). There is simple form for login and password (I suppose you to use “email” as login and “username” as password)
+2.	Add logout button somewhere at the top of header, or in component for user (it’ s up to us to decide where it should be). At click on this button – reset auth for user
+3.	/albums – public route for page with all available albums (you mustn’t show information about user there)
+4.	/albums/:albumId – public route for page with album’s photos (you mustn’t show information about user there)
+5.	/user/:userId – private route. Available only for authorited users. Information about user and list of albums that belong this user
+6.	/user/:userId/albums/:albumId - private route. Available only for authorited users. Information about user and list of photos from album
+7.	/, /home – for authorized user it’s /user/:userId, for unathorized - /albums
+8.	If you try to go on private route without auth – it has to redirect to /login page

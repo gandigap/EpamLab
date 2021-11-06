@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { colors } from '../../styles/mixinsAndVars';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPhone, faMapPin } from '@fortawesome/free-solid-svg-icons';
+import { Redirect } from 'react-router';
 
 const UserInfoContainer = styled.div`
   grid-area: info;   
@@ -27,24 +28,24 @@ const UserInfoUserAdditionalContainer = styled.p`
   margin:20px 0;
 `;
 
-interface UserInfoProps {
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-}
+const UserInfo = () => {
+  const user = JSON.parse(localStorage.getItem('user')!);
 
-const UserInfo: React.FC<UserInfoProps> = ({ name, username, email, phone }) => {
   return (
-    <UserInfoContainer>
-      <UserInfoName>{name}<UserInfoUserName>{` aka the "${username}"`}</UserInfoUserName></UserInfoName>
-      <UserInfoUserAdditionalContainer className='userInfo-email'>
-        <FontAwesomeIcon icon={faCoffee} /> {email}
-      </UserInfoUserAdditionalContainer>
-      <UserInfoUserAdditionalContainer className='userInfo-phone'>
-        <FontAwesomeIcon icon={faPhone} /> {phone}
-      </UserInfoUserAdditionalContainer>
-    </UserInfoContainer>
+    localStorage.getItem('user')
+      ? <UserInfoContainer>
+        <UserInfoName>{user.name}<UserInfoUserName>{` aka the "${user.username}"`}</UserInfoUserName></UserInfoName>
+        <UserInfoUserAdditionalContainer className='userInfo-email'>
+          <FontAwesomeIcon icon={faEnvelope} /> {user.email}
+        </UserInfoUserAdditionalContainer>
+        <UserInfoUserAdditionalContainer className='userInfo-phone'>
+          <FontAwesomeIcon icon={faPhone} /> {user.phone}
+        </UserInfoUserAdditionalContainer>
+        <UserInfoUserAdditionalContainer className='userInfo-adress'>
+          <FontAwesomeIcon icon={faMapPin} /> {user.address.city}
+        </UserInfoUserAdditionalContainer>
+      </UserInfoContainer>
+      : <Redirect to="/albums" />
   )
 }
 
